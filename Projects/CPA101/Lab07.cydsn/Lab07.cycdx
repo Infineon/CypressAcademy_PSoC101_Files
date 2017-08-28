@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
+  <block name="R_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GND_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="D_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_boot" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_lfclk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="not_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GND_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LED1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GND_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Buzz" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SPK_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SoundControl" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <register name="SoundControl_CONTROL_REG" address="0x400F0072" bitWidth="8" desc="" hidden="false" />
+  </block>
+  <block name="mux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_constant_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_constant_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_tff_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Clock500Hz" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_tff_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+</blockRegMap>

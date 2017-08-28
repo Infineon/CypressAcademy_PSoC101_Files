@@ -1,0 +1,15 @@
+w 36 00 p      ; set write pointer to first register
+
+
+r 36 x x x p   ; read register values - status, button, speed
+
+
+; Master sends these sequences to the slave
+w 36 00 00 p   ; game in progress, no LED sent by master (use between LEDs and when waiting for slave response)
+w 36 00 01 p   ; LED 1 being sent by master 
+w 36 00 02 p   ; LED 2 being sent by master
+w 36 00 04 p   ; LED 3 being sent by master
+w 36 00 08 p   ; LED 4 being sent by master
+w 36 00 10 p   ; Game failed
+w 36 00 20 p   ; Game passed
+w 36 00 40 p   ; Initial powerup state

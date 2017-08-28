@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
+  <block name="cy_tff_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_constant_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="ClockGx2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="mux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_constant_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_tff_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_boot" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_lfclk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_constant_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_constant_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_tff_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="ClockCx2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Button1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GND_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Buzzer" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SPK_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Button2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GND_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="ClockEx2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SW_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SW_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GND_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+</blockRegMap>

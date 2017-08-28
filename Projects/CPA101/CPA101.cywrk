@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_2867d519-54d2-4c01-9830-c51cb08bc3dd type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize" version="5" xml_contents_version="3" name="CPA101" persistent="CPA101.cywrk" platform="NOT_USED">
+<current_project name=".\Lab10.cydsn\Lab10.cyprj" />
+<wrkspc_folders />
+<files />
+<projects>
+<v>.\Lab11.cydsn\Lab11.cyprj</v>
+<v>.\Lab01.cydsn\Lab01.cyprj</v>
+<v>.\Lab01_2.cydsn\Lab01_2.cyprj</v>
+<v>.\Lab02.cydsn\Lab02.cyprj</v>
+<v>.\Lab03.cydsn\Lab03.cyprj</v>
+<v>.\Lab04.cydsn\Lab04.cyprj</v>
+<v>.\Lab05.cydsn\Lab05.cyprj</v>
+<v>.\Lab05_3_4.cydsn\Lab05_3_4.cyprj</v>
+<v>.\Lab08.cydsn\Lab08.cyprj</v>
+<v>.\Lab08_2.cydsn\Lab08_2.cyprj</v>
+<v>.\Lab08_3.cydsn\Lab08_3.cyprj</v>
+<v>.\Lab06.cydsn\Lab06.cyprj</v>
+<v>.\Lab07.cydsn\Lab07.cyprj</v>
+<v>.\Lab09.cydsn\Lab09.cyprj</v>
+<v>.\Lab10.cydsn\Lab10.cyprj</v>
+<v>.\Lab10_2.cydsn\Lab10_2.cyprj</v>
+<v>.\Lab10_3.cydsn\Lab10_3.cyprj</v>
+<v>.\Lab02_2_3_4.cydsn\Lab02_2_3_4.cyprj</v>
+<v>.\Lab06_2.cydsn\Lab06_2.cyprj</v>
+<v>.\Lab06_3.cydsn\Lab06_3.cyprj</v>
+<v>.\Lab06_4.cydsn\Lab06_4.cyprj</v>
+<v>.\Lab06_5.cydsn\Lab06_5.cyprj</v>
+<v>.\Lab06_6.cydsn\Lab06_6.cyprj</v>
+</projects>
+<workspace_id v="79cb00bc-3a72-4e35-9f2f-77ae7e2d0ede" />
+<WriteAppVersionLastSavedWith v="4.0.0.432" />
+<WriteAppMarketingVersionLastSavedWith v="4.0" />
+<CyGuid_dcbd9771-0334-43dc-9cc3-fe99dc3c5316 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize+CyPrjDependencyList" version="4">
+<wrkspc_dependencies />
+</CyGuid_dcbd9771-0334-43dc-9cc3-fe99dc3c5316>
+<CyGuid_63b68103-67f5-4406-8da6-5c8625765b82 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize+CyIgnoredSystemDepsList" version="1">
+<wrkspc_dependencies />
+</CyGuid_63b68103-67f5-4406-8da6-5c8625765b82>
+</CyGuid_2867d519-54d2-4c01-9830-c51cb08bc3dd>
+</CyXmlSerializer>
