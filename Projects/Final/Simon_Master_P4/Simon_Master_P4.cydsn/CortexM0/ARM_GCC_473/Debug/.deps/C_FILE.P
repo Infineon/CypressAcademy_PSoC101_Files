@@ -1,0 +1,92 @@
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/CortexM0/ARM_GCC_473/Debug/main.o : C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/CyFlash.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/CyLib.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/EEPROM.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_I2C.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_I2C_PVT.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_PINS.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_PVT.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_SCBCLK.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_SCB_IRQ.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_scl.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_scl_aliases.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_sda.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_sda_aliases.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LCD.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LCD_LCDPort.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LCD_LCDPort_aliases.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED1.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED1_aliases.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED2.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED2_aliases.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED3.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED3_aliases.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED4.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED4_aliases.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LEDreg.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/Max.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/Max_aliases.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/ResetHS.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/ResetHS_aliases.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/Start.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/Start_aliases.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/core_cm0.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/core_cm0_psoc4.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/core_cmFunc.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/core_cmInstr.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cyPm.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cydevice_trm.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cydisabledsheets.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cyfitter.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cyfitter_cfg.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cypins.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cytypes.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/project.h C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/main.c 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/CyFlash.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/CyLib.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/EEPROM.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_I2C.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_I2C_PVT.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_PINS.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_PVT.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_SCBCLK.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_SCB_IRQ.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_scl.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_scl_aliases.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_sda.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/I2C_sda_aliases.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LCD.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LCD_LCDPort.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LCD_LCDPort_aliases.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED1.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED1_aliases.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED2.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED2_aliases.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED3.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED3_aliases.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED4.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LED4_aliases.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/LEDreg.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/Max.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/Max_aliases.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/ResetHS.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/ResetHS_aliases.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/Start.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/Start_aliases.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/core_cm0.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/core_cm0_psoc4.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/core_cmFunc.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/core_cmInstr.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cyPm.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cydevice_trm.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cydisabledsheets.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cyfitter.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cyfitter_cfg.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cypins.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/cytypes.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/project.h : 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/main.c : 
+

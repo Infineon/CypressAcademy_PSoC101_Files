@@ -1,0 +1,1694 @@
+Archive member included to satisfy reference by file (symbol)
+
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (EZI2C_Start)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (EZI2C_Sleep)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o) (EZI2C_EzI2CInit)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o) (EZI2C_EZI2C_STRETCH_ISR)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (LCD_Start)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (LCD_Sleep)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (LEDreg_Write)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (Cheat_Read)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (LED_AWAKE_Write)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (ADC_Start)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (ADC_Sleep)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o) (ADC_ISR)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (PWM_Fail_Start)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (isr_sleep_StartEx)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (isr_fail_StartEx)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                              .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o (CySysClkWriteImoFreq)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (CySysPmDeepSleep)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (Button_Reg_Read)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (PWM_Pass_WriteCounter)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (Sleep_Reg_Write)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (CySysWdtSetMode)
+.\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyBootAsmGnu.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o) (CyDelayCycles)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o) (__aeabi_uidiv)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o) (__aeabi_idiv)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_dvmd_tls.o)
+                              c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o) (__aeabi_idiv0)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_aeabi_ldivmod.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o) (__aeabi_ldivmod)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_muldi3.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o) (__aeabi_lmul)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(bpabi.o)
+                              c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_aeabi_ldivmod.o) (__gnu_ldivmod_helper)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(divsf3.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o) (__aeabi_fdiv)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o) (__aeabi_fmul)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsisf.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o) (__aeabi_i2f)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzsi2.o)
+                              c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(divsf3.o) (__clzsi2)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divdi3.o)
+                              c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(bpabi.o) (__divdi3)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzdi2.o)
+                              c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divdi3.o) (__clzdi2)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
+                              .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o (__errno)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
+                              c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o (exit)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+                              c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o) (_global_impure_ptr)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
+                              c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o (__libc_init_array)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memcpy-stub.o)
+                              .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o (memcpy)
+c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
+                              c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o (memset)
+
+Allocating common symbols
+Common symbol       size              file
+
+EZI2C_offsetBuf1    0x1               .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ADC_countsPer10Volt
+                    0x4               .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+EZI2C_indexBuf1     0x2               .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+EZI2C_fsmState      0x1               .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+EZI2C_protectBuf1   0x2               .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ADC_offset          0x2               .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+EZI2C_curStatus     0x1               .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+resultADC           0x2               .\CortexM0\ARM_GCC_541\Debug\main.o
+EZI2C_dataBuffer1   0x4               .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+EZI2C_bufSizeBuf1   0x2               .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+speedVal            0x1               .\CortexM0\ARM_GCC_541\Debug\main.o
+
+Discarded input sections
+
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
+ .data          0x00000000        0x4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ .text          0x00000000       0x78 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .ARM.extab     0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .ARM.exidx     0x00000000        0x8 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\main.o
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\main.o
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .text.CYCONFIGCPY
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .text.CYCONFIGCPYCODE
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .data          0x00000000        0x4 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .text._exit    0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .text._sbrk    0x00000000       0x54 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .text.EZI2C_Stop
+                0x00000000       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .text.EZI2C_SetRxFifoLevel
+                0x00000000       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .text.EZI2C_SetTxFifoLevel
+                0x00000000       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .text.EZI2C_SetCustomInterruptHandler
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .text.EZI2C_ScbModeStop
+                0x00000000       0x10 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .text.EZI2C_EzI2CStop
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .text.EZI2C_EzI2CGetActivity
+                0x00000000       0x38 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .text.EZI2C_EzI2CSetAddress1
+                0x00000000       0x38 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .text.EZI2C_EzI2CGetAddress1
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .text.EZI2C_EzI2CSetReadBoundaryBuffer1
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .text.LCD_PutChar
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .text.LCD_PrintInt8
+                0x00000000       0x40 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .text.LCD_PrintInt16
+                0x00000000       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .text.LCD_PrintInt32
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .rodata        0x00000000       0x10 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .text.LEDreg_Read
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .text.Cheat_SetDriveMode
+                0x00000000       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .text.Cheat_Write
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .text.Cheat_ReadDataReg
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .text.Cheat_SetInterruptMode
+                0x00000000       0x44 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .text.Cheat_ClearInterrupt
+                0x00000000       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .text.LED_AWAKE_SetDriveMode
+                0x00000000       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .text.LED_AWAKE_Read
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .text.LED_AWAKE_ReadDataReg
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .text.LED_AWAKE_SetInterruptMode
+                0x00000000       0x44 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .text.LED_AWAKE_ClearInterrupt
+                0x00000000       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .rodata        0x00000000        0x4 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text.ADC_SetChanMask
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text.ADC_SetLowLimit
+                0x00000000       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text.ADC_SetHighLimit
+                0x00000000       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text.ADC_SetLimitMask
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text.ADC_SetSatMask
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text.ADC_SetOffset
+                0x00000000       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text.ADC_SetGain
+                0x00000000       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text.ADC_CountsTo_mVolts
+                0x00000000       0xa0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text.ADC_CountsTo_uVolts
+                0x00000000       0x90 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text.ADC_CountsTo_Volts
+                0x00000000       0x80 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .text.ADC_SaveConfig
+                0x00000000        0xc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .text.ADC_RestoreConfig
+                0x00000000        0xc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetQDMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetPrescaler
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetOneShot
+                0x00000000       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetPWMMode
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetPWMSyncKill
+                0x00000000       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetPWMStopOnKill
+                0x00000000       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetPWMDeadTime
+                0x00000000       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetPWMInvert
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_ReadCounter
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetCounterMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_ReadPeriod
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetCompareSwap
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_WritePeriodBuf
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_ReadPeriodBuf
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetPeriodSwap
+                0x00000000       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_ReadCompare
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_WriteCompareBuf
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_ReadCompareBuf
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_ReadCapture
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_ReadCaptureBuf
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetCaptureMode
+                0x00000000       0x44 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetReloadMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetStartMode
+                0x00000000       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetStopMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetCountMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_ReadStatus
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_GetInterruptSourceMasked
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_GetInterruptSource
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text.PWM_Fail_SetInterrupt
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .text.isr_sleep_Start
+                0x00000000       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .text.isr_sleep_Stop
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .text.isr_sleep_Interrupt
+                0x00000000        0xc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .text.isr_sleep_GetVector
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .text.isr_sleep_GetPriority
+                0x00000000       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .text.isr_sleep_GetState
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .text.isr_sleep_SetPending
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .text.isr_sleep_ClearPending
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .text.isr_fail_Start
+                0x00000000       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .text.isr_fail_Stop
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .text.isr_fail_Interrupt
+                0x00000000        0xc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .text.isr_fail_GetVector
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .text.isr_fail_GetPriority
+                0x00000000       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .text.isr_fail_GetState
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .text.isr_fail_SetPending
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .text.isr_fail_ClearPending
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .bss           0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysClkImoStart
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysClkImoStop
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysClkWriteHfclkDirect
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysEnablePumpClock
+                0x00000000       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysClkGetSysclkSource
+                0x00000000       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysLvdEnable
+                0x00000000       0x64 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysLvdDisable
+                0x00000000       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysLvdGetInterruptSource
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysLvdClearInterrupt
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysGetResetReason
+                0x00000000       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyDisableInts
+                0x00000000       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyEnableInts
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyIntSetSysVector
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyIntGetSysVector
+                0x00000000       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyIntGetVector
+                0x00000000       0x38 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyIntGetPriority
+                0x00000000       0x58 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyIntGetState
+                0x00000000       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyIntSetPending
+                0x00000000       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyIntClearPending
+                0x00000000       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySoftwareReset
+                0x00000000       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyDelayFreq
+                0x00000000       0x84 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickStart
+                0x00000000       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickInit
+                0x00000000       0x5c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickEnable
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickStop
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickEnableInterrupt
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickDisableInterrupt
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickSetReload
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickGetReload
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickGetValue
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickGetCountFlag
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickClear
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickSetCallback
+                0x00000000       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickGetCallback
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CySysTickServiceCallbacks
+                0x00000000       0x44 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text.CyGetUniqueId
+                0x00000000       0xc0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .text.CySysPmSleep
+                0x00000000       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .text.CySysPmHibernate
+                0x00000000       0x6c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .text.CySysPmStop
+                0x00000000       0x3c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .text.CySysPmSetWakeupPolarity
+                0x00000000       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .text.CySysPmGetResetReason
+                0x00000000       0x40 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .text.CySysPmFreezeIo
+                0x00000000       0x5c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .text.CySysPmUnfreezeIo
+                0x00000000       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .text.Button_Reg_InterruptEnable
+                0x00000000       0x38 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .text.Button_Reg_InterruptDisable
+                0x00000000       0x38 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .text.Button_Reg_WriteMask
+                0x00000000       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .text.Button_Reg_ReadMask
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetQDMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetPrescaler
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetOneShot
+                0x00000000       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetPWMMode
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetPWMSyncKill
+                0x00000000       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetPWMStopOnKill
+                0x00000000       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetPWMDeadTime
+                0x00000000       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetPWMInvert
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_ReadCounter
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetCounterMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_ReadPeriod
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetCompareSwap
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_WritePeriodBuf
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_ReadPeriodBuf
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetPeriodSwap
+                0x00000000       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_ReadCompare
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_WriteCompareBuf
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_ReadCompareBuf
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_ReadCapture
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_ReadCaptureBuf
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetCaptureMode
+                0x00000000       0x44 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetReloadMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetStartMode
+                0x00000000       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetStopMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetCountMode
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_ReadStatus
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_GetInterruptSourceMasked
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_GetInterruptSource
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_ClearInterrupt
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text.PWM_Pass_SetInterrupt
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .text.Sleep_Reg_Read
+                0x00000000       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .data          0x00000000        0x4 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .bss           0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .rodata        0x00000000        0xc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysClkIloStop
+                0x00000000       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysClkIloStartMeasurement
+                0x00000000       0x40 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysClkIloStopMeasurement
+                0x00000000       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysClkIloCompensate
+                0x00000000      0x158 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysClkIloEnabled
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtGetMode
+                0x00000000       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtGetClearOnMatch
+                0x00000000       0x44 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtGetCascade
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtSetToggleBit
+                0x00000000       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtGetToggleBit
+                0x00000000       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtGetMatch
+                0x00000000       0x40 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtGetCount
+                0x00000000       0x54 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtGetInterruptSource
+                0x00000000       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtResetCounters
+                0x00000000       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtSetInterruptCallback
+                0x00000000       0x40 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtGetInterruptCallback
+                0x00000000       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtEnableCounterIsr
+                0x00000000       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtDisableCounterIsr
+                0x00000000       0x3c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtIsr
+                0x00000000       0xec .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWatchdogFeed
+                0x00000000       0x8c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysClkLfclkPosedgeCatch
+                0x00000000       0x98 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysClkLfclkPosedgeRestore
+                0x00000000       0x3c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysTimerDelay
+                0x00000000       0x68 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysTimerDelayUntilMatch
+                0x00000000       0xb0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyBootAsmGnu.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyBootAsmGnu.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_dvmd_tls.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_dvmd_tls.o)
+ .text          0x00000000       0x48 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_aeabi_ldivmod.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_aeabi_ldivmod.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_aeabi_ldivmod.o)
+ .text          0x00000000       0x58 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_muldi3.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_muldi3.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_muldi3.o)
+ .text          0x00000000       0x38 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(bpabi.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(bpabi.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(bpabi.o)
+ .text          0x00000000      0x234 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(divsf3.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(divsf3.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(divsf3.o)
+ .rodata        0x00000000       0x80 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(divsf3.o)
+ .text          0x00000000      0x228 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
+ .rodata        0x00000000       0x40 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
+ .text          0x00000000       0x90 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsisf.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsisf.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsisf.o)
+ .text          0x00000000       0x3c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzsi2.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzsi2.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzsi2.o)
+ .text          0x00000000      0x1bc c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divdi3.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divdi3.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divdi3.o)
+ .ARM.extab     0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divdi3.o)
+ .ARM.exidx     0x00000000        0x8 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divdi3.o)
+ .text          0x00000000       0x18 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzdi2.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzdi2.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzdi2.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
+ .text.exit     0x00000000       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+ .rodata._global_impure_ptr
+                0x00000000        0x4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memcpy-stub.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memcpy-stub.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memcpy-stub.o)
+ .text.memcpy   0x00000000       0x12 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memcpy-stub.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+rom              0x00000000         0x00008000         xr
+ram              0x20000000         0x00001000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+START GROUP
+LOAD .\CortexM0\ARM_GCC_541\Debug\main.o
+LOAD .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+LOAD .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+LOAD .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+LOAD .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a
+END GROUP
+START GROUP
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libc_nano.a
+END GROUP
+START GROUP
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libc_nano.a
+END GROUP
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
+START GROUP
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libc.a
+LOAD c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libnosys.a
+END GROUP
+                0x00000000                CY_APPL_ORIGIN = 0x0
+                0x00000080                CY_FLASH_ROW_SIZE = 0x80
+                0x00000001                CY_APPL_NUM = 0x1
+                0x00000001                CY_APPL_MAX = 0x1
+                0x00000040                CY_METADATA_SIZE = 0x40
+                0x00000000                CY_APPL_LOADABLE = 0x0
+                0x00000000                CY_CHECKSUM_EXCLUDE_SIZE = ALIGN (0x0, CY_FLASH_ROW_SIZE)
+                0x00000000                CY_APP_FOR_STACK_AND_COPIER = 0x0
+                [!provide]                PROVIDE (__cy_heap_start, _end)
+                0x00000001                PROVIDE (__cy_region_num, ((__cy_regions_end - __cy_regions) / 0x10))
+                0x20001000                PROVIDE (__cy_stack, (ORIGIN (ram) + LENGTH (ram)))
+                [!provide]                PROVIDE (__cy_heap_end, (__cy_stack - 0x400))
+
+.cybootloader   0x00000000        0x0
+ *(.cybootloader)
+                0x00000000                appl1_start = CY_APPL_ORIGIN?CY_APPL_ORIGIN:ALIGN (CY_FLASH_ROW_SIZE)
+                0x00003f80                appl2_start = (appl1_start + ALIGN ((((LENGTH (rom) - appl1_start) - (0x2 * CY_FLASH_ROW_SIZE)) / 0x2), CY_FLASH_ROW_SIZE))
+                0x00000000                appl_start = (CY_APPL_NUM == 0x1)?appl1_start:appl2_start
+                0x00000001                cy_project_type_bootloader = (appl_start == 0x0)?0x1:0x0
+                0x00000000                cy_project_type_app_for_stack_and_copier = (CY_APP_FOR_STACK_AND_COPIER == 0x1)?0x1:0x0
+
+.text           0x00000000     0x2c18
+ CREATE_OBJECT_SYMBOLS
+                0x00000000                PROVIDE (__cy_interrupt_vector, RomVectors)
+ *(.romvectors)
+ .romvectors    0x00000000       0x10 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x00000000                RomVectors
+                0x00000001                ASSERT ((. != __cy_interrupt_vector), No interrupt vector)
+                0x00000001                ASSERT (CY_APPL_ORIGIN?(SIZEOF (.cybootloader) <= CY_APPL_ORIGIN):0x1, Wrong image location)
+                0x00000010                PROVIDE (__cy_reset, Reset)
+ *(.text.Reset)
+ .text.Reset    0x00000010        0x8 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x00000010                Reset
+                0x00000001                ASSERT ((. != __cy_reset), No reset code)
+ *(.psocinit)
+ .psocinit      0x00000018      0x2bc .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x00000104                cyfitter_cfg
+                0x000002d4                . = MAX (., 0x100)
+ *(.text .text.* .gnu.linkonce.t.*)
+ .text          0x000002d4       0x60 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ .text.SleepISR
+                0x00000334       0x28 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x00000334                SleepISR
+ .text.FailISR  0x0000035c       0x34 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x0000035c                FailISR
+ .text.main     0x00000390      0x454 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x00000390                main
+ .text.checkSpeed
+                0x000007e4       0x70 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x000007e4                checkSpeed
+ .text.playSong
+                0x00000854       0x84 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x00000854                playSong
+ .text.CYMEMZERO
+                0x000008d8       0x20 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .text.cfg_write_bytes32
+                0x000008f8       0x84 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .text.AnalogSetDefault
+                0x0000097c       0x1c .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .text.SetAnalogRoutingPumps
+                0x00000998       0x40 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x00000998                SetAnalogRoutingPumps
+ .text.IntDefaultHandler
+                0x000009d8       0x14 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x000009d8                IntDefaultHandler
+ .text.Start_c  0x000009ec       0x98 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x000009ec                Start_c
+ .text.initialize_psoc
+                0x00000a84       0x64 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x00000a84                initialize_psoc
+ .text.EZI2C_Init
+                0x00000ae8       0x10 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+                0x00000ae8                EZI2C_Init
+ .text.EZI2C_Enable
+                0x00000af8       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+                0x00000af8                EZI2C_Enable
+ .text.EZI2C_Start
+                0x00000b1c       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+                0x00000b1c                EZI2C_Start
+ .text.EZI2C_ScbEnableIntr
+                0x00000b40       0x10 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .text.EZI2C_ScbModePostEnable
+                0x00000b50        0xc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .text.EZI2C_I2CSlaveNackGeneration
+                0x00000b5c       0x54 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+                0x00000b5c                EZI2C_I2CSlaveNackGeneration
+ .text.EZI2C_Sleep
+                0x00000bb0       0x10 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+                0x00000bb0                EZI2C_Sleep
+ .text.EZI2C_Wakeup
+                0x00000bc0       0x10 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+                0x00000bc0                EZI2C_Wakeup
+ .text.EZI2C_EzI2CInit
+                0x00000bd0       0xf0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+                0x00000bd0                EZI2C_EzI2CInit
+ .text.EZI2C_EzI2CSetBuffer1
+                0x00000cc0       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+                0x00000cc0                EZI2C_EzI2CSetBuffer1
+ .text.EZI2C_EzI2CSaveConfig
+                0x00000d08       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+                0x00000d08                EZI2C_EzI2CSaveConfig
+ .text.EZI2C_EzI2CRestoreConfig
+                0x00000d1c       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+                0x00000d1c                EZI2C_EzI2CRestoreConfig
+ .text.EZI2C_EZI2C_STRETCH_ISR
+                0x00000d30      0x454 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+                0x00000d30                EZI2C_EZI2C_STRETCH_ISR
+ .text.LCD_Init
+                0x00001184       0x70 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x00001184                LCD_Init
+ .text.LCD_Enable
+                0x000011f4       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x000011f4                LCD_Enable
+ .text.LCD_Start
+                0x00001210       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x00001210                LCD_Start
+ .text.LCD_Stop
+                0x00001234       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x00001234                LCD_Stop
+ .text.LCD_Position
+                0x00001250       0x74 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x00001250                LCD_Position
+ .text.LCD_PrintString
+                0x000012c4       0x5c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x000012c4                LCD_PrintString
+ .text.LCD_WriteData
+                0x00001320       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x00001320                LCD_WriteData
+ .text.LCD_WriteControl
+                0x0000136c       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x0000136c                LCD_WriteControl
+ .text.LCD_IsReady
+                0x000013b8      0x104 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x000013b8                LCD_IsReady
+ .text.LCD_WrDatNib
+                0x000014bc       0x6c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .text.LCD_WrCntrlNib
+                0x00001528       0x5c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .text.LCD_PrintU32Number
+                0x00001584       0xbc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x00001584                LCD_PrintU32Number
+ .text.LCD_SaveConfig
+                0x00001640        0xc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+                0x00001640                LCD_SaveConfig
+ .text.LCD_RestoreConfig
+                0x0000164c        0xc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+                0x0000164c                LCD_RestoreConfig
+ .text.LCD_Sleep
+                0x00001658       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+                0x00001658                LCD_Sleep
+ .text.LCD_Wakeup
+                0x0000167c       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+                0x0000167c                LCD_Wakeup
+ .text.LEDreg_Write
+                0x0000169c       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+                0x0000169c                LEDreg_Write
+ .text.Cheat_Read
+                0x000016bc       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+                0x000016bc                Cheat_Read
+ .text.LED_AWAKE_Write
+                0x000016d8       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+                0x000016d8                LED_AWAKE_Write
+ .text.ADC_Start
+                0x00001728       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                0x00001728                ADC_Start
+ .text.ADC_Init
+                0x0000174c      0x1cc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                0x0000174c                ADC_Init
+ .text.ADC_Enable
+                0x00001918       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                0x00001918                ADC_Enable
+ .text.ADC_Stop
+                0x00001944       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                0x00001944                ADC_Stop
+ .text.ADC_StartConvert
+                0x00001960       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                0x00001960                ADC_StartConvert
+ .text.ADC_StopConvert
+                0x0000197c       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                0x0000197c                ADC_StopConvert
+ .text.ADC_IsEndConversion
+                0x0000199c       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                0x0000199c                ADC_IsEndConversion
+ .text.ADC_GetResult16
+                0x000019e4       0x44 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                0x000019e4                ADC_GetResult16
+ .text.ADC_Sleep
+                0x00001a28       0x90 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+                0x00001a28                ADC_Sleep
+ .text.ADC_Wakeup
+                0x00001ab8       0x54 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+                0x00001ab8                ADC_Wakeup
+ .text.ADC_ISR  0x00001b0c       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+                0x00001b0c                ADC_ISR
+ .text.PWM_Fail_Init
+                0x00001b2c       0x54 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x00001b2c                PWM_Fail_Init
+ .text.PWM_Fail_Enable
+                0x00001b80       0x3c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x00001b80                PWM_Fail_Enable
+ .text.PWM_Fail_Start
+                0x00001bbc       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x00001bbc                PWM_Fail_Start
+ .text.PWM_Fail_Stop
+                0x00001be0       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x00001be0                PWM_Fail_Stop
+ .text.PWM_Fail_WriteCounter
+                0x00001c14       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x00001c14                PWM_Fail_WriteCounter
+ .text.PWM_Fail_WritePeriod
+                0x00001c34       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x00001c34                PWM_Fail_WritePeriod
+ .text.PWM_Fail_WriteCompare
+                0x00001c54       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x00001c54                PWM_Fail_WriteCompare
+ .text.PWM_Fail_TriggerCommand
+                0x00001c74       0x3c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x00001c74                PWM_Fail_TriggerCommand
+ .text.PWM_Fail_SetInterruptMode
+                0x00001cb0       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x00001cb0                PWM_Fail_SetInterruptMode
+ .text.PWM_Fail_ClearInterrupt
+                0x00001ccc       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x00001ccc                PWM_Fail_ClearInterrupt
+ .text.isr_sleep_StartEx
+                0x00001ce8       0x28 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+                0x00001ce8                isr_sleep_StartEx
+ .text.isr_sleep_SetVector
+                0x00001d10       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+                0x00001d10                isr_sleep_SetVector
+ .text.isr_sleep_SetPriority
+                0x00001d2c       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+                0x00001d2c                isr_sleep_SetPriority
+ .text.isr_sleep_Enable
+                0x00001d7c       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+                0x00001d7c                isr_sleep_Enable
+ .text.isr_sleep_Disable
+                0x00001d94       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+                0x00001d94                isr_sleep_Disable
+ .text.isr_fail_StartEx
+                0x00001dac       0x28 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+                0x00001dac                isr_fail_StartEx
+ .text.isr_fail_SetVector
+                0x00001dd4       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+                0x00001dd4                isr_fail_SetVector
+ .text.isr_fail_SetPriority
+                0x00001df0       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+                0x00001df0                isr_fail_SetPriority
+ .text.isr_fail_Enable
+                0x00001e40       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+                0x00001e40                isr_fail_Enable
+ .text.isr_fail_Disable
+                0x00001e58       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+                0x00001e58                isr_fail_Disable
+ .text.CySysClkWriteSysclkDiv
+                0x00001e70       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x00001e70                CySysClkWriteSysclkDiv
+ .text.CySysClkWriteImoFreq
+                0x00001eb8      0x1ec .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x00001eb8                CySysClkWriteImoFreq
+ .text.CyIntSetVector
+                0x000020a4       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x000020a4                CyIntSetVector
+ .text.CyIntSetPriority
+                0x000020f0       0xa8 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x000020f0                CyIntSetPriority
+ .text.CyIntEnable
+                0x00002198       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x00002198                CyIntEnable
+ .text.CyIntDisable
+                0x000021c4       0x2c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x000021c4                CyIntDisable
+ .text.CyHalt   0x000021f0       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x000021f0                CyHalt
+ .text.CyDelay  0x00002208       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x00002208                CyDelay
+ .text.CyDelayUs
+                0x00002254       0x28 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x00002254                CyDelayUs
+ .text.CySysPmDeepSleep
+                0x0000227c       0x8c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+                0x0000227c                CySysPmDeepSleep
+ .text.Button_Reg_Read
+                0x00002308       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+                0x00002308                Button_Reg_Read
+ .text.PWM_Pass_Init
+                0x0000231c       0x54 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                0x0000231c                PWM_Pass_Init
+ .text.PWM_Pass_Enable
+                0x00002370       0x3c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                0x00002370                PWM_Pass_Enable
+ .text.PWM_Pass_Start
+                0x000023ac       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                0x000023ac                PWM_Pass_Start
+ .text.PWM_Pass_Stop
+                0x000023d0       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                0x000023d0                PWM_Pass_Stop
+ .text.PWM_Pass_WriteCounter
+                0x00002404       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                0x00002404                PWM_Pass_WriteCounter
+ .text.PWM_Pass_WritePeriod
+                0x00002424       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                0x00002424                PWM_Pass_WritePeriod
+ .text.PWM_Pass_WriteCompare
+                0x00002444       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                0x00002444                PWM_Pass_WriteCompare
+ .text.PWM_Pass_TriggerCommand
+                0x00002464       0x3c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                0x00002464                PWM_Pass_TriggerCommand
+ .text.PWM_Pass_SetInterruptMode
+                0x000024a0       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                0x000024a0                PWM_Pass_SetInterruptMode
+ .text.Sleep_Reg_Write
+                0x000024bc       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+                0x000024bc                Sleep_Reg_Write
+ .text.CySysClkIloStart
+                0x000024dc       0x1c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x000024dc                CySysClkIloStart
+ .text.CySysWdtLock
+                0x000024f8       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x000024f8                CySysWdtLock
+ .text.CySysWdtLocked
+                0x0000252c       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .text.CySysWdtUnlock
+                0x0000254c       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x0000254c                CySysWdtUnlock
+ .text.CySysWdtGetEnabledStatus
+                0x0000259c       0x34 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x0000259c                CySysWdtGetEnabledStatus
+ .text.CySysWdtSetMode
+                0x000025d0       0x5c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x000025d0                CySysWdtSetMode
+ .text.CySysWdtSetClearOnMatch
+                0x0000262c       0x6c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x0000262c                CySysWdtSetClearOnMatch
+ .text.CySysWdtEnable
+                0x00002698       0x64 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x00002698                CySysWdtEnable
+ .text.CySysWdtDisable
+                0x000026fc       0x6c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x000026fc                CySysWdtDisable
+ .text.CySysWdtSetCascade
+                0x00002768       0x58 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x00002768                CySysWdtSetCascade
+ .text.CySysWdtSetMatch
+                0x000027c0       0x6c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x000027c0                CySysWdtSetMatch
+ .text.CySysWdtClearInterrupt
+                0x0000282c       0x70 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                0x0000282c                CySysWdtClearInterrupt
+ *fill*         0x0000289c        0x4 
+ .text          0x000028a0       0x24 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyBootAsmGnu.o)
+                0x000028a0                CyDelayCycles
+                0x000028b4                CyEnterCriticalSection
+                0x000028bc                CyExitCriticalSection
+ .text          0x000028c4      0x114 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o)
+                0x000028c4                __aeabi_uidiv
+                0x000028c4                __udivsi3
+                0x000029d0                __aeabi_uidivmod
+ .text          0x000029d8      0x1d4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
+                0x000029d8                __divsi3
+                0x000029d8                __aeabi_idiv
+                0x00002ba4                __aeabi_idivmod
+ .text          0x00002bac        0x4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_dvmd_tls.o)
+                0x00002bac                __aeabi_idiv0
+                0x00002bac                __aeabi_ldiv0
+ .text.__errno  0x00002bb0        0xc c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
+                0x00002bb0                __errno
+ .text.__libc_init_array
+                0x00002bbc       0x4c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
+                0x00002bbc                __libc_init_array
+ .text.memset   0x00002c08       0x10 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
+                0x00002c08                memset
+ *(.plt)
+ *(.gnu.warning)
+ *(.glue_7t)
+ .glue_7t       0x00002c18        0x0 linker stubs
+ *(.glue_7)
+ .glue_7        0x00002c18        0x0 linker stubs
+ *(.vfp11_veneer)
+ .vfp11_veneer  0x00002c18        0x0 linker stubs
+ *(.bootloader)
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+ *(.gcc_except_table)
+
+.v4_bx          0x00002c18        0x0
+ .v4_bx         0x00002c18        0x0 linker stubs
+
+.iplt           0x00002c18        0x0
+ .iplt          0x00002c18        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame       0x00002c18        0x4
+ *(.eh_frame)
+ .eh_frame      0x00002c18        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ .eh_frame      0x00002c18        0x4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
+                [!provide]                PROVIDE (__exidx_start, .)
+
+.ARM.exidx
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                0x00002c1c                __exidx_end = .
+
+.rodata         0x00002c1c      0x35c
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata        0x00002c1c       0x35 .\CortexM0\ARM_GCC_541\Debug\main.o
+ *fill*         0x00002c51        0x3 
+ .rodata        0x00002c54      0x2bc .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .rodata        0x00002f10       0x2e .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x00002f10                cyImoFreqMhz2Reg
+ .rodata.str1.1
+                0x00002f3e        0x2 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+                0x00002f40                . = ALIGN (0x4)
+ *(.init)
+ .init          0x00002f40        0x4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
+                0x00002f40                _init
+ .init          0x00002f44        0x8 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
+                0x00002f4c                . = ALIGN (0x4)
+                0x00002f4c                __preinit_array_start = .
+ *(.preinit_array)
+                0x00002f4c                __preinit_array_end = .
+                0x00002f4c                . = ALIGN (0x4)
+                0x00002f4c                __init_array_start = .
+ *(SORT(.init_array.*))
+ *(.init_array)
+ .init_array    0x00002f4c        0x4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ .init_array    0x00002f50        0x4 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x00002f54                __init_array_end = .
+                0x00002f54                . = ALIGN (0x4)
+ *(.fini)
+ .fini          0x00002f54        0x4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
+                0x00002f54                _fini
+ .fini          0x00002f58        0x8 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
+                0x00002f60                . = ALIGN (0x4)
+                0x00002f60                __fini_array_start = .
+ *(.fini_array)
+ .fini_array    0x00002f60        0x4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ *(SORT(.fini_array.*))
+                0x00002f64                __fini_array_end = .
+                0x00002f64                . = ALIGN (0x4)
+ *crtbegin.o(.ctors)
+ *(EXCLUDE_FILE(*crtend.o) .ctors)
+ *(SORT(.ctors.*))
+ *crtend.o(.ctors)
+                0x00002f64                . = ALIGN (0x4)
+ *crtbegin.o(.dtors)
+ *(EXCLUDE_FILE(*crtend.o) .dtors)
+ *(SORT(.dtors.*))
+ *crtend.o(.dtors)
+                0x00002f64                . = ALIGN (0x4)
+                0x00002f64                __cy_regions = .
+                0x00002f64        0x4 LONG 0x2f78 __cy_region_init_ram
+                0x00002f68        0x4 LONG 0x200000c8 __cy_region_start_data
+                0x00002f6c        0x4 LONG 0x108 __cy_region_init_size_ram
+                0x00002f70        0x4 LONG 0x58 __cy_region_zero_size_ram
+                0x00002f74                __cy_regions_end = .
+                0x00002f78                . = ALIGN (0x8)
+ *fill*         0x00002f74        0x4 
+                0x00002f78                _etext = .
+
+.cy_checksum_exclude
+                0x00002f78        0x0
+ *(.cy_checksum_exclude)
+
+.ramvectors     0x20000000       0xc0
+                0x20000000                __cy_region_start_ram = .
+ *(.ramvectors)
+ .ramvectors    0x20000000       0xc0 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x20000000                CyRamVectors
+
+.noinit         0x200000c0        0x4
+ *(.noinit)
+ .noinit        0x200000c0        0x4 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+
+.data           0x200000c8      0x108 load address 0x00002f78
+                0x200000c8                __cy_region_start_data = .
+ *(.jcr)
+ .jcr           0x200000c8        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ .jcr           0x200000c8        0x4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
+ *(.got.plt)
+ *(.got)
+ *(.shdata)
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data          0x200000cc       0x88 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x200000cc                i2cBuf
+                0x200000cf                sleepCount
+ .data          0x20000154       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                0x20000154                cydelayFreqHz
+                0x20000158                cydelayFreqKhz
+                0x2000015c                cydelayFreqMhz
+                0x20000160                cydelay32kMs
+                0x20000164                CySysClkPumpConfig
+ .data.impure_data
+                0x20000168       0x60 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+ .data._impure_ptr
+                0x200001c8        0x4 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+                0x200001c8                _impure_ptr
+                0x200001d0                . = ALIGN (0x8)
+ *fill*         0x200001cc        0x4 
+ *(.ram)
+                0x200001d0                _edata = .
+
+.igot.plt       0x200001d0        0x0 load address 0x00003080
+ .igot.plt      0x200001d0        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+
+.bss            0x200001d0       0x58 load address 0x00003080
+                0x200001d0                PROVIDE (__bss_start__, .)
+ *(.shbss)
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ .bss           0x200001d0       0x1c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ .bss           0x200001ec        0x8 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+                0x200001ec                EZI2C_initVar
+                0x200001f0                EZI2C_customIntrHandler
+ .bss           0x200001f4        0x2 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .bss           0x200001f6        0x2 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                0x200001f6                LCD_enableState
+                0x200001f7                LCD_initVar
+ .bss           0x200001f8        0x1 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .bss           0x200001f9        0x1 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                0x200001f9                ADC_initVar
+ *fill*         0x200001fa        0x2 
+ .bss           0x200001fc        0x8 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .bss           0x20000204        0x1 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                0x20000204                PWM_Fail_initVar
+ .bss           0x20000205        0x1 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                0x20000205                PWM_Pass_initVar
+ *(COMMON)
+ COMMON         0x20000206        0x3 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x20000206                resultADC
+                0x20000208                speedVal
+ *fill*         0x20000209        0x3 
+ COMMON         0x2000020c       0x12 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+                0x2000020c                EZI2C_offsetBuf1
+                0x2000020e                EZI2C_indexBuf1
+                0x20000210                EZI2C_fsmState
+                0x20000212                EZI2C_protectBuf1
+                0x20000214                EZI2C_curStatus
+                0x20000218                EZI2C_dataBuffer1
+                0x2000021c                EZI2C_bufSizeBuf1
+ *fill*         0x2000021e        0x2 
+ COMMON         0x20000220        0x6 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                0x20000220                ADC_countsPer10Volt
+                0x20000224                ADC_offset
+                0x20000228                . = ALIGN (0x8)
+ *fill*         0x20000226        0x2 
+ *(.ram.b)
+                0x20000228                _end = .
+                0x20000228                __end = .
+                0x20000228                PROVIDE (end, .)
+                0x20000228                PROVIDE (__bss_end__, .)
+                0x00002f78                __cy_region_init_ram = LOADADDR (.data)
+                0x00000108                __cy_region_init_size_ram = (_edata - ADDR (.data))
+                0x00000058                __cy_region_zero_size_ram = (_end - _edata)
+
+.heap           0x20000228      0x100 load address 0x00003080
+                0x20000228                . = _end
+                0x20000328                . = (. + 0x100)
+ *fill*         0x20000228      0x100 
+                0x20000328                __cy_heap_limit = .
+
+.stack          0x20000c00      0x400
+                0x20000c00                __cy_stack_limit = .
+                0x20001000                . = (. + 0x400)
+ *fill*         0x20000c00      0x400 
+                0x00000001                ASSERT ((__cy_stack_limit >= __cy_heap_limit), region RAM overflowed with stack)
+                0x00000000                cy_checksum_exclude_size = (CY_APPL_LOADABLE == 0x1)?SIZEOF (.cy_checksum_exclude):0x0
+                0x00000001                ASSERT ((cy_checksum_exclude_size <= CY_CHECKSUM_EXCLUDE_SIZE), CY_BOOT: Section .cy_checksum_exclude size exceedes specified limit.)
+                0x00007fc0                cyloadermeta_start = (cy_project_type_bootloader || cy_project_type_app_for_stack_and_copier)?(LENGTH (rom) - CY_METADATA_SIZE):0xf0000000
+
+.cyloadermeta
+ *(.cyloadermeta)
+                0x00007fc0                cyloadablemeta_start = cy_project_type_app_for_stack_and_copier?((LENGTH (rom) - CY_FLASH_ROW_SIZE) - CY_METADATA_SIZE):((LENGTH (rom) - (CY_FLASH_ROW_SIZE * (CY_APPL_NUM - 0x1))) - CY_METADATA_SIZE)
+
+.cyloadablemeta
+ *(.cyloadablemeta)
+
+.cyflashprotect
+                0x90400000       0x20
+ *(.cyflashprotect)
+ .cyflashprotect
+                0x90400000       0x20 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+                0x90400000                cy_meta_flashprotect
+
+.cymeta         0x90500000        0xc
+ *(.cymeta)
+ .cymeta        0x90500000        0xc .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+                0x90500000                cy_metadata
+
+.cychipprotect  0x90600000        0x1
+ *(.cychipprotect)
+ .cychipprotect
+                0x90600000        0x1 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+                0x90600000                cy_meta_chipprotect
+
+.rel.dyn        0x00003080        0x0 load address 0x90600004
+ .rel.iplt      0x00003080        0x0 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0xbe0
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x40 .\CortexM0\ARM_GCC_541\Debug\main.o
+ .debug_aranges
+                0x00000040       0x58 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_aranges
+                0x00000098       0x18 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .debug_aranges
+                0x000000b0       0x48 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .debug_aranges
+                0x000000f8       0x70 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .debug_aranges
+                0x00000168       0x28 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .debug_aranges
+                0x00000190       0x60 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .debug_aranges
+                0x000001f0       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .debug_aranges
+                0x00000210       0x98 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .debug_aranges
+                0x000002a8       0x38 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .debug_aranges
+                0x000002e0       0x28 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .debug_aranges
+                0x00000308       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .debug_aranges
+                0x00000350       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .debug_aranges
+                0x00000398       0xa8 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .debug_aranges
+                0x00000440       0x38 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .debug_aranges
+                0x00000478       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .debug_aranges
+                0x00000498      0x158 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .debug_aranges
+                0x000005f0       0x80 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .debug_aranges
+                0x00000670       0x80 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .debug_aranges
+                0x000006f0      0x180 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .debug_aranges
+                0x00000870       0x58 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .debug_aranges
+                0x000008c8       0x40 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .debug_aranges
+                0x00000908      0x158 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .debug_aranges
+                0x00000a60       0x28 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .debug_aranges
+                0x00000a88      0x138 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .debug_aranges
+                0x00000bc0       0x20 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyBootAsmGnu.o)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x00000000     0x4903
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000      0x25e .\CortexM0\ARM_GCC_541\Debug\main.o
+ .debug_info    0x0000025e      0x3a5 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_info    0x00000603       0xf8 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .debug_info    0x000006fb      0x312 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .debug_info    0x00000a0d      0x1fd .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .debug_info    0x00000c0a       0xb1 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .debug_info    0x00000cbb      0x28a .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .debug_info    0x00000f45      0x1c3 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .debug_info    0x00001108      0x3cf .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .debug_info    0x000014d7      0x10d .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .debug_info    0x000015e4       0xd7 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .debug_info    0x000016bb      0x19a .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .debug_info    0x00001855      0x19a .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .debug_info    0x000019ef      0x491 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .debug_info    0x00001e80      0x139 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .debug_info    0x00001fb9       0xcc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .debug_info    0x00002085      0x6fb .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .debug_info    0x00002780      0x24d .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .debug_info    0x000029cd      0x24d .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .debug_info    0x00002c1a      0x8ef .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .debug_info    0x00003509      0x204 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .debug_info    0x0000370d      0x142 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .debug_info    0x0000384f      0x6fb .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .debug_info    0x00003f4a       0xd7 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .debug_info    0x00004021      0x81f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .debug_info    0x00004840       0xc3 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyBootAsmGnu.o)
+
+.debug_abbrev   0x00000000     0x185d
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x114 .\CortexM0\ARM_GCC_541\Debug\main.o
+ .debug_abbrev  0x00000114      0x1bc .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_abbrev  0x000002d0       0x5d .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .debug_abbrev  0x0000032d      0x1c8 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .debug_abbrev  0x000004f5       0xf3 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .debug_abbrev  0x000005e8       0x42 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .debug_abbrev  0x0000062a      0x11b .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .debug_abbrev  0x00000745       0x88 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .debug_abbrev  0x000007cd      0x120 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .debug_abbrev  0x000008ed       0xb0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .debug_abbrev  0x0000099d       0x81 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .debug_abbrev  0x00000a1e       0xaa .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .debug_abbrev  0x00000ac8       0xaa .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .debug_abbrev  0x00000b72      0x163 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .debug_abbrev  0x00000cd5       0xa6 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .debug_abbrev  0x00000d7b       0x65 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .debug_abbrev  0x00000de0       0xfc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .debug_abbrev  0x00000edc      0x16a .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .debug_abbrev  0x00001046      0x16a .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .debug_abbrev  0x000011b0      0x1a7 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .debug_abbrev  0x00001357       0xeb .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .debug_abbrev  0x00001442       0xaa .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .debug_abbrev  0x000014ec       0xfc .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .debug_abbrev  0x000015e8       0x81 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .debug_abbrev  0x00001669      0x1e0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .debug_abbrev  0x00001849       0x14 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyBootAsmGnu.o)
+
+.debug_line     0x00000000     0x286a
+ *(.debug_line)
+ .debug_line    0x00000000      0x1c0 .\CortexM0\ARM_GCC_541\Debug\main.o
+ .debug_line    0x000001c0      0x1c0 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_line    0x00000380      0x141 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .debug_line    0x000004c1      0x1cf .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .debug_line    0x00000690      0x13b .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .debug_line    0x000007cb       0x6e .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .debug_line    0x00000839      0x124 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .debug_line    0x0000095d      0x12e .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .debug_line    0x00000a8b      0x1e8 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .debug_line    0x00000c73       0x9e .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .debug_line    0x00000d11       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .debug_line    0x00000d80       0xbd .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .debug_line    0x00000e3d       0xc1 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .debug_line    0x00000efe      0x298 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .debug_line    0x00001196       0xad .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .debug_line    0x00001243       0x62 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .debug_line    0x000012a5      0x376 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .debug_line    0x0000161b      0x158 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .debug_line    0x00001773      0x157 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .debug_line    0x000018ca      0x47a .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .debug_line    0x00001d44      0x123 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .debug_line    0x00001e67       0xae .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .debug_line    0x00001f15      0x376 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .debug_line    0x0000228b       0x72 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .debug_line    0x000022fd      0x504 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .debug_line    0x00002801       0x69 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyBootAsmGnu.o)
+
+.debug_frame    0x00000000     0x288c
+ *(.debug_frame)
+ .debug_frame   0x00000000       0xa4 .\CortexM0\ARM_GCC_541\Debug\main.o
+ .debug_frame   0x000000a4      0x108 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_frame   0x000001ac       0xc8 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .debug_frame   0x00000274      0x150 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .debug_frame   0x000003c4       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .debug_frame   0x0000040c      0x120 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .debug_frame   0x0000052c       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .debug_frame   0x0000055c      0x200 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .debug_frame   0x0000075c       0x80 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .debug_frame   0x000007dc       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .debug_frame   0x00000828       0xc8 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .debug_frame   0x000008f0       0xc8 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .debug_frame   0x000009b8      0x248 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .debug_frame   0x00000c00       0x80 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .debug_frame   0x00000c80       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .debug_frame   0x00000cb0      0x52c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .debug_frame   0x000011dc      0x190 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .debug_frame   0x0000136c      0x190 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .debug_frame   0x000014fc      0x588 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .debug_frame   0x00001a84      0x124 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .debug_frame   0x00001ba8       0xb0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .debug_frame   0x00001c58      0x52c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .debug_frame   0x00002184       0x4c .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .debug_frame   0x000021d0      0x480 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .debug_frame   0x00002650       0x20 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o)
+ .debug_frame   0x00002670       0x20 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
+ .debug_frame   0x00002690       0x34 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_muldi3.o)
+ .debug_frame   0x000026c4       0x30 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(bpabi.o)
+ .debug_frame   0x000026f4       0x3c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(divsf3.o)
+ .debug_frame   0x00002730       0x38 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
+ .debug_frame   0x00002768       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsisf.o)
+ .debug_frame   0x00002794       0x3c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divdi3.o)
+ .debug_frame   0x000027d0       0x20 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
+ .debug_frame   0x000027f0       0x28 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
+ .debug_frame   0x00002818       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
+ .debug_frame   0x00002844       0x28 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x0000286c       0x20 c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
+
+.debug_str      0x00000000     0x2463
+ *(.debug_str)
+ .debug_str     0x00000000      0x255 .\CortexM0\ARM_GCC_541\Debug\main.o
+                                0x295 (size before relaxing)
+ .debug_str     0x00000255      0x134 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+                                0x320 (size before relaxing)
+ .debug_str     0x00000389       0x63 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+                                0x1fb (size before relaxing)
+ .debug_str     0x000003ec      0x119 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                                0x301 (size before relaxing)
+ .debug_str     0x00000505      0x13a .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+                                0x2fb (size before relaxing)
+ .debug_str     0x0000063f       0x3b .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+                                0x1e9 (size before relaxing)
+ .debug_str     0x0000067a      0x18a .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+                                0x361 (size before relaxing)
+ .debug_str     0x00000804       0x97 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+                                0x2fa (size before relaxing)
+ .debug_str     0x0000089b      0x179 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+                                0x34d (size before relaxing)
+ .debug_str     0x00000a14       0x73 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+                                0x22e (size before relaxing)
+ .debug_str     0x00000a87       0x41 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+                                0x1e5 (size before relaxing)
+ .debug_str     0x00000ac8       0xb0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+                                0x269 (size before relaxing)
+ .debug_str     0x00000b78       0xa3 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+                                0x285 (size before relaxing)
+ .debug_str     0x00000c1b      0x1d6 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+                                0x3c6 (size before relaxing)
+ .debug_str     0x00000df1       0x7d .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+                                0x24a (size before relaxing)
+ .debug_str     0x00000e6e       0x35 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+                                0x1f0 (size before relaxing)
+ .debug_str     0x00000ea3      0x464 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+                                0x635 (size before relaxing)
+ .debug_str     0x00001307      0x145 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+                                0x328 (size before relaxing)
+ .debug_str     0x0000144c      0x110 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+                                0x31a (size before relaxing)
+ .debug_str     0x0000155c      0x4aa .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+                                0x6bc (size before relaxing)
+ .debug_str     0x00001a06       0xc0 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+                                0x2a4 (size before relaxing)
+ .debug_str     0x00001ac6       0x94 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+                                0x261 (size before relaxing)
+ .debug_str     0x00001b5a      0x3a5 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+                                0x635 (size before relaxing)
+ .debug_str     0x00001eff       0x42 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+                                0x1ee (size before relaxing)
+ .debug_str     0x00001f41      0x522 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+                                0x732 (size before relaxing)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_ranges   0x00000000      0xa28
+ *(.debug_ranges)
+ .debug_ranges  0x00000000       0x30 .\CortexM0\ARM_GCC_541\Debug\main.o
+ .debug_ranges  0x00000030       0x48 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_ranges  0x00000078       0x38 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .debug_ranges  0x000000b0       0x60 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .debug_ranges  0x00000110       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .debug_ranges  0x00000128       0x50 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .debug_ranges  0x00000178       0x10 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .debug_ranges  0x00000188       0x88 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .debug_ranges  0x00000210       0x28 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .debug_ranges  0x00000238       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .debug_ranges  0x00000250       0x38 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .debug_ranges  0x00000288       0x38 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .debug_ranges  0x000002c0       0x98 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .debug_ranges  0x00000358       0x28 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .debug_ranges  0x00000380       0x10 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .debug_ranges  0x00000390      0x148 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .debug_ranges  0x000004d8       0x70 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .debug_ranges  0x00000548       0x70 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .debug_ranges  0x000005b8      0x170 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .debug_ranges  0x00000728       0x48 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .debug_ranges  0x00000770       0x30 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .debug_ranges  0x000007a0      0x148 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .debug_ranges  0x000008e8       0x18 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .debug_ranges  0x00000900      0x128 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+
+.comment        0x00000000       0x6e
+ .comment       0x00000000       0x6e .\CortexM0\ARM_GCC_541\Debug\main.o
+                                 0x6f (size before relaxing)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.note.gnu.arm.ident
+ *(.note.gnu.arm.ident)
+
+.ARM.attributes
+                0x00000000       0x28
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x00000000       0x1e c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
+ .ARM.attributes
+                0x0000001e       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ .ARM.attributes
+                0x0000004a       0x1b c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/crt0.o
+ .ARM.attributes
+                0x00000065       0x31 .\CortexM0\ARM_GCC_541\Debug\main.o
+ .ARM.attributes
+                0x00000096       0x31 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .ARM.attributes
+                0x000000c7       0x31 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .ARM.attributes
+                0x000000f8       0x31 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .ARM.attributes
+                0x00000129       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C.o)
+ .ARM.attributes
+                0x0000015a       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_PM.o)
+ .ARM.attributes
+                0x0000018b       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C.o)
+ .ARM.attributes
+                0x000001bc       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(EZI2C_EZI2C_INT.o)
+ .ARM.attributes
+                0x000001ed       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD.o)
+ .ARM.attributes
+                0x0000021e       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LCD_PM.o)
+ .ARM.attributes
+                0x0000024f       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LEDreg.o)
+ .ARM.attributes
+                0x00000280       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Cheat.o)
+ .ARM.attributes
+                0x000002b1       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(LED_AWAKE.o)
+ .ARM.attributes
+                0x000002e2       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC.o)
+ .ARM.attributes
+                0x00000313       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_PM.o)
+ .ARM.attributes
+                0x00000344       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(ADC_INT.o)
+ .ARM.attributes
+                0x00000375       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Fail.o)
+ .ARM.attributes
+                0x000003a6       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_sleep.o)
+ .ARM.attributes
+                0x000003d7       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(isr_fail.o)
+ .ARM.attributes
+                0x00000408       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLib.o)
+ .ARM.attributes
+                0x00000439       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(cyPm.o)
+ .ARM.attributes
+                0x0000046a       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Button_Reg.o)
+ .ARM.attributes
+                0x0000049b       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(PWM_Pass.o)
+ .ARM.attributes
+                0x000004cc       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(Sleep_Reg.o)
+ .ARM.attributes
+                0x000004fd       0x31 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyLFClk.o)
+ .ARM.attributes
+                0x0000052e       0x21 .\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.a(CyBootAsmGnu.o)
+ .ARM.attributes
+                0x0000054f       0x1e c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x0000056d       0x1e c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
+ .ARM.attributes
+                0x0000058b       0x1e c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x000005a9       0x1e c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_aeabi_ldivmod.o)
+ .ARM.attributes
+                0x000005c7       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_muldi3.o)
+ .ARM.attributes
+                0x000005f3       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(bpabi.o)
+ .ARM.attributes
+                0x0000061f       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(divsf3.o)
+ .ARM.attributes
+                0x0000064b       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
+ .ARM.attributes
+                0x00000677       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsisf.o)
+ .ARM.attributes
+                0x000006a3       0x1e c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzsi2.o)
+ .ARM.attributes
+                0x000006c1       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divdi3.o)
+ .ARM.attributes
+                0x000006ed       0x1e c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzdi2.o)
+ .ARM.attributes
+                0x0000070b       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
+ .ARM.attributes
+                0x00000737       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
+ .ARM.attributes
+                0x00000763       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+ .ARM.attributes
+                0x0000078f       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
+ .ARM.attributes
+                0x000007bb       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memcpy-stub.o)
+ .ARM.attributes
+                0x000007e7       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
+ .ARM.attributes
+                0x00000813       0x2c c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
+ .ARM.attributes
+                0x0000083f       0x1e c:/program files (x86)/cypress/psoc creator/4.2/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
+
+/DISCARD/
+ *(.note.GNU-stack)
+OUTPUT(C:\SVN\apps\trunk\Cypress Academy\PSoC-101\Projects\Team_Project\Simon\Simon_Slave_Pioneer\Simon_Slave_Pioneer.cydsn\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.elf elf32-littlearm)

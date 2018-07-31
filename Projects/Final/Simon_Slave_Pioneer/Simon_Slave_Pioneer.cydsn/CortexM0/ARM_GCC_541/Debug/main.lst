@@ -1,0 +1,2465 @@
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	i2cBuf
+  20              		.data
+  21              		.align	2
+  22              		.type	i2cBuf, %object
+  23              		.size	i2cBuf, 3
+  24              	i2cBuf:
+  25 0000 40       		.byte	64
+  26 0001 00       		.byte	0
+  27 0002 00       		.byte	0
+  28              		.global	sleepCount
+  29              		.type	sleepCount, %object
+  30              		.size	sleepCount, 1
+  31              	sleepCount:
+  32 0003 64       		.byte	100
+  33              		.comm	resultADC,2,2
+  34              		.comm	speedVal,1,1
+  35              		.section	.text.SleepISR,"ax",%progbits
+  36              		.align	2
+  37              		.global	SleepISR
+  38              		.code	16
+  39              		.thumb_func
+  40              		.type	SleepISR, %function
+  41              	SleepISR:
+  42              	.LFB32:
+  43              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  * Copyright Cypress Semiconductor, 2012
+   3:main.c        ****  * All Rights Reserved
+   4:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   5:main.c        ****  *
+   6:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   7:main.c        ****  * WHICH IS THE PROPERTY OF Cypress Semiconductor.
+   8:main.c        ****  * ======================================== */
+   9:main.c        **** #include <project.h>
+  10:main.c        **** 
+  11:main.c        **** /* This must be commented out if an LCD is not connected */
+  12:main.c        **** #define LCD_ENABLE
+  13:main.c        **** 
+  14:main.c        **** #define FALSE			0
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 2
+
+
+  15:main.c        **** #define TRUE			1
+  16:main.c        **** 
+  17:main.c        **** #define NUM_BUTTONS     4
+  18:main.c        **** 
+  19:main.c        **** #define I2CSIZE			3
+  20:main.c        **** #define I2CWRITE		1
+  21:main.c        **** 
+  22:main.c        **** #define WDT_COUNT       3277    /* 100ms from a 32.768KHz clock is 3277 cycles */
+  23:main.c        **** #define SLEEP_COUNT		100		/* 200 * 100ms = 10,000ms = 10s */
+  24:main.c        **** 
+  25:main.c        **** #define ALLOFF			0xF		/* Code to turn off all LEDs */
+  26:main.c        **** 
+  27:main.c        **** #define DEBOUNCE_COUNT  10
+  28:main.c        **** 
+  29:main.c        **** #define SPEED1          0x01
+  30:main.c        **** #define SPEED2          0x02
+  31:main.c        **** #define SPEED3          0x04
+  32:main.c        **** 
+  33:main.c        **** #define INIT			0x40
+  34:main.c        **** #define	PASS			0x20
+  35:main.c        **** #define FAIL			0x10
+  36:main.c        **** #define RUN				0x00
+  37:main.c        **** 
+  38:main.c        **** /* I2C register map */
+  39:main.c        **** #define INFO			0
+  40:main.c        **** #define BUTTON			1
+  41:main.c        **** #define	SPEED			2
+  42:main.c        **** 
+  43:main.c        **** /* Function prototypes */
+  44:main.c        **** void checkSpeed(void);
+  45:main.c        **** void playSong(void);
+  46:main.c        **** 
+  47:main.c        **** uint8   i2cBuf[I2CSIZE] = {INIT,0x00,0x00};	/* 3 byte I2C buffer */
+  48:main.c        **** uint8   sleepCount=SLEEP_COUNT;	            /* Counter to determine when to sleep */
+  49:main.c        **** uint16	resultADC; 						    /* ADC result used for speed setting */
+  50:main.c        **** uint8 	speedVal;					    	/* Current speed setting */
+  51:main.c        **** 
+  52:main.c        **** /* Watchdog timer ISR */
+  53:main.c        **** /* This triggers every 100ms. It decrements the counter and after */
+  54:main.c        **** /* it has counted down to zero, sleep will be initiated */
+  55:main.c        **** CY_ISR(SleepISR)
+  56:main.c        **** {
+  44              		.loc 1 56 0
+  45              		.cfi_startproc
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 1, uses_anonymous_args = 0
+  48 0000 80B5     		push	{r7, lr}
+  49              		.cfi_def_cfa_offset 8
+  50              		.cfi_offset 7, -8
+  51              		.cfi_offset 14, -4
+  52 0002 00AF     		add	r7, sp, #0
+  53              		.cfi_def_cfa_register 7
+  57:main.c        ****     CySysWdtClearInterrupt(CY_SYS_WDT_COUNTER0_INT);
+  54              		.loc 1 57 0
+  55 0004 0420     		movs	r0, #4
+  56 0006 FFF7FEFF 		bl	CySysWdtClearInterrupt
+  58:main.c        ****     
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 3
+
+
+  59:main.c        ****     if(sleepCount)
+  57              		.loc 1 59 0
+  58 000a 064B     		ldr	r3, .L4
+  59 000c 1B78     		ldrb	r3, [r3]
+  60 000e 002B     		cmp	r3, #0
+  61 0010 05D0     		beq	.L3
+  60:main.c        ****     {
+  61:main.c        **** 		sleepCount--;
+  62              		.loc 1 61 0
+  63 0012 044B     		ldr	r3, .L4
+  64 0014 1B78     		ldrb	r3, [r3]
+  65 0016 013B     		subs	r3, r3, #1
+  66 0018 DAB2     		uxtb	r2, r3
+  67 001a 024B     		ldr	r3, .L4
+  68 001c 1A70     		strb	r2, [r3]
+  69              	.L3:
+  62:main.c        **** 	}
+  63:main.c        **** 
+  64:main.c        **** }
+  70              		.loc 1 64 0
+  71 001e C046     		nop
+  72 0020 BD46     		mov	sp, r7
+  73              		@ sp needed
+  74 0022 80BD     		pop	{r7, pc}
+  75              	.L5:
+  76              		.align	2
+  77              	.L4:
+  78 0024 00000000 		.word	sleepCount
+  79              		.cfi_endproc
+  80              	.LFE32:
+  81              		.size	SleepISR, .-SleepISR
+  82              		.section	.text.FailISR,"ax",%progbits
+  83              		.align	2
+  84              		.global	FailISR
+  85              		.code	16
+  86              		.thumb_func
+  87              		.type	FailISR, %function
+  88              	FailISR:
+  89              	.LFB33:
+  65:main.c        **** 
+  66:main.c        **** /* This ISR stops the fail PWM once the beep is done */
+  67:main.c        **** CY_ISR(FailISR)
+  68:main.c        **** {
+  90              		.loc 1 68 0
+  91              		.cfi_startproc
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 1, uses_anonymous_args = 0
+  94 0000 80B5     		push	{r7, lr}
+  95              		.cfi_def_cfa_offset 8
+  96              		.cfi_offset 7, -8
+  97              		.cfi_offset 14, -4
+  98 0002 00AF     		add	r7, sp, #0
+  99              		.cfi_def_cfa_register 7
+  69:main.c        ****     PWM_Fail_ClearInterrupt(PWM_Fail_INTR_MASK_TC);
+ 100              		.loc 1 69 0
+ 101 0004 0120     		movs	r0, #1
+ 102 0006 FFF7FEFF 		bl	PWM_Fail_ClearInterrupt
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 4
+
+
+  70:main.c        ****     
+  71:main.c        ****     /* The fail PWM will go through this many periods before turning off */
+  72:main.c        ****     #define FAIL_COUNT      75
+  73:main.c        ****     
+  74:main.c        ****     static uint8 failCount = FAIL_COUNT;
+  75:main.c        ****     
+  76:main.c        ****     if(failCount)
+ 103              		.loc 1 76 0
+ 104 000a 094B     		ldr	r3, .L10
+ 105 000c 1B78     		ldrb	r3, [r3]
+ 106 000e 002B     		cmp	r3, #0
+ 107 0010 06D0     		beq	.L7
+  77:main.c        ****     {
+  78:main.c        ****         failCount--;
+ 108              		.loc 1 78 0
+ 109 0012 074B     		ldr	r3, .L10
+ 110 0014 1B78     		ldrb	r3, [r3]
+ 111 0016 013B     		subs	r3, r3, #1
+ 112 0018 DAB2     		uxtb	r2, r3
+ 113 001a 054B     		ldr	r3, .L10
+ 114 001c 1A70     		strb	r2, [r3]
+  79:main.c        ****     }
+  80:main.c        ****     else
+  81:main.c        ****     {
+  82:main.c        ****         PWM_Fail_Stop();
+  83:main.c        ****         failCount = FAIL_COUNT;
+  84:main.c        ****     }
+  85:main.c        **** }
+ 115              		.loc 1 85 0
+ 116 001e 04E0     		b	.L9
+ 117              	.L7:
+  82:main.c        ****         failCount = FAIL_COUNT;
+ 118              		.loc 1 82 0
+ 119 0020 FFF7FEFF 		bl	PWM_Fail_Stop
+  83:main.c        ****     }
+ 120              		.loc 1 83 0
+ 121 0024 024B     		ldr	r3, .L10
+ 122 0026 4B22     		movs	r2, #75
+ 123 0028 1A70     		strb	r2, [r3]
+ 124              	.L9:
+ 125              		.loc 1 85 0
+ 126 002a C046     		nop
+ 127 002c BD46     		mov	sp, r7
+ 128              		@ sp needed
+ 129 002e 80BD     		pop	{r7, pc}
+ 130              	.L11:
+ 131              		.align	2
+ 132              	.L10:
+ 133 0030 04000000 		.word	failCount.6031
+ 134              		.cfi_endproc
+ 135              	.LFE33:
+ 136              		.size	FailISR, .-FailISR
+ 137              		.section	.rodata
+ 138              		.align	2
+ 139              	.LC2:
+ 140 0000 53706565 		.ascii	"Speed: \000"
+ 140      643A2000 
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 5
+
+
+ 141              		.align	2
+ 142              	.LC8:
+ 143 0008 43686561 		.ascii	"Cheat\000"
+ 143      7400
+ 144 000e 0000     		.align	2
+ 145              	.LC10:
+ 146 0010 20202020 		.ascii	"     \000"
+ 146      2000
+ 147 0016 0000     		.align	2
+ 148              	.LC12:
+ 149 0018 494E4954 		.ascii	"INIT\000"
+ 149      00
+ 150 001d 000000   		.align	2
+ 151              	.LC14:
+ 152 0020 50415353 		.ascii	"PASS\000"
+ 152      00
+ 153 0025 000000   		.align	2
+ 154              	.LC16:
+ 155 0028 4641494C 		.ascii	"FAIL\000"
+ 155      00
+ 156 002d 000000   		.align	2
+ 157              	.LC18:
+ 158 0030 52554E20 		.ascii	"RUN \000"
+ 158      00
+ 159              		.section	.text.main,"ax",%progbits
+ 160              		.align	2
+ 161              		.global	main
+ 162              		.code	16
+ 163              		.thumb_func
+ 164              		.type	main, %function
+ 165              	main:
+ 166              	.LFB34:
+  86:main.c        **** 
+  87:main.c        **** int main()
+  88:main.c        **** {
+ 167              		.loc 1 88 0
+ 168              		.cfi_startproc
+ 169              		@ args = 0, pretend = 0, frame = 112
+ 170              		@ frame_needed = 1, uses_anonymous_args = 0
+ 171 0000 80B5     		push	{r7, lr}
+ 172              		.cfi_def_cfa_offset 8
+ 173              		.cfi_offset 7, -8
+ 174              		.cfi_offset 14, -4
+ 175 0002 9CB0     		sub	sp, sp, #112
+ 176              		.cfi_def_cfa_offset 120
+ 177 0004 00AF     		add	r7, sp, #0
+ 178              		.cfi_def_cfa_register 7
+  89:main.c        **** 	uint8 i;						    /* Loop counter */
+  90:main.c        **** 	uint8 buttonData;				    /* Contains value of button being pressed */
+  91:main.c        ****     uint8 debounce = DEBOUNCE_COUNT;    /* Button debounce counter */
+ 179              		.loc 1 91 0
+ 180 0006 6D23     		movs	r3, #109
+ 181 0008 FB18     		adds	r3, r7, r3
+ 182 000a 0A22     		movs	r2, #10
+ 183 000c 1A70     		strb	r2, [r3]
+  92:main.c        **** 
+  93:main.c        ****     
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 6
+
+
+  94:main.c        **** 	/* Cheat mode variables */
+  95:main.c        **** 	uint8  cheatMode = FALSE;	                /* Flag to toggle cheat mode on/off */
+ 184              		.loc 1 95 0
+ 185 000e 6C23     		movs	r3, #108
+ 186 0010 FB18     		adds	r3, r7, r3
+ 187 0012 0022     		movs	r2, #0
+ 188 0014 1A70     		strb	r2, [r3]
+  96:main.c        ****     uint8  debounceCheat = DEBOUNCE_COUNT;      /* Cheat button debounce counter */
+ 189              		.loc 1 96 0
+ 190 0016 6B23     		movs	r3, #107
+ 191 0018 FB18     		adds	r3, r7, r3
+ 192 001a 0A22     		movs	r2, #10
+ 193 001c 1A70     		strb	r2, [r3]
+  97:main.c        ****     uint8  debounceToggled = FALSE;             /* Flag so we don't toggle cheat mutilple times */
+ 194              		.loc 1 97 0
+ 195 001e 6A23     		movs	r3, #106
+ 196 0020 FB18     		adds	r3, r7, r3
+ 197 0022 0022     		movs	r2, #0
+ 198 0024 1A70     		strb	r2, [r3]
+  98:main.c        **** 	uint8  sequenceCount = 1;	                /* Sequence length for the current round */
+ 199              		.loc 1 98 0
+ 200 0026 6923     		movs	r3, #105
+ 201 0028 FB18     		adds	r3, r7, r3
+ 202 002a 0122     		movs	r2, #1
+ 203 002c 1A70     		strb	r2, [r3]
+  99:main.c        **** 	uint8  sequence[99];			            /* This holds the passing sequence */
+ 100:main.c        **** 	uint8  doneFlag = FALSE;		            /* Flag to know when game is done */
+ 204              		.loc 1 100 0
+ 205 002e 6823     		movs	r3, #104
+ 206 0030 FB18     		adds	r3, r7, r3
+ 207 0032 0022     		movs	r2, #0
+ 208 0034 1A70     		strb	r2, [r3]
+ 101:main.c        **** 	uint16 endFlag = FALSE;		                /* Count to control fail beeper and pass song */
+ 209              		.loc 1 101 0
+ 210 0036 6623     		movs	r3, #102
+ 211 0038 FB18     		adds	r3, r7, r3
+ 212 003a 0022     		movs	r2, #0
+ 213 003c 1A80     		strh	r2, [r3]
+ 102:main.c        **** 
+ 103:main.c        ****    	CyGlobalIntEnable;
+ 214              		.loc 1 103 0
+ 215              		.syntax divided
+ 216              	@ 103 "main.c" 1
+ 217 003e 62B6     		CPSIE   i
+ 218              	@ 0 "" 2
+ 104:main.c        ****     
+ 105:main.c        **** 	/* Start/Initialize everything */
+ 106:main.c        **** 	#ifdef LCD_ENABLE
+ 107:main.c        ****         LCD_Start();
+ 219              		.loc 1 107 0
+ 220              		.thumb
+ 221              		.syntax unified
+ 222 0040 FFF7FEFF 		bl	LCD_Start
+ 108:main.c        **** 	    LCD_Position(1,0);
+ 223              		.loc 1 108 0
+ 224 0044 0021     		movs	r1, #0
+ 225 0046 0120     		movs	r0, #1
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 7
+
+
+ 226 0048 FFF7FEFF 		bl	LCD_Position
+ 109:main.c        **** 	    LCD_PrintString("Speed: ");
+ 227              		.loc 1 109 0
+ 228 004c D74B     		ldr	r3, .L51
+ 229 004e 1800     		movs	r0, r3
+ 230 0050 FFF7FEFF 		bl	LCD_PrintString
+ 110:main.c        ****     #endif
+ 111:main.c        **** 	ADC_Start();
+ 231              		.loc 1 111 0
+ 232 0054 FFF7FEFF 		bl	ADC_Start
+ 112:main.c        ****     ADC_StartConvert();
+ 233              		.loc 1 112 0
+ 234 0058 FFF7FEFF 		bl	ADC_StartConvert
+ 113:main.c        ****     EZI2C_EzI2CSetBuffer1(I2CSIZE,I2CWRITE,i2cBuf); /* 3 byte buffer but only 1st byte can be writt
+ 235              		.loc 1 113 0
+ 236 005c D44B     		ldr	r3, .L51+4
+ 237 005e 1A00     		movs	r2, r3
+ 238 0060 0121     		movs	r1, #1
+ 239 0062 0320     		movs	r0, #3
+ 240 0064 FFF7FEFF 		bl	EZI2C_EzI2CSetBuffer1
+ 114:main.c        ****     EZI2C_Start();
+ 241              		.loc 1 114 0
+ 242 0068 FFF7FEFF 		bl	EZI2C_Start
+ 115:main.c        **** 
+ 116:main.c        ****     LED_AWAKE_Write(TRUE); /* Turn on LED */
+ 243              		.loc 1 116 0
+ 244 006c 0120     		movs	r0, #1
+ 245 006e FFF7FEFF 		bl	LED_AWAKE_Write
+ 117:main.c        **** 
+ 118:main.c        **** 	/* Start up Watchdog timer */
+ 119:main.c        **** 	CySysWdtWriteMode(CY_SYS_WDT_COUNTER0,CY_SYS_WDT_MODE_INT);
+ 246              		.loc 1 119 0
+ 247 0072 0121     		movs	r1, #1
+ 248 0074 0020     		movs	r0, #0
+ 249 0076 FFF7FEFF 		bl	CySysWdtSetMode
+ 120:main.c        **** 	CySysWdtWriteMatch(CY_SYS_WDT_COUNTER0,WDT_COUNT);
+ 250              		.loc 1 120 0
+ 251 007a CE4B     		ldr	r3, .L51+8
+ 252 007c 1900     		movs	r1, r3
+ 253 007e 0020     		movs	r0, #0
+ 254 0080 FFF7FEFF 		bl	CySysWdtSetMatch
+ 121:main.c        **** 	CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER0, 1u);
+ 255              		.loc 1 121 0
+ 256 0084 0121     		movs	r1, #1
+ 257 0086 0020     		movs	r0, #0
+ 258 0088 FFF7FEFF 		bl	CySysWdtSetClearOnMatch
+ 122:main.c        **** 	CySysWdtWriteCascade(CY_SYS_WDT_CASCADE_NONE);
+ 259              		.loc 1 122 0
+ 260 008c 0020     		movs	r0, #0
+ 261 008e FFF7FEFF 		bl	CySysWdtSetCascade
+ 123:main.c        **** 	CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK);    
+ 262              		.loc 1 123 0
+ 263 0092 0120     		movs	r0, #1
+ 264 0094 FFF7FEFF 		bl	CySysWdtEnable
+ 124:main.c        ****     
+ 125:main.c        ****     isr_fail_StartEx(FailISR);
+ 265              		.loc 1 125 0
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 8
+
+
+ 266 0098 C74B     		ldr	r3, .L51+12
+ 267 009a 1800     		movs	r0, r3
+ 268 009c FFF7FEFF 		bl	isr_fail_StartEx
+ 126:main.c        ****     isr_sleep_StartEx(SleepISR);
+ 269              		.loc 1 126 0
+ 270 00a0 C64B     		ldr	r3, .L51+16
+ 271 00a2 1800     		movs	r0, r3
+ 272 00a4 FFF7FEFF 		bl	isr_sleep_StartEx
+ 273              	.L47:
+ 127:main.c        ****     
+ 128:main.c        ****     for(;;)
+ 129:main.c        ****     {
+ 130:main.c        **** 		/****************************************************************************************/
+ 131:main.c        **** 		/* Check Cheat Mode Switch */
+ 132:main.c        **** 		/****************************************************************************************/
+ 133:main.c        ****         if(!Cheat_Read()) /* Toggle cheat mode when switch is pressed/released */
+ 274              		.loc 1 133 0
+ 275 00a8 FFF7FEFF 		bl	Cheat_Read
+ 276 00ac 031E     		subs	r3, r0, #0
+ 277 00ae 34D1     		bne	.L13
+ 134:main.c        **** 		{
+ 135:main.c        **** 			if(debounceCheat) /* Not past the debounce yet */
+ 278              		.loc 1 135 0
+ 279 00b0 6B23     		movs	r3, #107
+ 280 00b2 FB18     		adds	r3, r7, r3
+ 281 00b4 1B78     		ldrb	r3, [r3]
+ 282 00b6 002B     		cmp	r3, #0
+ 283 00b8 07D0     		beq	.L14
+ 136:main.c        ****             {
+ 137:main.c        ****                 debounceCheat--;
+ 284              		.loc 1 137 0
+ 285 00ba 6B23     		movs	r3, #107
+ 286 00bc FB18     		adds	r3, r7, r3
+ 287 00be 1A78     		ldrb	r2, [r3]
+ 288 00c0 6B23     		movs	r3, #107
+ 289 00c2 FB18     		adds	r3, r7, r3
+ 290 00c4 013A     		subs	r2, r2, #1
+ 291 00c6 1A70     		strb	r2, [r3]
+ 292 00c8 2FE0     		b	.L17
+ 293              	.L14:
+ 138:main.c        ****             }
+ 139:main.c        ****             else if(!debounceToggled) /* Past the debounce - toggle cheat mode */
+ 294              		.loc 1 139 0
+ 295 00ca 6A23     		movs	r3, #106
+ 296 00cc FB18     		adds	r3, r7, r3
+ 297 00ce 1B78     		ldrb	r3, [r3]
+ 298 00d0 002B     		cmp	r3, #0
+ 299 00d2 2AD1     		bne	.L17
+ 140:main.c        ****             {
+ 141:main.c        ****                 debounceToggled = TRUE;     /* Set flag so we don't toggle on next loop */
+ 300              		.loc 1 141 0
+ 301 00d4 6A23     		movs	r3, #106
+ 302 00d6 FB18     		adds	r3, r7, r3
+ 303 00d8 0122     		movs	r2, #1
+ 304 00da 1A70     		strb	r2, [r3]
+ 142:main.c        ****                 sleepCount = SLEEP_COUNT;   /* Reset sleep count */
+ 305              		.loc 1 142 0
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 9
+
+
+ 306 00dc B84B     		ldr	r3, .L51+20
+ 307 00de 6422     		movs	r2, #100
+ 308 00e0 1A70     		strb	r2, [r3]
+ 143:main.c        ****                 cheatMode = !cheatMode;     /* Toggle cheat mode */
+ 309              		.loc 1 143 0
+ 310 00e2 6C23     		movs	r3, #108
+ 311 00e4 FB18     		adds	r3, r7, r3
+ 312 00e6 1B78     		ldrb	r3, [r3]
+ 313 00e8 5A42     		rsbs	r2, r3, #0
+ 314 00ea 5341     		adcs	r3, r3, r2
+ 315 00ec DAB2     		uxtb	r2, r3
+ 316 00ee 6C23     		movs	r3, #108
+ 317 00f0 FB18     		adds	r3, r7, r3
+ 318 00f2 1A70     		strb	r2, [r3]
+ 144:main.c        **** 			    #ifdef LCD_ENABLE
+ 145:main.c        ****                     LCD_Position(0,11);
+ 319              		.loc 1 145 0
+ 320 00f4 0B21     		movs	r1, #11
+ 321 00f6 0020     		movs	r0, #0
+ 322 00f8 FFF7FEFF 		bl	LCD_Position
+ 146:main.c        ****     			    if(cheatMode)
+ 323              		.loc 1 146 0
+ 324 00fc 6C23     		movs	r3, #108
+ 325 00fe FB18     		adds	r3, r7, r3
+ 326 0100 1B78     		ldrb	r3, [r3]
+ 327 0102 002B     		cmp	r3, #0
+ 328 0104 04D0     		beq	.L16
+ 147:main.c        ****     			    {
+ 148:main.c        ****     				    LCD_PrintString("Cheat");
+ 329              		.loc 1 148 0
+ 330 0106 AF4B     		ldr	r3, .L51+24
+ 331 0108 1800     		movs	r0, r3
+ 332 010a FFF7FEFF 		bl	LCD_PrintString
+ 333 010e 0CE0     		b	.L17
+ 334              	.L16:
+ 149:main.c        ****     			    }
+ 150:main.c        ****     			    else
+ 151:main.c        ****     			    {
+ 152:main.c        ****     				    LCD_PrintString("     ");
+ 335              		.loc 1 152 0
+ 336 0110 AD4B     		ldr	r3, .L51+28
+ 337 0112 1800     		movs	r0, r3
+ 338 0114 FFF7FEFF 		bl	LCD_PrintString
+ 339 0118 07E0     		b	.L17
+ 340              	.L13:
+ 153:main.c        ****     			    }
+ 154:main.c        ****                 #endif
+ 155:main.c        ****             }
+ 156:main.c        **** 		}
+ 157:main.c        ****         else /* Button not pressed - reset debounce */
+ 158:main.c        ****         {
+ 159:main.c        ****             debounceCheat = DEBOUNCE_COUNT;
+ 341              		.loc 1 159 0
+ 342 011a 6B23     		movs	r3, #107
+ 343 011c FB18     		adds	r3, r7, r3
+ 344 011e 0A22     		movs	r2, #10
+ 345 0120 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 10
+
+
+ 160:main.c        ****             debounceToggled = FALSE;
+ 346              		.loc 1 160 0
+ 347 0122 6A23     		movs	r3, #106
+ 348 0124 FB18     		adds	r3, r7, r3
+ 349 0126 0022     		movs	r2, #0
+ 350 0128 1A70     		strb	r2, [r3]
+ 351              	.L17:
+ 161:main.c        ****         }
+ 162:main.c        **** 		
+ 163:main.c        **** 		/****************************************************************************************/
+ 164:main.c        **** 		/* Check buttons and update the LED state and I2C register */
+ 165:main.c        **** 		/****************************************************************************************/
+ 166:main.c        ****         if(!cheatMode) /* Regular game play */
+ 352              		.loc 1 166 0
+ 353 012a 6C23     		movs	r3, #108
+ 354 012c FB18     		adds	r3, r7, r3
+ 355 012e 1B78     		ldrb	r3, [r3]
+ 356 0130 002B     		cmp	r3, #0
+ 357 0132 2DD1     		bne	.L18
+ 167:main.c        **** 		{
+ 168:main.c        **** 			checkSpeed();	/* Check for new speed value */
+ 358              		.loc 1 168 0
+ 359 0134 FFF7FEFF 		bl	checkSpeed
+ 169:main.c        **** 			
+ 170:main.c        **** 			/* Read button press state from register. */
+ 171:main.c        **** 			/* The XOR inverts each bit since the buttons are active low */
+ 172:main.c        **** 			buttonData = (Button_Reg_Read() ^ 0xF);
+ 360              		.loc 1 172 0
+ 361 0138 FFF7FEFF 		bl	Button_Reg_Read
+ 362 013c 0300     		movs	r3, r0
+ 363 013e 1900     		movs	r1, r3
+ 364 0140 6E23     		movs	r3, #110
+ 365 0142 FB18     		adds	r3, r7, r3
+ 366 0144 0F22     		movs	r2, #15
+ 367 0146 4A40     		eors	r2, r1
+ 368 0148 1A70     		strb	r2, [r3]
+ 173:main.c        **** 			
+ 174:main.c        ****             if(buttonData == 0) /* No button is being pressed - reset debounce */
+ 369              		.loc 1 174 0
+ 370 014a 6E23     		movs	r3, #110
+ 371 014c FB18     		adds	r3, r7, r3
+ 372 014e 1B78     		ldrb	r3, [r3]
+ 373 0150 002B     		cmp	r3, #0
+ 374 0152 04D1     		bne	.L19
+ 175:main.c        ****             {
+ 176:main.c        ****                 debounce = DEBOUNCE_COUNT;
+ 375              		.loc 1 176 0
+ 376 0154 6D23     		movs	r3, #109
+ 377 0156 FB18     		adds	r3, r7, r3
+ 378 0158 0A22     		movs	r2, #10
+ 379 015a 1A70     		strb	r2, [r3]
+ 380 015c 12E0     		b	.L20
+ 381              	.L19:
+ 177:main.c        ****             }
+ 178:main.c        ****             else /* A button is being pressed */
+ 179:main.c        ****             {
+ 180:main.c        ****                 sleepCount = SLEEP_COUNT; /* Reset sleep count */
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 11
+
+
+ 382              		.loc 1 180 0
+ 383 015e 984B     		ldr	r3, .L51+20
+ 384 0160 6422     		movs	r2, #100
+ 385 0162 1A70     		strb	r2, [r3]
+ 181:main.c        ****                 if(debounce)    /* We are not yet passed the debounce */
+ 386              		.loc 1 181 0
+ 387 0164 6D23     		movs	r3, #109
+ 388 0166 FB18     		adds	r3, r7, r3
+ 389 0168 1B78     		ldrb	r3, [r3]
+ 390 016a 002B     		cmp	r3, #0
+ 391 016c 0AD0     		beq	.L20
+ 182:main.c        ****                 {
+ 183:main.c        ****                     buttonData = 0;
+ 392              		.loc 1 183 0
+ 393 016e 6E23     		movs	r3, #110
+ 394 0170 FB18     		adds	r3, r7, r3
+ 395 0172 0022     		movs	r2, #0
+ 396 0174 1A70     		strb	r2, [r3]
+ 184:main.c        ****                     debounce--;               
+ 397              		.loc 1 184 0
+ 398 0176 6D23     		movs	r3, #109
+ 399 0178 FB18     		adds	r3, r7, r3
+ 400 017a 1A78     		ldrb	r2, [r3]
+ 401 017c 6D23     		movs	r3, #109
+ 402 017e FB18     		adds	r3, r7, r3
+ 403 0180 013A     		subs	r2, r2, #1
+ 404 0182 1A70     		strb	r2, [r3]
+ 405              	.L20:
+ 185:main.c        ****                 }
+ 186:main.c        ****             }
+ 187:main.c        ****             i2cBuf[BUTTON] = buttonData; /* Update I2C register with pressed button value */
+ 406              		.loc 1 187 0
+ 407 0184 8A4B     		ldr	r3, .L51+4
+ 408 0186 6E22     		movs	r2, #110
+ 409 0188 BA18     		adds	r2, r7, r2
+ 410 018a 1278     		ldrb	r2, [r2]
+ 411 018c 5A70     		strb	r2, [r3, #1]
+ 412 018e B6E0     		b	.L21
+ 413              	.L18:
+ 188:main.c        **** 		}
+ 189:main.c        **** 		else /* Cheat mode - look at sequence and send back */
+ 190:main.c        **** 		{
+ 191:main.c        **** 			if(i2cBuf[INFO] == PASS || i2cBuf[INFO] == FAIL || i2cBuf[INFO] == INIT) /* Reset sequence for n
+ 414              		.loc 1 191 0
+ 415 0190 874B     		ldr	r3, .L51+4
+ 416 0192 1B78     		ldrb	r3, [r3]
+ 417 0194 202B     		cmp	r3, #32
+ 418 0196 07D0     		beq	.L22
+ 419              		.loc 1 191 0 is_stmt 0 discriminator 1
+ 420 0198 854B     		ldr	r3, .L51+4
+ 421 019a 1B78     		ldrb	r3, [r3]
+ 422 019c 102B     		cmp	r3, #16
+ 423 019e 03D0     		beq	.L22
+ 424              		.loc 1 191 0 discriminator 2
+ 425 01a0 834B     		ldr	r3, .L51+4
+ 426 01a2 1B78     		ldrb	r3, [r3]
+ 427 01a4 402B     		cmp	r3, #64
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 12
+
+
+ 428 01a6 08D1     		bne	.L23
+ 429              	.L22:
+ 192:main.c        **** 			{
+ 193:main.c        **** 				sequenceCount = 1;
+ 430              		.loc 1 193 0 is_stmt 1
+ 431 01a8 6923     		movs	r3, #105
+ 432 01aa FB18     		adds	r3, r7, r3
+ 433 01ac 0122     		movs	r2, #1
+ 434 01ae 1A70     		strb	r2, [r3]
+ 194:main.c        **** 				doneFlag = FALSE;
+ 435              		.loc 1 194 0
+ 436 01b0 6823     		movs	r3, #104
+ 437 01b2 FB18     		adds	r3, r7, r3
+ 438 01b4 0022     		movs	r2, #0
+ 439 01b6 1A70     		strb	r2, [r3]
+ 440 01b8 A1E0     		b	.L21
+ 441              	.L23:
+ 195:main.c        **** 			}
+ 196:main.c        **** 			else /* Game in progress */
+ 197:main.c        **** 			{
+ 198:main.c        **** 				for(i=0;i<sequenceCount;i++) /* Capture the sequence */
+ 442              		.loc 1 198 0
+ 443 01ba 6F23     		movs	r3, #111
+ 444 01bc FB18     		adds	r3, r7, r3
+ 445 01be 0022     		movs	r2, #0
+ 446 01c0 1A70     		strb	r2, [r3]
+ 447 01c2 50E0     		b	.L24
+ 448              	.L26:
+ 199:main.c        **** 				{
+ 200:main.c        **** 					while(i2cBuf[INFO] == RUN)
+ 201:main.c        **** 					{
+ 202:main.c        **** 						CyDelay(1); 	/* Wait until we have button press info from master */	
+ 449              		.loc 1 202 0
+ 450 01c4 0120     		movs	r0, #1
+ 451 01c6 FFF7FEFF 		bl	CyDelay
+ 203:main.c        **** 						checkSpeed();	/* Check for new speed value */
+ 452              		.loc 1 203 0
+ 453 01ca FFF7FEFF 		bl	checkSpeed
+ 454              	.L25:
+ 200:main.c        **** 					{
+ 455              		.loc 1 200 0
+ 456 01ce 784B     		ldr	r3, .L51+4
+ 457 01d0 1B78     		ldrb	r3, [r3]
+ 458 01d2 002B     		cmp	r3, #0
+ 459 01d4 F6D0     		beq	.L26
+ 204:main.c        **** 					}
+ 205:main.c        **** 					if(i2cBuf[INFO] == PASS || i2cBuf[INFO] == FAIL ) /* We have completed the game */
+ 460              		.loc 1 205 0
+ 461 01d6 764B     		ldr	r3, .L51+4
+ 462 01d8 1B78     		ldrb	r3, [r3]
+ 463 01da 202B     		cmp	r3, #32
+ 464 01dc 03D0     		beq	.L27
+ 465              		.loc 1 205 0 is_stmt 0 discriminator 1
+ 466 01de 744B     		ldr	r3, .L51+4
+ 467 01e0 1B78     		ldrb	r3, [r3]
+ 468 01e2 102B     		cmp	r3, #16
+ 469 01e4 16D1     		bne	.L28
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 13
+
+
+ 470              	.L27:
+ 206:main.c        **** 					{
+ 207:main.c        **** 						doneFlag = TRUE;
+ 471              		.loc 1 207 0 is_stmt 1
+ 472 01e6 6823     		movs	r3, #104
+ 473 01e8 FB18     		adds	r3, r7, r3
+ 474 01ea 0122     		movs	r2, #1
+ 475 01ec 1A70     		strb	r2, [r3]
+ 208:main.c        **** 						LEDreg_Write(ALLOFF);
+ 476              		.loc 1 208 0
+ 477 01ee 0F20     		movs	r0, #15
+ 478 01f0 FFF7FEFF 		bl	LEDreg_Write
+ 209:main.c        ****                         if(i2cBuf[INFO] == PASS)
+ 479              		.loc 1 209 0
+ 480 01f4 6E4B     		ldr	r3, .L51+4
+ 481 01f6 1B78     		ldrb	r3, [r3]
+ 482 01f8 202B     		cmp	r3, #32
+ 483 01fa 2CD1     		bne	.L48
+ 210:main.c        ****                         {
+ 211:main.c        ****                             if(endFlag == FALSE)
+ 484              		.loc 1 211 0
+ 485 01fc 6623     		movs	r3, #102
+ 486 01fe FB18     		adds	r3, r7, r3
+ 487 0200 1B88     		ldrh	r3, [r3]
+ 488 0202 002B     		cmp	r3, #0
+ 489 0204 27D1     		bne	.L48
+ 212:main.c        ****                             {
+ 213:main.c        ****                                 playSong();
+ 490              		.loc 1 213 0
+ 491 0206 FFF7FEFF 		bl	playSong
+ 214:main.c        ****                                 endFlag = TRUE; /* Flag so that pass song only plays once */
+ 492              		.loc 1 214 0
+ 493 020a 6623     		movs	r3, #102
+ 494 020c FB18     		adds	r3, r7, r3
+ 495 020e 0122     		movs	r2, #1
+ 496 0210 1A80     		strh	r2, [r3]
+ 209:main.c        ****                         {
+ 497              		.loc 1 209 0
+ 498 0212 20E0     		b	.L48
+ 499              	.L28:
+ 215:main.c        ****                             }
+ 216:main.c        ****                         }
+ 217:main.c        **** 					}
+ 218:main.c        **** 					else /* Game still in progress - wait for next value from master */
+ 219:main.c        **** 					{
+ 220:main.c        **** 						sequence[i] = i2cBuf[INFO]; /* Capture the button press */
+ 500              		.loc 1 220 0
+ 501 0214 6F23     		movs	r3, #111
+ 502 0216 FB18     		adds	r3, r7, r3
+ 503 0218 1B78     		ldrb	r3, [r3]
+ 504 021a 654A     		ldr	r2, .L51+4
+ 505 021c 1178     		ldrb	r1, [r2]
+ 506 021e 3A00     		movs	r2, r7
+ 507 0220 D154     		strb	r1, [r2, r3]
+ 221:main.c        **** 						LEDreg_Write(~sequence[i]); /* Turn on LED for this button */
+ 508              		.loc 1 221 0
+ 509 0222 6F23     		movs	r3, #111
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 14
+
+
+ 510 0224 FB18     		adds	r3, r7, r3
+ 511 0226 1B78     		ldrb	r3, [r3]
+ 512 0228 3A00     		movs	r2, r7
+ 513 022a D35C     		ldrb	r3, [r2, r3]
+ 514 022c DB43     		mvns	r3, r3
+ 515 022e DBB2     		uxtb	r3, r3
+ 516 0230 1800     		movs	r0, r3
+ 517 0232 FFF7FEFF 		bl	LEDreg_Write
+ 222:main.c        **** 						while(i2cBuf[INFO] != RUN)
+ 518              		.loc 1 222 0
+ 519 0236 02E0     		b	.L31
+ 520              	.L32:
+ 223:main.c        **** 						{	
+ 224:main.c        **** 							CyDelay(1); /* Wait until we have no button press */
+ 521              		.loc 1 224 0
+ 522 0238 0120     		movs	r0, #1
+ 523 023a FFF7FEFF 		bl	CyDelay
+ 524              	.L31:
+ 222:main.c        **** 						while(i2cBuf[INFO] != RUN)
+ 525              		.loc 1 222 0
+ 526 023e 5C4B     		ldr	r3, .L51+4
+ 527 0240 1B78     		ldrb	r3, [r3]
+ 528 0242 002B     		cmp	r3, #0
+ 529 0244 F8D1     		bne	.L32
+ 225:main.c        **** 						}
+ 226:main.c        **** 						LEDreg_Write(ALLOFF);	/* Turn LED back off again */
+ 530              		.loc 1 226 0
+ 531 0246 0F20     		movs	r0, #15
+ 532 0248 FFF7FEFF 		bl	LEDreg_Write
+ 227:main.c        ****                         endFlag = FALSE;        /* Reset flag to play pass song */
+ 533              		.loc 1 227 0
+ 534 024c 6623     		movs	r3, #102
+ 535 024e FB18     		adds	r3, r7, r3
+ 536 0250 0022     		movs	r2, #0
+ 537 0252 1A80     		strh	r2, [r3]
+ 538 0254 00E0     		b	.L30
+ 539              	.L48:
+ 209:main.c        ****                         {
+ 540              		.loc 1 209 0
+ 541 0256 C046     		nop
+ 542              	.L30:
+ 198:main.c        **** 				{
+ 543              		.loc 1 198 0 discriminator 2
+ 544 0258 6F23     		movs	r3, #111
+ 545 025a FB18     		adds	r3, r7, r3
+ 546 025c 1A78     		ldrb	r2, [r3]
+ 547 025e 6F23     		movs	r3, #111
+ 548 0260 FB18     		adds	r3, r7, r3
+ 549 0262 0132     		adds	r2, r2, #1
+ 550 0264 1A70     		strb	r2, [r3]
+ 551              	.L24:
+ 198:main.c        **** 				{
+ 552              		.loc 1 198 0 is_stmt 0 discriminator 1
+ 553 0266 6F23     		movs	r3, #111
+ 554 0268 FA18     		adds	r2, r7, r3
+ 555 026a 6923     		movs	r3, #105
+ 556 026c FB18     		adds	r3, r7, r3
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 15
+
+
+ 557 026e 1278     		ldrb	r2, [r2]
+ 558 0270 1B78     		ldrb	r3, [r3]
+ 559 0272 9A42     		cmp	r2, r3
+ 560 0274 ABD3     		bcc	.L25
+ 228:main.c        **** 					}
+ 229:main.c        **** 				}
+ 230:main.c        **** 				CyDelay(400); /* Wait for master to be looking for user input */
+ 561              		.loc 1 230 0 is_stmt 1
+ 562 0276 C823     		movs	r3, #200
+ 563 0278 5B00     		lsls	r3, r3, #1
+ 564 027a 1800     		movs	r0, r3
+ 565 027c FFF7FEFF 		bl	CyDelay
+ 231:main.c        **** 				if(!doneFlag) /* Game still in progress */
+ 566              		.loc 1 231 0
+ 567 0280 6823     		movs	r3, #104
+ 568 0282 FB18     		adds	r3, r7, r3
+ 569 0284 1B78     		ldrb	r3, [r3]
+ 570 0286 002B     		cmp	r3, #0
+ 571 0288 39D1     		bne	.L21
+ 232:main.c        **** 				{
+ 233:main.c        **** 					for(i=0;i<sequenceCount;i++) /* Send back the sequence */
+ 572              		.loc 1 233 0
+ 573 028a 6F23     		movs	r3, #111
+ 574 028c FB18     		adds	r3, r7, r3
+ 575 028e 0022     		movs	r2, #0
+ 576 0290 1A70     		strb	r2, [r3]
+ 577 0292 25E0     		b	.L34
+ 578              	.L35:
+ 234:main.c        **** 					{
+ 235:main.c        **** 						i2cBuf[BUTTON] = sequence[i]; /* Send button press */
+ 579              		.loc 1 235 0 discriminator 3
+ 580 0294 6F23     		movs	r3, #111
+ 581 0296 FB18     		adds	r3, r7, r3
+ 582 0298 1B78     		ldrb	r3, [r3]
+ 583 029a 3A00     		movs	r2, r7
+ 584 029c D25C     		ldrb	r2, [r2, r3]
+ 585 029e 444B     		ldr	r3, .L51+4
+ 586 02a0 5A70     		strb	r2, [r3, #1]
+ 236:main.c        **** 						LEDreg_Write(~sequence[i]); /* Turn on LED */
+ 587              		.loc 1 236 0 discriminator 3
+ 588 02a2 6F23     		movs	r3, #111
+ 589 02a4 FB18     		adds	r3, r7, r3
+ 590 02a6 1B78     		ldrb	r3, [r3]
+ 591 02a8 3A00     		movs	r2, r7
+ 592 02aa D35C     		ldrb	r3, [r2, r3]
+ 593 02ac DB43     		mvns	r3, r3
+ 594 02ae DBB2     		uxtb	r3, r3
+ 595 02b0 1800     		movs	r0, r3
+ 596 02b2 FFF7FEFF 		bl	LEDreg_Write
+ 237:main.c        **** 						CyDelay(60); /* Wait long enough for master to get the button press */
+ 597              		.loc 1 237 0 discriminator 3
+ 598 02b6 3C20     		movs	r0, #60
+ 599 02b8 FFF7FEFF 		bl	CyDelay
+ 238:main.c        **** 						i2cBuf[BUTTON] = 0; /* Clear button press */
+ 600              		.loc 1 238 0 discriminator 3
+ 601 02bc 3C4B     		ldr	r3, .L51+4
+ 602 02be 0022     		movs	r2, #0
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 16
+
+
+ 603 02c0 5A70     		strb	r2, [r3, #1]
+ 239:main.c        **** 						LEDreg_Write(ALLOFF); /* Turn off LED */
+ 604              		.loc 1 239 0 discriminator 3
+ 605 02c2 0F20     		movs	r0, #15
+ 606 02c4 FFF7FEFF 		bl	LEDreg_Write
+ 240:main.c        **** 						CyDelay(60); /* Wait long enough for master to get button clear */
+ 607              		.loc 1 240 0 discriminator 3
+ 608 02c8 3C20     		movs	r0, #60
+ 609 02ca FFF7FEFF 		bl	CyDelay
+ 241:main.c        **** 						checkSpeed();	/* Check for new speed value */
+ 610              		.loc 1 241 0 discriminator 3
+ 611 02ce FFF7FEFF 		bl	checkSpeed
+ 233:main.c        **** 					{
+ 612              		.loc 1 233 0 discriminator 3
+ 613 02d2 6F23     		movs	r3, #111
+ 614 02d4 FB18     		adds	r3, r7, r3
+ 615 02d6 1A78     		ldrb	r2, [r3]
+ 616 02d8 6F23     		movs	r3, #111
+ 617 02da FB18     		adds	r3, r7, r3
+ 618 02dc 0132     		adds	r2, r2, #1
+ 619 02de 1A70     		strb	r2, [r3]
+ 620              	.L34:
+ 233:main.c        **** 					{
+ 621              		.loc 1 233 0 is_stmt 0 discriminator 1
+ 622 02e0 6F23     		movs	r3, #111
+ 623 02e2 FA18     		adds	r2, r7, r3
+ 624 02e4 6923     		movs	r3, #105
+ 625 02e6 FB18     		adds	r3, r7, r3
+ 626 02e8 1278     		ldrb	r2, [r2]
+ 627 02ea 1B78     		ldrb	r3, [r3]
+ 628 02ec 9A42     		cmp	r2, r3
+ 629 02ee D1D3     		bcc	.L35
+ 242:main.c        **** 					}
+ 243:main.c        **** 					sequenceCount++; /* Get read for next sequence */
+ 630              		.loc 1 243 0 is_stmt 1
+ 631 02f0 6923     		movs	r3, #105
+ 632 02f2 FB18     		adds	r3, r7, r3
+ 633 02f4 1A78     		ldrb	r2, [r3]
+ 634 02f6 6923     		movs	r3, #105
+ 635 02f8 FB18     		adds	r3, r7, r3
+ 636 02fa 0132     		adds	r2, r2, #1
+ 637 02fc 1A70     		strb	r2, [r3]
+ 638              	.L21:
+ 244:main.c        **** 				}
+ 245:main.c        **** 			}
+ 246:main.c        **** 		} /* End Cheat Mode */
+ 247:main.c        ****         
+ 248:main.c        **** 		/****************************************************************************************/
+ 249:main.c        **** 		/* Update LCD based on info register */
+ 250:main.c        **** 		/****************************************************************************************/
+ 251:main.c        **** 	    #ifdef LCD_ENABLE
+ 252:main.c        ****             LCD_Position(0,0);
+ 639              		.loc 1 252 0
+ 640 02fe 0021     		movs	r1, #0
+ 641 0300 0020     		movs	r0, #0
+ 642 0302 FFF7FEFF 		bl	LCD_Position
+ 253:main.c        **** 		#endif
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 17
+
+
+ 254:main.c        ****         
+ 255:main.c        **** 		i = i2cBuf[INFO];
+ 643              		.loc 1 255 0
+ 644 0306 6F23     		movs	r3, #111
+ 645 0308 FB18     		adds	r3, r7, r3
+ 646 030a 294A     		ldr	r2, .L51+4
+ 647 030c 1278     		ldrb	r2, [r2]
+ 648 030e 1A70     		strb	r2, [r3]
+ 256:main.c        **** 		switch(i)
+ 649              		.loc 1 256 0
+ 650 0310 6F23     		movs	r3, #111
+ 651 0312 FB18     		adds	r3, r7, r3
+ 652 0314 1B78     		ldrb	r3, [r3]
+ 653 0316 102B     		cmp	r3, #16
+ 654 0318 1CD0     		beq	.L37
+ 655 031a 02DC     		bgt	.L38
+ 656 031c 002B     		cmp	r3, #0
+ 657 031e 29D0     		beq	.L39
+ 658 0320 34E0     		b	.L36
+ 659              	.L38:
+ 660 0322 202B     		cmp	r3, #32
+ 661 0324 06D0     		beq	.L40
+ 662 0326 402B     		cmp	r3, #64
+ 663 0328 30D1     		bne	.L36
+ 257:main.c        **** 		{
+ 258:main.c        **** 			case INIT:
+ 259:main.c        **** 			    #ifdef LCD_ENABLE
+ 260:main.c        ****                     LCD_PrintString("INIT");
+ 664              		.loc 1 260 0
+ 665 032a 284B     		ldr	r3, .L51+32
+ 666 032c 1800     		movs	r0, r3
+ 667 032e FFF7FEFF 		bl	LCD_PrintString
+ 261:main.c        ****                 #endif
+ 262:main.c        **** 				break;
+ 668              		.loc 1 262 0
+ 669 0332 56E0     		b	.L42
+ 670              	.L40:
+ 263:main.c        **** 			case PASS:
+ 264:main.c        **** 			    #ifdef LCD_ENABLE
+ 265:main.c        ****                     LCD_PrintString("PASS");
+ 671              		.loc 1 265 0
+ 672 0334 264B     		ldr	r3, .L51+36
+ 673 0336 1800     		movs	r0, r3
+ 674 0338 FFF7FEFF 		bl	LCD_PrintString
+ 266:main.c        ****                 #endif
+ 267:main.c        **** 				if(endFlag == FALSE) /* Start song when we transition to pass state */
+ 675              		.loc 1 267 0
+ 676 033c 6623     		movs	r3, #102
+ 677 033e FB18     		adds	r3, r7, r3
+ 678 0340 1B88     		ldrh	r3, [r3]
+ 679 0342 002B     		cmp	r3, #0
+ 680 0344 4AD1     		bne	.L49
+ 268:main.c        **** 				{
+ 269:main.c        **** 					playSong();
+ 681              		.loc 1 269 0
+ 682 0346 FFF7FEFF 		bl	playSong
+ 270:main.c        ****                     endFlag = TRUE;
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 18
+
+
+ 683              		.loc 1 270 0
+ 684 034a 6623     		movs	r3, #102
+ 685 034c FB18     		adds	r3, r7, r3
+ 686 034e 0122     		movs	r2, #1
+ 687 0350 1A80     		strh	r2, [r3]
+ 271:main.c        ****                 }
+ 272:main.c        ****                 break;
+ 688              		.loc 1 272 0
+ 689 0352 43E0     		b	.L49
+ 690              	.L37:
+ 273:main.c        **** 			case FAIL:
+ 274:main.c        **** 				#ifdef LCD_ENABLE
+ 275:main.c        ****                     LCD_PrintString("FAIL");
+ 691              		.loc 1 275 0
+ 692 0354 1F4B     		ldr	r3, .L51+40
+ 693 0356 1800     		movs	r0, r3
+ 694 0358 FFF7FEFF 		bl	LCD_PrintString
+ 276:main.c        ****                 #endif
+ 277:main.c        ****                 if(endFlag == FALSE) /* Start beep when we transition to fail state */
+ 695              		.loc 1 277 0
+ 696 035c 6623     		movs	r3, #102
+ 697 035e FB18     		adds	r3, r7, r3
+ 698 0360 1B88     		ldrh	r3, [r3]
+ 699 0362 002B     		cmp	r3, #0
+ 700 0364 3CD1     		bne	.L50
+ 278:main.c        **** 				{                     /* The stop is done by the PWM isr */
+ 279:main.c        **** 					PWM_Fail_Start();
+ 701              		.loc 1 279 0
+ 702 0366 FFF7FEFF 		bl	PWM_Fail_Start
+ 280:main.c        ****                     endFlag = TRUE;
+ 703              		.loc 1 280 0
+ 704 036a 6623     		movs	r3, #102
+ 705 036c FB18     		adds	r3, r7, r3
+ 706 036e 0122     		movs	r2, #1
+ 707 0370 1A80     		strh	r2, [r3]
+ 281:main.c        ****                 }
+ 282:main.c        **** 				break;
+ 708              		.loc 1 282 0
+ 709 0372 35E0     		b	.L50
+ 710              	.L39:
+ 283:main.c        **** 			case RUN:
+ 284:main.c        **** 				#ifdef LCD_ENABLE	
+ 285:main.c        ****                     LCD_PrintString("RUN ");
+ 711              		.loc 1 285 0
+ 712 0374 184B     		ldr	r3, .L51+44
+ 713 0376 1800     		movs	r0, r3
+ 714 0378 FFF7FEFF 		bl	LCD_PrintString
+ 286:main.c        ****                 #endif
+ 287:main.c        **** 				endFlag = FALSE; /* Reset fail flag for next game */
+ 715              		.loc 1 287 0
+ 716 037c 6623     		movs	r3, #102
+ 717 037e FB18     		adds	r3, r7, r3
+ 718 0380 0022     		movs	r2, #0
+ 719 0382 1A80     		strh	r2, [r3]
+ 288:main.c        **** 				sleepCount=SLEEP_COUNT; /* Reset sleep count */
+ 720              		.loc 1 288 0
+ 721 0384 0E4B     		ldr	r3, .L51+20
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 19
+
+
+ 722 0386 6422     		movs	r2, #100
+ 723 0388 1A70     		strb	r2, [r3]
+ 289:main.c        **** 				break;
+ 724              		.loc 1 289 0
+ 725 038a 2AE0     		b	.L42
+ 726              	.L36:
+ 290:main.c        **** 			default: 	/* If we get here, an LED is being lit by the host */ 
+ 291:main.c        **** 						/* We need to light same one on slave */
+ 292:main.c        **** 				LEDreg_Write(~i);
+ 727              		.loc 1 292 0
+ 728 038c 6F23     		movs	r3, #111
+ 729 038e FB18     		adds	r3, r7, r3
+ 730 0390 1B78     		ldrb	r3, [r3]
+ 731 0392 DB43     		mvns	r3, r3
+ 732 0394 DBB2     		uxtb	r3, r3
+ 733 0396 1800     		movs	r0, r3
+ 734 0398 FFF7FEFF 		bl	LEDreg_Write
+ 293:main.c        **** 				buttonData = 1; /* Set button data flag so that we don't turn off the LED right away */		
+ 735              		.loc 1 293 0
+ 736 039c 6E23     		movs	r3, #110
+ 737 039e FB18     		adds	r3, r7, r3
+ 738 03a0 0122     		movs	r2, #1
+ 739 03a2 1A70     		strb	r2, [r3]
+ 294:main.c        **** 				sleepCount=SLEEP_COUNT; /* Reset sleep count */
+ 740              		.loc 1 294 0
+ 741 03a4 064B     		ldr	r3, .L51+20
+ 742 03a6 6422     		movs	r2, #100
+ 743 03a8 1A70     		strb	r2, [r3]
+ 295:main.c        **** 				break;
+ 744              		.loc 1 295 0
+ 745 03aa 1AE0     		b	.L42
+ 746              	.L52:
+ 747              		.align	2
+ 748              	.L51:
+ 749 03ac 00000000 		.word	.LC2
+ 750 03b0 00000000 		.word	i2cBuf
+ 751 03b4 CD0C0000 		.word	3277
+ 752 03b8 00000000 		.word	FailISR
+ 753 03bc 00000000 		.word	SleepISR
+ 754 03c0 00000000 		.word	sleepCount
+ 755 03c4 08000000 		.word	.LC8
+ 756 03c8 10000000 		.word	.LC10
+ 757 03cc 18000000 		.word	.LC12
+ 758 03d0 20000000 		.word	.LC14
+ 759 03d4 28000000 		.word	.LC16
+ 760 03d8 30000000 		.word	.LC18
+ 761              	.L49:
+ 272:main.c        **** 			case FAIL:
+ 762              		.loc 1 272 0
+ 763 03dc C046     		nop
+ 764 03de 00E0     		b	.L42
+ 765              	.L50:
+ 282:main.c        **** 			case RUN:
+ 766              		.loc 1 282 0
+ 767 03e0 C046     		nop
+ 768              	.L42:
+ 296:main.c        **** 		}
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 20
+
+
+ 297:main.c        **** 
+ 298:main.c        **** 		/* If LED is not written by either button press on slave or from host then turn off all LEDs */
+ 299:main.c        **** 		if(!buttonData)
+ 769              		.loc 1 299 0
+ 770 03e2 6E23     		movs	r3, #110
+ 771 03e4 FB18     		adds	r3, r7, r3
+ 772 03e6 1B78     		ldrb	r3, [r3]
+ 773 03e8 002B     		cmp	r3, #0
+ 774 03ea 02D1     		bne	.L45
+ 300:main.c        **** 		{
+ 301:main.c        **** 			LEDreg_Write(ALLOFF);
+ 775              		.loc 1 301 0
+ 776 03ec 0F20     		movs	r0, #15
+ 777 03ee FFF7FEFF 		bl	LEDreg_Write
+ 778              	.L45:
+ 302:main.c        **** 		}
+ 303:main.c        **** 
+ 304:main.c        **** 		/****************************************************************************************/
+ 305:main.c        **** 		/* Low Power Mode */
+ 306:main.c        **** 		/****************************************************************************************/
+ 307:main.c        **** 		if (!sleepCount) /* Time to go to sleep */
+ 779              		.loc 1 307 0
+ 780 03f2 174B     		ldr	r3, .L53
+ 781 03f4 1B78     		ldrb	r3, [r3]
+ 782 03f6 002B     		cmp	r3, #0
+ 783 03f8 00D0     		beq	.LCB630
+ 784 03fa 55E6     		b	.L47	@long jump
+ 785              	.LCB630:
+ 308:main.c        **** 		{
+ 309:main.c        ****             CySysWdtDisable(CY_SYS_WDT_COUNTER0_MASK); /* Turn off the WDT interrupt so that it doe
+ 786              		.loc 1 309 0
+ 787 03fc 0120     		movs	r0, #1
+ 788 03fe FFF7FEFF 		bl	CySysWdtDisable
+ 310:main.c        **** 			#if (!LED_Indicator__DISABLED)
+ 311:main.c        ****                 Sleep_Reg_Write(TRUE); /* Turn off 3-color LED */
+ 789              		.loc 1 311 0
+ 790 0402 0120     		movs	r0, #1
+ 791 0404 FFF7FEFF 		bl	Sleep_Reg_Write
+ 312:main.c        ****             #endif
+ 313:main.c        ****             #ifdef LCD_ENABLE	
+ 314:main.c        ****                 LCD_Sleep();
+ 792              		.loc 1 314 0
+ 793 0408 FFF7FEFF 		bl	LCD_Sleep
+ 315:main.c        **** 			#endif
+ 316:main.c        **** 			ADC_Sleep();                
+ 794              		.loc 1 316 0
+ 795 040c FFF7FEFF 		bl	ADC_Sleep
+ 317:main.c        **** 			LED_AWAKE_Write(FALSE); /* Turn off LED */
+ 796              		.loc 1 317 0
+ 797 0410 0020     		movs	r0, #0
+ 798 0412 FFF7FEFF 		bl	LED_AWAKE_Write
+ 318:main.c        **** 			LEDreg_Write(ALLOFF);	/* Turn off all button LEDs */
+ 799              		.loc 1 318 0
+ 800 0416 0F20     		movs	r0, #15
+ 801 0418 FFF7FEFF 		bl	LEDreg_Write
+ 319:main.c        ****             EZI2C_Sleep();
+ 802              		.loc 1 319 0
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 21
+
+
+ 803 041c FFF7FEFF 		bl	EZI2C_Sleep
+ 320:main.c        **** 
+ 321:main.c        ****             CySysPmDeepSleep(); /* Prepare to Deep Sleep: enables wakeup interrupt */
+ 804              		.loc 1 321 0
+ 805 0420 FFF7FEFF 		bl	CySysPmDeepSleep
+ 322:main.c        ****             /* When we get here, it is time to wake back up */
+ 323:main.c        ****             
+ 324:main.c        ****             EZI2C_Wakeup();; /* Restore for Active operation */
+ 806              		.loc 1 324 0
+ 807 0424 FFF7FEFF 		bl	EZI2C_Wakeup
+ 325:main.c        **** 			
+ 326:main.c        **** 			LED_AWAKE_Write(TRUE); /* Turn on LED */
+ 808              		.loc 1 326 0
+ 809 0428 0120     		movs	r0, #1
+ 810 042a FFF7FEFF 		bl	LED_AWAKE_Write
+ 327:main.c        **** 			ADC_Wakeup();
+ 811              		.loc 1 327 0
+ 812 042e FFF7FEFF 		bl	ADC_Wakeup
+ 328:main.c        **** 		    #ifdef LCD_ENABLE
+ 329:main.c        ****                 LCD_Wakeup();
+ 813              		.loc 1 329 0
+ 814 0432 FFF7FEFF 		bl	LCD_Wakeup
+ 330:main.c        **** 			#endif
+ 331:main.c        ****             LEDreg_Write(ALLOFF); /* Reset the LED control register since it wakes with all 0's */	
+ 815              		.loc 1 331 0
+ 816 0436 0F20     		movs	r0, #15
+ 817 0438 FFF7FEFF 		bl	LEDreg_Write
+ 332:main.c        ****             #if (!LED_Indicator__DISABLED)
+ 333:main.c        ****                 Sleep_Reg_Write(FALSE); /* Turn on 3-color LED */
+ 818              		.loc 1 333 0
+ 819 043c 0020     		movs	r0, #0
+ 820 043e FFF7FEFF 		bl	Sleep_Reg_Write
+ 334:main.c        ****             #endif
+ 335:main.c        ****                 CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK); /* Turn off the WDT interrupt so that it 
+ 821              		.loc 1 335 0
+ 822 0442 0120     		movs	r0, #1
+ 823 0444 FFF7FEFF 		bl	CySysWdtEnable
+ 336:main.c        **** 			sleepCount=SLEEP_COUNT; /* Reset sleep count */
+ 824              		.loc 1 336 0
+ 825 0448 014B     		ldr	r3, .L53
+ 826 044a 6422     		movs	r2, #100
+ 827 044c 1A70     		strb	r2, [r3]
+ 337:main.c        **** 		} /* End of low power mode */
+ 338:main.c        **** 	} /* End of infinite loop */
+ 828              		.loc 1 338 0
+ 829 044e 2BE6     		b	.L47
+ 830              	.L54:
+ 831              		.align	2
+ 832              	.L53:
+ 833 0450 00000000 		.word	sleepCount
+ 834              		.cfi_endproc
+ 835              	.LFE34:
+ 836              		.size	main, .-main
+ 837              		.section	.text.checkSpeed,"ax",%progbits
+ 838              		.align	2
+ 839              		.global	checkSpeed
+ 840              		.code	16
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 22
+
+
+ 841              		.thumb_func
+ 842              		.type	checkSpeed, %function
+ 843              	checkSpeed:
+ 844              	.LFB35:
+ 339:main.c        **** } /* End of main */
+ 340:main.c        **** 
+ 341:main.c        **** 
+ 342:main.c        **** /****************************************************************************************/
+ 343:main.c        **** /* Check speed control and update I2C register and LCD */
+ 344:main.c        **** /****************************************************************************************/
+ 345:main.c        **** void checkSpeed(void)
+ 346:main.c        **** {
+ 845              		.loc 1 346 0
+ 846              		.cfi_startproc
+ 847              		@ args = 0, pretend = 0, frame = 0
+ 848              		@ frame_needed = 1, uses_anonymous_args = 0
+ 849 0000 80B5     		push	{r7, lr}
+ 850              		.cfi_def_cfa_offset 8
+ 851              		.cfi_offset 7, -8
+ 852              		.cfi_offset 14, -4
+ 853 0002 00AF     		add	r7, sp, #0
+ 854              		.cfi_def_cfa_register 7
+ 347:main.c        ****     if(ADC_IsEndConversion(ADC_RETURN_STATUS)) /* A conversion result is ready */
+ 855              		.loc 1 347 0
+ 856 0004 0120     		movs	r0, #1
+ 857 0006 FFF7FEFF 		bl	ADC_IsEndConversion
+ 858 000a 031E     		subs	r3, r0, #0
+ 859 000c 19D0     		beq	.L56
+ 348:main.c        ****     {
+ 349:main.c        ****         resultADC = ADC_GetResult16(0); /* Get result from channel 0 */
+ 860              		.loc 1 349 0
+ 861 000e 0020     		movs	r0, #0
+ 862 0010 FFF7FEFF 		bl	ADC_GetResult16
+ 863 0014 0300     		movs	r3, r0
+ 864 0016 9AB2     		uxth	r2, r3
+ 865 0018 124B     		ldr	r3, .L59
+ 866 001a 1A80     		strh	r2, [r3]
+ 350:main.c        ****         if(resultADC < 70)
+ 867              		.loc 1 350 0
+ 868 001c 114B     		ldr	r3, .L59
+ 869 001e 1B88     		ldrh	r3, [r3]
+ 870 0020 452B     		cmp	r3, #69
+ 871 0022 03D8     		bhi	.L57
+ 351:main.c        ****         {
+ 352:main.c        ****             speedVal = SPEED1;
+ 872              		.loc 1 352 0
+ 873 0024 104B     		ldr	r3, .L59+4
+ 874 0026 0122     		movs	r2, #1
+ 875 0028 1A70     		strb	r2, [r3]
+ 876 002a 0AE0     		b	.L56
+ 877              	.L57:
+ 353:main.c        ****         }
+ 354:main.c        ****         else if (resultADC < 220)
+ 878              		.loc 1 354 0
+ 879 002c 0D4B     		ldr	r3, .L59
+ 880 002e 1B88     		ldrh	r3, [r3]
+ 881 0030 DB2B     		cmp	r3, #219
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 23
+
+
+ 882 0032 03D8     		bhi	.L58
+ 355:main.c        ****         {
+ 356:main.c        ****             speedVal = SPEED2;
+ 883              		.loc 1 356 0
+ 884 0034 0C4B     		ldr	r3, .L59+4
+ 885 0036 0222     		movs	r2, #2
+ 886 0038 1A70     		strb	r2, [r3]
+ 887 003a 02E0     		b	.L56
+ 888              	.L58:
+ 357:main.c        ****         }
+ 358:main.c        ****         else
+ 359:main.c        ****         {
+ 360:main.c        ****             speedVal = SPEED3;
+ 889              		.loc 1 360 0
+ 890 003c 0A4B     		ldr	r3, .L59+4
+ 891 003e 0422     		movs	r2, #4
+ 892 0040 1A70     		strb	r2, [r3]
+ 893              	.L56:
+ 361:main.c        ****         }
+ 362:main.c        ****     }
+ 363:main.c        **** 	i2cBuf[SPEED] = speedVal;
+ 894              		.loc 1 363 0
+ 895 0042 094B     		ldr	r3, .L59+4
+ 896 0044 1A78     		ldrb	r2, [r3]
+ 897 0046 094B     		ldr	r3, .L59+8
+ 898 0048 9A70     		strb	r2, [r3, #2]
+ 364:main.c        ****     #ifdef LCD_ENABLE
+ 365:main.c        ****         LCD_Position(1,8);
+ 899              		.loc 1 365 0
+ 900 004a 0821     		movs	r1, #8
+ 901 004c 0120     		movs	r0, #1
+ 902 004e FFF7FEFF 		bl	LCD_Position
+ 366:main.c        ****         LCD_PrintNumber(speedVal);
+ 903              		.loc 1 366 0
+ 904 0052 054B     		ldr	r3, .L59+4
+ 905 0054 1B78     		ldrb	r3, [r3]
+ 906 0056 1800     		movs	r0, r3
+ 907 0058 FFF7FEFF 		bl	LCD_PrintU32Number
+ 367:main.c        **** 	#endif
+ 368:main.c        **** }
+ 908              		.loc 1 368 0
+ 909 005c C046     		nop
+ 910 005e BD46     		mov	sp, r7
+ 911              		@ sp needed
+ 912 0060 80BD     		pop	{r7, pc}
+ 913              	.L60:
+ 914 0062 C046     		.align	2
+ 915              	.L59:
+ 916 0064 00000000 		.word	resultADC
+ 917 0068 00000000 		.word	speedVal
+ 918 006c 00000000 		.word	i2cBuf
+ 919              		.cfi_endproc
+ 920              	.LFE35:
+ 921              		.size	checkSpeed, .-checkSpeed
+ 922              		.section	.text.playSong,"ax",%progbits
+ 923              		.align	2
+ 924              		.global	playSong
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 24
+
+
+ 925              		.code	16
+ 926              		.thumb_func
+ 927              		.type	playSong, %function
+ 928              	playSong:
+ 929              	.LFB36:
+ 369:main.c        **** 
+ 370:main.c        **** /****************************************************************************************/
+ 371:main.c        **** /* Play the pass song */
+ 372:main.c        **** /****************************************************************************************/
+ 373:main.c        **** void playSong(void)
+ 374:main.c        **** {
+ 930              		.loc 1 374 0
+ 931              		.cfi_startproc
+ 932              		@ args = 0, pretend = 0, frame = 8
+ 933              		@ frame_needed = 1, uses_anonymous_args = 0
+ 934 0000 80B5     		push	{r7, lr}
+ 935              		.cfi_def_cfa_offset 8
+ 936              		.cfi_offset 7, -8
+ 937              		.cfi_offset 14, -4
+ 938 0002 82B0     		sub	sp, sp, #8
+ 939              		.cfi_def_cfa_offset 16
+ 940 0004 00AF     		add	r7, sp, #0
+ 941              		.cfi_def_cfa_register 7
+ 375:main.c        ****     /* Song Notes */
+ 376:main.c        ****     /* PWM period required is clock frequency divided by the note frequency */
+ 377:main.c        ****     #define CLK (10000)
+ 378:main.c        ****     #define E3  (CLK/165)
+ 379:main.c        ****     #define G3  (CLK/196)
+ 380:main.c        ****     #define A3  (CLK/220)
+ 381:main.c        ****     #define BF3 (CLK/233)
+ 382:main.c        ****     #define B3  (CLK/247)
+ 383:main.c        ****     #define C4  (CLK/262)
+ 384:main.c        ****     #define D4  (CLK/294)
+ 385:main.c        ****     #define E4  (CLK/330)
+ 386:main.c        ****     #define F4  (CLK/349)
+ 387:main.c        ****     #define G4  (CLK/392)
+ 388:main.c        ****     #define A4  (CLK/440)
+ 389:main.c        ****     #define RE  (0)
+ 390:main.c        ****     #define PAUSE (10)
+ 391:main.c        ****     
+ 392:main.c        ****     /* Note Durations: S - Sixteenth, E - Eighth, Q - quarter, LS - Long Sixteenth */
+ 393:main.c        ****     #define S   (150)
+ 394:main.c        ****     #define LS  (S*1.5)
+ 395:main.c        ****     #define E   (S*2)
+ 396:main.c        ****     #define Q   (E*2)
+ 397:main.c        **** 
+ 398:main.c        ****     static uint16 notes[]       = {E4, E4, E4, RE, C4, E4, G4, G3,                      /* First me
+ 399:main.c        ****                                    C4, RE, G3, RE, E3, RE, A3, RE, B3, RE, BF3, A3,     /* Second m
+ 400:main.c        ****                                    G3, E4, G4, A4, F4, G4, RE, E4, RE, C4, D4,  B3};    /* Third me
+ 401:main.c        ****     
+ 402:main.c        ****     static uint16 duration[]    = {S,  E,  S,  S,  S,  E,  Q,  Q,                       /* First me
+ 403:main.c        ****                                    E,  S,  S,  E,  E,  S,  S,  S,  S,  S,  S,   E,      /* Second m
+ 404:main.c        ****                                    LS, LS, LS, LS,  S,  S,  S,  S, S,  S,  S,   S};     /* Third me
+ 405:main.c        ****     
+ 406:main.c        ****     uint8 i;
+ 407:main.c        ****       
+ 408:main.c        ****     /* Play each note. Need to divide sizeof(notes) by 2 since it is an array of uint16's */
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 25
+
+
+ 409:main.c        ****     for (i = 0; i < (sizeof(notes)>>1); i++)
+ 942              		.loc 1 409 0
+ 943 0006 FB1D     		adds	r3, r7, #7
+ 944 0008 0022     		movs	r2, #0
+ 945 000a 1A70     		strb	r2, [r3]
+ 946 000c 2DE0     		b	.L62
+ 947              	.L63:
+ 410:main.c        ****     {
+ 411:main.c        ****         PWM_Pass_WritePeriod(notes[i]);
+ 948              		.loc 1 411 0 discriminator 3
+ 949 000e FB1D     		adds	r3, r7, #7
+ 950 0010 1A78     		ldrb	r2, [r3]
+ 951 0012 1A4B     		ldr	r3, .L64
+ 952 0014 5200     		lsls	r2, r2, #1
+ 953 0016 D35A     		ldrh	r3, [r2, r3]
+ 954 0018 1800     		movs	r0, r3
+ 955 001a FFF7FEFF 		bl	PWM_Pass_WritePeriod
+ 412:main.c        ****         PWM_Pass_WriteCounter(notes[i]);
+ 956              		.loc 1 412 0 discriminator 3
+ 957 001e FB1D     		adds	r3, r7, #7
+ 958 0020 1A78     		ldrb	r2, [r3]
+ 959 0022 164B     		ldr	r3, .L64
+ 960 0024 5200     		lsls	r2, r2, #1
+ 961 0026 D35A     		ldrh	r3, [r2, r3]
+ 962 0028 1800     		movs	r0, r3
+ 963 002a FFF7FEFF 		bl	PWM_Pass_WriteCounter
+ 413:main.c        ****         PWM_Pass_WriteCompare(notes[i]>>1);
+ 964              		.loc 1 413 0 discriminator 3
+ 965 002e FB1D     		adds	r3, r7, #7
+ 966 0030 1A78     		ldrb	r2, [r3]
+ 967 0032 124B     		ldr	r3, .L64
+ 968 0034 5200     		lsls	r2, r2, #1
+ 969 0036 D35A     		ldrh	r3, [r2, r3]
+ 970 0038 5B08     		lsrs	r3, r3, #1
+ 971 003a 9BB2     		uxth	r3, r3
+ 972 003c 1800     		movs	r0, r3
+ 973 003e FFF7FEFF 		bl	PWM_Pass_WriteCompare
+ 414:main.c        ****         PWM_Pass_Start();
+ 974              		.loc 1 414 0 discriminator 3
+ 975 0042 FFF7FEFF 		bl	PWM_Pass_Start
+ 415:main.c        ****         CyDelay(duration[i]);
+ 976              		.loc 1 415 0 discriminator 3
+ 977 0046 FB1D     		adds	r3, r7, #7
+ 978 0048 1A78     		ldrb	r2, [r3]
+ 979 004a 0D4B     		ldr	r3, .L64+4
+ 980 004c 5200     		lsls	r2, r2, #1
+ 981 004e D35A     		ldrh	r3, [r2, r3]
+ 982 0050 1800     		movs	r0, r3
+ 983 0052 FFF7FEFF 		bl	CyDelay
+ 416:main.c        ****         PWM_Pass_Stop();
+ 984              		.loc 1 416 0 discriminator 3
+ 985 0056 FFF7FEFF 		bl	PWM_Pass_Stop
+ 417:main.c        ****         CyDelay(PAUSE); /* Pause between notes */
+ 986              		.loc 1 417 0 discriminator 3
+ 987 005a 0A20     		movs	r0, #10
+ 988 005c FFF7FEFF 		bl	CyDelay
+ 409:main.c        ****     {
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 26
+
+
+ 989              		.loc 1 409 0 discriminator 3
+ 990 0060 FB1D     		adds	r3, r7, #7
+ 991 0062 1A78     		ldrb	r2, [r3]
+ 992 0064 FB1D     		adds	r3, r7, #7
+ 993 0066 0132     		adds	r2, r2, #1
+ 994 0068 1A70     		strb	r2, [r3]
+ 995              	.L62:
+ 409:main.c        ****     {
+ 996              		.loc 1 409 0 is_stmt 0 discriminator 1
+ 997 006a FB1D     		adds	r3, r7, #7
+ 998 006c 1B78     		ldrb	r3, [r3]
+ 999 006e 1F2B     		cmp	r3, #31
+ 1000 0070 CDD9     		bls	.L63
+ 418:main.c        ****     }
+ 419:main.c        **** }
+ 1001              		.loc 1 419 0 is_stmt 1
+ 1002 0072 C046     		nop
+ 1003 0074 BD46     		mov	sp, r7
+ 1004 0076 02B0     		add	sp, sp, #8
+ 1005              		@ sp needed
+ 1006 0078 80BD     		pop	{r7, pc}
+ 1007              	.L65:
+ 1008 007a C046     		.align	2
+ 1009              	.L64:
+ 1010 007c 08000000 		.word	notes.6069
+ 1011 0080 48000000 		.word	duration.6070
+ 1012              		.cfi_endproc
+ 1013              	.LFE36:
+ 1014              		.size	playSong, .-playSong
+ 1015              		.data
+ 1016              		.type	failCount.6031, %object
+ 1017              		.size	failCount.6031, 1
+ 1018              	failCount.6031:
+ 1019 0004 4B       		.byte	75
+ 1020 0005 000000   		.align	2
+ 1021              		.type	notes.6069, %object
+ 1022              		.size	notes.6069, 64
+ 1023              	notes.6069:
+ 1024 0008 1E00     		.short	30
+ 1025 000a 1E00     		.short	30
+ 1026 000c 1E00     		.short	30
+ 1027 000e 0000     		.short	0
+ 1028 0010 2600     		.short	38
+ 1029 0012 1E00     		.short	30
+ 1030 0014 1900     		.short	25
+ 1031 0016 3300     		.short	51
+ 1032 0018 2600     		.short	38
+ 1033 001a 0000     		.short	0
+ 1034 001c 3300     		.short	51
+ 1035 001e 0000     		.short	0
+ 1036 0020 3C00     		.short	60
+ 1037 0022 0000     		.short	0
+ 1038 0024 2D00     		.short	45
+ 1039 0026 0000     		.short	0
+ 1040 0028 2800     		.short	40
+ 1041 002a 0000     		.short	0
+ 1042 002c 2A00     		.short	42
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 27
+
+
+ 1043 002e 2D00     		.short	45
+ 1044 0030 3300     		.short	51
+ 1045 0032 1E00     		.short	30
+ 1046 0034 1900     		.short	25
+ 1047 0036 1600     		.short	22
+ 1048 0038 1C00     		.short	28
+ 1049 003a 1900     		.short	25
+ 1050 003c 0000     		.short	0
+ 1051 003e 1E00     		.short	30
+ 1052 0040 0000     		.short	0
+ 1053 0042 2600     		.short	38
+ 1054 0044 2200     		.short	34
+ 1055 0046 2800     		.short	40
+ 1056              		.align	2
+ 1057              		.type	duration.6070, %object
+ 1058              		.size	duration.6070, 64
+ 1059              	duration.6070:
+ 1060 0048 9600     		.short	150
+ 1061 004a 2C01     		.short	300
+ 1062 004c 9600     		.short	150
+ 1063 004e 9600     		.short	150
+ 1064 0050 9600     		.short	150
+ 1065 0052 2C01     		.short	300
+ 1066 0054 5802     		.short	600
+ 1067 0056 5802     		.short	600
+ 1068 0058 2C01     		.short	300
+ 1069 005a 9600     		.short	150
+ 1070 005c 9600     		.short	150
+ 1071 005e 2C01     		.short	300
+ 1072 0060 2C01     		.short	300
+ 1073 0062 9600     		.short	150
+ 1074 0064 9600     		.short	150
+ 1075 0066 9600     		.short	150
+ 1076 0068 9600     		.short	150
+ 1077 006a 9600     		.short	150
+ 1078 006c 9600     		.short	150
+ 1079 006e 2C01     		.short	300
+ 1080 0070 E100     		.short	225
+ 1081 0072 E100     		.short	225
+ 1082 0074 E100     		.short	225
+ 1083 0076 E100     		.short	225
+ 1084 0078 9600     		.short	150
+ 1085 007a 9600     		.short	150
+ 1086 007c 9600     		.short	150
+ 1087 007e 9600     		.short	150
+ 1088 0080 9600     		.short	150
+ 1089 0082 9600     		.short	150
+ 1090 0084 9600     		.short	150
+ 1091 0086 9600     		.short	150
+ 1092              		.text
+ 1093              	.Letext0:
+ 1094              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 1095              		.section	.debug_info,"",%progbits
+ 1096              	.Ldebug_info0:
+ 1097 0000 5A020000 		.4byte	0x25a
+ 1098 0004 0400     		.2byte	0x4
+ 1099 0006 00000000 		.4byte	.Ldebug_abbrev0
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 28
+
+
+ 1100 000a 04       		.byte	0x4
+ 1101 000b 01       		.uleb128 0x1
+ 1102 000c F9000000 		.4byte	.LASF38
+ 1103 0010 0C       		.byte	0xc
+ 1104 0011 32020000 		.4byte	.LASF39
+ 1105 0015 56000000 		.4byte	.LASF40
+ 1106 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1107 001d 00000000 		.4byte	0
+ 1108 0021 00000000 		.4byte	.Ldebug_line0
+ 1109 0025 02       		.uleb128 0x2
+ 1110 0026 01       		.byte	0x1
+ 1111 0027 06       		.byte	0x6
+ 1112 0028 82020000 		.4byte	.LASF0
+ 1113 002c 02       		.uleb128 0x2
+ 1114 002d 01       		.byte	0x1
+ 1115 002e 08       		.byte	0x8
+ 1116 002f CB000000 		.4byte	.LASF1
+ 1117 0033 02       		.uleb128 0x2
+ 1118 0034 02       		.byte	0x2
+ 1119 0035 05       		.byte	0x5
+ 1120 0036 4E020000 		.4byte	.LASF2
+ 1121 003a 02       		.uleb128 0x2
+ 1122 003b 02       		.byte	0x2
+ 1123 003c 07       		.byte	0x7
+ 1124 003d 1B000000 		.4byte	.LASF3
+ 1125 0041 02       		.uleb128 0x2
+ 1126 0042 04       		.byte	0x4
+ 1127 0043 05       		.byte	0x5
+ 1128 0044 63020000 		.4byte	.LASF4
+ 1129 0048 02       		.uleb128 0x2
+ 1130 0049 04       		.byte	0x4
+ 1131 004a 07       		.byte	0x7
+ 1132 004b E1000000 		.4byte	.LASF5
+ 1133 004f 02       		.uleb128 0x2
+ 1134 0050 08       		.byte	0x8
+ 1135 0051 05       		.byte	0x5
+ 1136 0052 24020000 		.4byte	.LASF6
+ 1137 0056 02       		.uleb128 0x2
+ 1138 0057 08       		.byte	0x8
+ 1139 0058 07       		.byte	0x7
+ 1140 0059 C8010000 		.4byte	.LASF7
+ 1141 005d 03       		.uleb128 0x3
+ 1142 005e 04       		.byte	0x4
+ 1143 005f 05       		.byte	0x5
+ 1144 0060 696E7400 		.ascii	"int\000"
+ 1145 0064 02       		.uleb128 0x2
+ 1146 0065 04       		.byte	0x4
+ 1147 0066 07       		.byte	0x7
+ 1148 0067 BB010000 		.4byte	.LASF8
+ 1149 006b 04       		.uleb128 0x4
+ 1150 006c F3000000 		.4byte	.LASF9
+ 1151 0070 02       		.byte	0x2
+ 1152 0071 D201     		.2byte	0x1d2
+ 1153 0073 2C000000 		.4byte	0x2c
+ 1154 0077 04       		.uleb128 0x4
+ 1155 0078 9F010000 		.4byte	.LASF10
+ 1156 007c 02       		.byte	0x2
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 29
+
+
+ 1157 007d D301     		.2byte	0x1d3
+ 1158 007f 3A000000 		.4byte	0x3a
+ 1159 0083 04       		.uleb128 0x4
+ 1160 0084 A6010000 		.4byte	.LASF11
+ 1161 0088 02       		.byte	0x2
+ 1162 0089 D401     		.2byte	0x1d4
+ 1163 008b 48000000 		.4byte	0x48
+ 1164 008f 02       		.uleb128 0x2
+ 1165 0090 04       		.byte	0x4
+ 1166 0091 04       		.byte	0x4
+ 1167 0092 47000000 		.4byte	.LASF12
+ 1168 0096 02       		.uleb128 0x2
+ 1169 0097 08       		.byte	0x8
+ 1170 0098 04       		.byte	0x4
+ 1171 0099 90010000 		.4byte	.LASF13
+ 1172 009d 02       		.uleb128 0x2
+ 1173 009e 01       		.byte	0x1
+ 1174 009f 08       		.byte	0x8
+ 1175 00a0 39020000 		.4byte	.LASF14
+ 1176 00a4 02       		.uleb128 0x2
+ 1177 00a5 08       		.byte	0x8
+ 1178 00a6 04       		.byte	0x4
+ 1179 00a7 76020000 		.4byte	.LASF15
+ 1180 00ab 02       		.uleb128 0x2
+ 1181 00ac 04       		.byte	0x4
+ 1182 00ad 07       		.byte	0x7
+ 1183 00ae FD010000 		.4byte	.LASF16
+ 1184 00b2 05       		.uleb128 0x5
+ 1185 00b3 87010000 		.4byte	.LASF29
+ 1186 00b7 01       		.byte	0x1
+ 1187 00b8 37       		.byte	0x37
+ 1188 00b9 00000000 		.4byte	.LFB32
+ 1189 00bd 28000000 		.4byte	.LFE32-.LFB32
+ 1190 00c1 01       		.uleb128 0x1
+ 1191 00c2 9C       		.byte	0x9c
+ 1192 00c3 06       		.uleb128 0x6
+ 1193 00c4 D9000000 		.4byte	.LASF17
+ 1194 00c8 01       		.byte	0x1
+ 1195 00c9 43       		.byte	0x43
+ 1196 00ca 00000000 		.4byte	.LFB33
+ 1197 00ce 34000000 		.4byte	.LFE33-.LFB33
+ 1198 00d2 01       		.uleb128 0x1
+ 1199 00d3 9C       		.byte	0x9c
+ 1200 00d4 EA000000 		.4byte	0xea
+ 1201 00d8 07       		.uleb128 0x7
+ 1202 00d9 3E020000 		.4byte	.LASF19
+ 1203 00dd 01       		.byte	0x1
+ 1204 00de 4A       		.byte	0x4a
+ 1205 00df 6B000000 		.4byte	0x6b
+ 1206 00e3 05       		.uleb128 0x5
+ 1207 00e4 03       		.byte	0x3
+ 1208 00e5 04000000 		.4byte	failCount.6031
+ 1209 00e9 00       		.byte	0
+ 1210 00ea 08       		.uleb128 0x8
+ 1211 00eb AD010000 		.4byte	.LASF18
+ 1212 00ef 01       		.byte	0x1
+ 1213 00f0 57       		.byte	0x57
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 30
+
+
+ 1214 00f1 5D000000 		.4byte	0x5d
+ 1215 00f5 00000000 		.4byte	.LFB34
+ 1216 00f9 54040000 		.4byte	.LFE34-.LFB34
+ 1217 00fd 01       		.uleb128 0x1
+ 1218 00fe 9C       		.byte	0x9c
+ 1219 00ff 8F010000 		.4byte	0x18f
+ 1220 0103 09       		.uleb128 0x9
+ 1221 0104 6900     		.ascii	"i\000"
+ 1222 0106 01       		.byte	0x1
+ 1223 0107 59       		.byte	0x59
+ 1224 0108 6B000000 		.4byte	0x6b
+ 1225 010c 02       		.uleb128 0x2
+ 1226 010d 91       		.byte	0x91
+ 1227 010e 77       		.sleb128 -9
+ 1228 010f 07       		.uleb128 0x7
+ 1229 0110 58020000 		.4byte	.LASF20
+ 1230 0114 01       		.byte	0x1
+ 1231 0115 5A       		.byte	0x5a
+ 1232 0116 6B000000 		.4byte	0x6b
+ 1233 011a 02       		.uleb128 0x2
+ 1234 011b 91       		.byte	0x91
+ 1235 011c 76       		.sleb128 -10
+ 1236 011d 07       		.uleb128 0x7
+ 1237 011e EA010000 		.4byte	.LASF21
+ 1238 0122 01       		.byte	0x1
+ 1239 0123 5B       		.byte	0x5b
+ 1240 0124 6B000000 		.4byte	0x6b
+ 1241 0128 02       		.uleb128 0x2
+ 1242 0129 91       		.byte	0x91
+ 1243 012a 75       		.sleb128 -11
+ 1244 012b 07       		.uleb128 0x7
+ 1245 012c F3010000 		.4byte	.LASF22
+ 1246 0130 01       		.byte	0x1
+ 1247 0131 5F       		.byte	0x5f
+ 1248 0132 6B000000 		.4byte	0x6b
+ 1249 0136 02       		.uleb128 0x2
+ 1250 0137 91       		.byte	0x91
+ 1251 0138 74       		.sleb128 -12
+ 1252 0139 07       		.uleb128 0x7
+ 1253 013a 2E000000 		.4byte	.LASF23
+ 1254 013e 01       		.byte	0x1
+ 1255 013f 60       		.byte	0x60
+ 1256 0140 6B000000 		.4byte	0x6b
+ 1257 0144 02       		.uleb128 0x2
+ 1258 0145 91       		.byte	0x91
+ 1259 0146 73       		.sleb128 -13
+ 1260 0147 07       		.uleb128 0x7
+ 1261 0148 06020000 		.4byte	.LASF24
+ 1262 014c 01       		.byte	0x1
+ 1263 014d 61       		.byte	0x61
+ 1264 014e 6B000000 		.4byte	0x6b
+ 1265 0152 02       		.uleb128 0x2
+ 1266 0153 91       		.byte	0x91
+ 1267 0154 72       		.sleb128 -14
+ 1268 0155 07       		.uleb128 0x7
+ 1269 0156 16020000 		.4byte	.LASF25
+ 1270 015a 01       		.byte	0x1
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 31
+
+
+ 1271 015b 62       		.byte	0x62
+ 1272 015c 6B000000 		.4byte	0x6b
+ 1273 0160 02       		.uleb128 0x2
+ 1274 0161 91       		.byte	0x91
+ 1275 0162 71       		.sleb128 -15
+ 1276 0163 07       		.uleb128 0x7
+ 1277 0164 B2010000 		.4byte	.LASF26
+ 1278 0168 01       		.byte	0x1
+ 1279 0169 63       		.byte	0x63
+ 1280 016a 8F010000 		.4byte	0x18f
+ 1281 016e 03       		.uleb128 0x3
+ 1282 016f 91       		.byte	0x91
+ 1283 0170 887F     		.sleb128 -120
+ 1284 0172 07       		.uleb128 0x7
+ 1285 0173 09000000 		.4byte	.LASF27
+ 1286 0177 01       		.byte	0x1
+ 1287 0178 64       		.byte	0x64
+ 1288 0179 6B000000 		.4byte	0x6b
+ 1289 017d 02       		.uleb128 0x2
+ 1290 017e 91       		.byte	0x91
+ 1291 017f 70       		.sleb128 -16
+ 1292 0180 07       		.uleb128 0x7
+ 1293 0181 97010000 		.4byte	.LASF28
+ 1294 0185 01       		.byte	0x1
+ 1295 0186 65       		.byte	0x65
+ 1296 0187 77000000 		.4byte	0x77
+ 1297 018b 02       		.uleb128 0x2
+ 1298 018c 91       		.byte	0x91
+ 1299 018d 6E       		.sleb128 -18
+ 1300 018e 00       		.byte	0
+ 1301 018f 0A       		.uleb128 0xa
+ 1302 0190 6B000000 		.4byte	0x6b
+ 1303 0194 9F010000 		.4byte	0x19f
+ 1304 0198 0B       		.uleb128 0xb
+ 1305 0199 AB000000 		.4byte	0xab
+ 1306 019d 62       		.byte	0x62
+ 1307 019e 00       		.byte	0
+ 1308 019f 0C       		.uleb128 0xc
+ 1309 01a0 DF010000 		.4byte	.LASF30
+ 1310 01a4 01       		.byte	0x1
+ 1311 01a5 5901     		.2byte	0x159
+ 1312 01a7 00000000 		.4byte	.LFB35
+ 1313 01ab 70000000 		.4byte	.LFE35-.LFB35
+ 1314 01af 01       		.uleb128 0x1
+ 1315 01b0 9C       		.byte	0x9c
+ 1316 01b1 0D       		.uleb128 0xd
+ 1317 01b2 00000000 		.4byte	.LASF31
+ 1318 01b6 01       		.byte	0x1
+ 1319 01b7 7501     		.2byte	0x175
+ 1320 01b9 00000000 		.4byte	.LFB36
+ 1321 01bd 84000000 		.4byte	.LFE36-.LFB36
+ 1322 01c1 01       		.uleb128 0x1
+ 1323 01c2 9C       		.byte	0x9c
+ 1324 01c3 F9010000 		.4byte	0x1f9
+ 1325 01c7 0E       		.uleb128 0xe
+ 1326 01c8 48020000 		.4byte	.LASF32
+ 1327 01cc 01       		.byte	0x1
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 32
+
+
+ 1328 01cd 8E01     		.2byte	0x18e
+ 1329 01cf F9010000 		.4byte	0x1f9
+ 1330 01d3 05       		.uleb128 0x5
+ 1331 01d4 03       		.byte	0x3
+ 1332 01d5 08000000 		.4byte	notes.6069
+ 1333 01d9 0E       		.uleb128 0xe
+ 1334 01da 12000000 		.4byte	.LASF33
+ 1335 01de 01       		.byte	0x1
+ 1336 01df 9201     		.2byte	0x192
+ 1337 01e1 F9010000 		.4byte	0x1f9
+ 1338 01e5 05       		.uleb128 0x5
+ 1339 01e6 03       		.byte	0x3
+ 1340 01e7 48000000 		.4byte	duration.6070
+ 1341 01eb 0F       		.uleb128 0xf
+ 1342 01ec 6900     		.ascii	"i\000"
+ 1343 01ee 01       		.byte	0x1
+ 1344 01ef 9601     		.2byte	0x196
+ 1345 01f1 6B000000 		.4byte	0x6b
+ 1346 01f5 02       		.uleb128 0x2
+ 1347 01f6 91       		.byte	0x91
+ 1348 01f7 77       		.sleb128 -9
+ 1349 01f8 00       		.byte	0
+ 1350 01f9 0A       		.uleb128 0xa
+ 1351 01fa 77000000 		.4byte	0x77
+ 1352 01fe 09020000 		.4byte	0x209
+ 1353 0202 0B       		.uleb128 0xb
+ 1354 0203 AB000000 		.4byte	0xab
+ 1355 0207 1F       		.byte	0x1f
+ 1356 0208 00       		.byte	0
+ 1357 0209 0A       		.uleb128 0xa
+ 1358 020a 6B000000 		.4byte	0x6b
+ 1359 020e 19020000 		.4byte	0x219
+ 1360 0212 0B       		.uleb128 0xb
+ 1361 0213 AB000000 		.4byte	0xab
+ 1362 0217 02       		.byte	0x2
+ 1363 0218 00       		.byte	0
+ 1364 0219 10       		.uleb128 0x10
+ 1365 021a 8E020000 		.4byte	.LASF34
+ 1366 021e 01       		.byte	0x1
+ 1367 021f 2F       		.byte	0x2f
+ 1368 0220 09020000 		.4byte	0x209
+ 1369 0224 05       		.uleb128 0x5
+ 1370 0225 03       		.byte	0x3
+ 1371 0226 00000000 		.4byte	i2cBuf
+ 1372 022a 10       		.uleb128 0x10
+ 1373 022b 3C000000 		.4byte	.LASF35
+ 1374 022f 01       		.byte	0x1
+ 1375 0230 30       		.byte	0x30
+ 1376 0231 6B000000 		.4byte	0x6b
+ 1377 0235 05       		.uleb128 0x5
+ 1378 0236 03       		.byte	0x3
+ 1379 0237 00000000 		.4byte	sleepCount
+ 1380 023b 10       		.uleb128 0x10
+ 1381 023c 6C020000 		.4byte	.LASF36
+ 1382 0240 01       		.byte	0x1
+ 1383 0241 31       		.byte	0x31
+ 1384 0242 77000000 		.4byte	0x77
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 33
+
+
+ 1385 0246 05       		.uleb128 0x5
+ 1386 0247 03       		.byte	0x3
+ 1387 0248 00000000 		.4byte	resultADC
+ 1388 024c 10       		.uleb128 0x10
+ 1389 024d 4D000000 		.4byte	.LASF37
+ 1390 0251 01       		.byte	0x1
+ 1391 0252 32       		.byte	0x32
+ 1392 0253 6B000000 		.4byte	0x6b
+ 1393 0257 05       		.uleb128 0x5
+ 1394 0258 03       		.byte	0x3
+ 1395 0259 00000000 		.4byte	speedVal
+ 1396 025d 00       		.byte	0
+ 1397              		.section	.debug_abbrev,"",%progbits
+ 1398              	.Ldebug_abbrev0:
+ 1399 0000 01       		.uleb128 0x1
+ 1400 0001 11       		.uleb128 0x11
+ 1401 0002 01       		.byte	0x1
+ 1402 0003 25       		.uleb128 0x25
+ 1403 0004 0E       		.uleb128 0xe
+ 1404 0005 13       		.uleb128 0x13
+ 1405 0006 0B       		.uleb128 0xb
+ 1406 0007 03       		.uleb128 0x3
+ 1407 0008 0E       		.uleb128 0xe
+ 1408 0009 1B       		.uleb128 0x1b
+ 1409 000a 0E       		.uleb128 0xe
+ 1410 000b 55       		.uleb128 0x55
+ 1411 000c 17       		.uleb128 0x17
+ 1412 000d 11       		.uleb128 0x11
+ 1413 000e 01       		.uleb128 0x1
+ 1414 000f 10       		.uleb128 0x10
+ 1415 0010 17       		.uleb128 0x17
+ 1416 0011 00       		.byte	0
+ 1417 0012 00       		.byte	0
+ 1418 0013 02       		.uleb128 0x2
+ 1419 0014 24       		.uleb128 0x24
+ 1420 0015 00       		.byte	0
+ 1421 0016 0B       		.uleb128 0xb
+ 1422 0017 0B       		.uleb128 0xb
+ 1423 0018 3E       		.uleb128 0x3e
+ 1424 0019 0B       		.uleb128 0xb
+ 1425 001a 03       		.uleb128 0x3
+ 1426 001b 0E       		.uleb128 0xe
+ 1427 001c 00       		.byte	0
+ 1428 001d 00       		.byte	0
+ 1429 001e 03       		.uleb128 0x3
+ 1430 001f 24       		.uleb128 0x24
+ 1431 0020 00       		.byte	0
+ 1432 0021 0B       		.uleb128 0xb
+ 1433 0022 0B       		.uleb128 0xb
+ 1434 0023 3E       		.uleb128 0x3e
+ 1435 0024 0B       		.uleb128 0xb
+ 1436 0025 03       		.uleb128 0x3
+ 1437 0026 08       		.uleb128 0x8
+ 1438 0027 00       		.byte	0
+ 1439 0028 00       		.byte	0
+ 1440 0029 04       		.uleb128 0x4
+ 1441 002a 16       		.uleb128 0x16
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 34
+
+
+ 1442 002b 00       		.byte	0
+ 1443 002c 03       		.uleb128 0x3
+ 1444 002d 0E       		.uleb128 0xe
+ 1445 002e 3A       		.uleb128 0x3a
+ 1446 002f 0B       		.uleb128 0xb
+ 1447 0030 3B       		.uleb128 0x3b
+ 1448 0031 05       		.uleb128 0x5
+ 1449 0032 49       		.uleb128 0x49
+ 1450 0033 13       		.uleb128 0x13
+ 1451 0034 00       		.byte	0
+ 1452 0035 00       		.byte	0
+ 1453 0036 05       		.uleb128 0x5
+ 1454 0037 2E       		.uleb128 0x2e
+ 1455 0038 00       		.byte	0
+ 1456 0039 3F       		.uleb128 0x3f
+ 1457 003a 19       		.uleb128 0x19
+ 1458 003b 03       		.uleb128 0x3
+ 1459 003c 0E       		.uleb128 0xe
+ 1460 003d 3A       		.uleb128 0x3a
+ 1461 003e 0B       		.uleb128 0xb
+ 1462 003f 3B       		.uleb128 0x3b
+ 1463 0040 0B       		.uleb128 0xb
+ 1464 0041 27       		.uleb128 0x27
+ 1465 0042 19       		.uleb128 0x19
+ 1466 0043 11       		.uleb128 0x11
+ 1467 0044 01       		.uleb128 0x1
+ 1468 0045 12       		.uleb128 0x12
+ 1469 0046 06       		.uleb128 0x6
+ 1470 0047 40       		.uleb128 0x40
+ 1471 0048 18       		.uleb128 0x18
+ 1472 0049 9642     		.uleb128 0x2116
+ 1473 004b 19       		.uleb128 0x19
+ 1474 004c 00       		.byte	0
+ 1475 004d 00       		.byte	0
+ 1476 004e 06       		.uleb128 0x6
+ 1477 004f 2E       		.uleb128 0x2e
+ 1478 0050 01       		.byte	0x1
+ 1479 0051 3F       		.uleb128 0x3f
+ 1480 0052 19       		.uleb128 0x19
+ 1481 0053 03       		.uleb128 0x3
+ 1482 0054 0E       		.uleb128 0xe
+ 1483 0055 3A       		.uleb128 0x3a
+ 1484 0056 0B       		.uleb128 0xb
+ 1485 0057 3B       		.uleb128 0x3b
+ 1486 0058 0B       		.uleb128 0xb
+ 1487 0059 27       		.uleb128 0x27
+ 1488 005a 19       		.uleb128 0x19
+ 1489 005b 11       		.uleb128 0x11
+ 1490 005c 01       		.uleb128 0x1
+ 1491 005d 12       		.uleb128 0x12
+ 1492 005e 06       		.uleb128 0x6
+ 1493 005f 40       		.uleb128 0x40
+ 1494 0060 18       		.uleb128 0x18
+ 1495 0061 9642     		.uleb128 0x2116
+ 1496 0063 19       		.uleb128 0x19
+ 1497 0064 01       		.uleb128 0x1
+ 1498 0065 13       		.uleb128 0x13
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 35
+
+
+ 1499 0066 00       		.byte	0
+ 1500 0067 00       		.byte	0
+ 1501 0068 07       		.uleb128 0x7
+ 1502 0069 34       		.uleb128 0x34
+ 1503 006a 00       		.byte	0
+ 1504 006b 03       		.uleb128 0x3
+ 1505 006c 0E       		.uleb128 0xe
+ 1506 006d 3A       		.uleb128 0x3a
+ 1507 006e 0B       		.uleb128 0xb
+ 1508 006f 3B       		.uleb128 0x3b
+ 1509 0070 0B       		.uleb128 0xb
+ 1510 0071 49       		.uleb128 0x49
+ 1511 0072 13       		.uleb128 0x13
+ 1512 0073 02       		.uleb128 0x2
+ 1513 0074 18       		.uleb128 0x18
+ 1514 0075 00       		.byte	0
+ 1515 0076 00       		.byte	0
+ 1516 0077 08       		.uleb128 0x8
+ 1517 0078 2E       		.uleb128 0x2e
+ 1518 0079 01       		.byte	0x1
+ 1519 007a 3F       		.uleb128 0x3f
+ 1520 007b 19       		.uleb128 0x19
+ 1521 007c 03       		.uleb128 0x3
+ 1522 007d 0E       		.uleb128 0xe
+ 1523 007e 3A       		.uleb128 0x3a
+ 1524 007f 0B       		.uleb128 0xb
+ 1525 0080 3B       		.uleb128 0x3b
+ 1526 0081 0B       		.uleb128 0xb
+ 1527 0082 49       		.uleb128 0x49
+ 1528 0083 13       		.uleb128 0x13
+ 1529 0084 11       		.uleb128 0x11
+ 1530 0085 01       		.uleb128 0x1
+ 1531 0086 12       		.uleb128 0x12
+ 1532 0087 06       		.uleb128 0x6
+ 1533 0088 40       		.uleb128 0x40
+ 1534 0089 18       		.uleb128 0x18
+ 1535 008a 9642     		.uleb128 0x2116
+ 1536 008c 19       		.uleb128 0x19
+ 1537 008d 01       		.uleb128 0x1
+ 1538 008e 13       		.uleb128 0x13
+ 1539 008f 00       		.byte	0
+ 1540 0090 00       		.byte	0
+ 1541 0091 09       		.uleb128 0x9
+ 1542 0092 34       		.uleb128 0x34
+ 1543 0093 00       		.byte	0
+ 1544 0094 03       		.uleb128 0x3
+ 1545 0095 08       		.uleb128 0x8
+ 1546 0096 3A       		.uleb128 0x3a
+ 1547 0097 0B       		.uleb128 0xb
+ 1548 0098 3B       		.uleb128 0x3b
+ 1549 0099 0B       		.uleb128 0xb
+ 1550 009a 49       		.uleb128 0x49
+ 1551 009b 13       		.uleb128 0x13
+ 1552 009c 02       		.uleb128 0x2
+ 1553 009d 18       		.uleb128 0x18
+ 1554 009e 00       		.byte	0
+ 1555 009f 00       		.byte	0
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 36
+
+
+ 1556 00a0 0A       		.uleb128 0xa
+ 1557 00a1 01       		.uleb128 0x1
+ 1558 00a2 01       		.byte	0x1
+ 1559 00a3 49       		.uleb128 0x49
+ 1560 00a4 13       		.uleb128 0x13
+ 1561 00a5 01       		.uleb128 0x1
+ 1562 00a6 13       		.uleb128 0x13
+ 1563 00a7 00       		.byte	0
+ 1564 00a8 00       		.byte	0
+ 1565 00a9 0B       		.uleb128 0xb
+ 1566 00aa 21       		.uleb128 0x21
+ 1567 00ab 00       		.byte	0
+ 1568 00ac 49       		.uleb128 0x49
+ 1569 00ad 13       		.uleb128 0x13
+ 1570 00ae 2F       		.uleb128 0x2f
+ 1571 00af 0B       		.uleb128 0xb
+ 1572 00b0 00       		.byte	0
+ 1573 00b1 00       		.byte	0
+ 1574 00b2 0C       		.uleb128 0xc
+ 1575 00b3 2E       		.uleb128 0x2e
+ 1576 00b4 00       		.byte	0
+ 1577 00b5 3F       		.uleb128 0x3f
+ 1578 00b6 19       		.uleb128 0x19
+ 1579 00b7 03       		.uleb128 0x3
+ 1580 00b8 0E       		.uleb128 0xe
+ 1581 00b9 3A       		.uleb128 0x3a
+ 1582 00ba 0B       		.uleb128 0xb
+ 1583 00bb 3B       		.uleb128 0x3b
+ 1584 00bc 05       		.uleb128 0x5
+ 1585 00bd 27       		.uleb128 0x27
+ 1586 00be 19       		.uleb128 0x19
+ 1587 00bf 11       		.uleb128 0x11
+ 1588 00c0 01       		.uleb128 0x1
+ 1589 00c1 12       		.uleb128 0x12
+ 1590 00c2 06       		.uleb128 0x6
+ 1591 00c3 40       		.uleb128 0x40
+ 1592 00c4 18       		.uleb128 0x18
+ 1593 00c5 9642     		.uleb128 0x2116
+ 1594 00c7 19       		.uleb128 0x19
+ 1595 00c8 00       		.byte	0
+ 1596 00c9 00       		.byte	0
+ 1597 00ca 0D       		.uleb128 0xd
+ 1598 00cb 2E       		.uleb128 0x2e
+ 1599 00cc 01       		.byte	0x1
+ 1600 00cd 3F       		.uleb128 0x3f
+ 1601 00ce 19       		.uleb128 0x19
+ 1602 00cf 03       		.uleb128 0x3
+ 1603 00d0 0E       		.uleb128 0xe
+ 1604 00d1 3A       		.uleb128 0x3a
+ 1605 00d2 0B       		.uleb128 0xb
+ 1606 00d3 3B       		.uleb128 0x3b
+ 1607 00d4 05       		.uleb128 0x5
+ 1608 00d5 27       		.uleb128 0x27
+ 1609 00d6 19       		.uleb128 0x19
+ 1610 00d7 11       		.uleb128 0x11
+ 1611 00d8 01       		.uleb128 0x1
+ 1612 00d9 12       		.uleb128 0x12
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 37
+
+
+ 1613 00da 06       		.uleb128 0x6
+ 1614 00db 40       		.uleb128 0x40
+ 1615 00dc 18       		.uleb128 0x18
+ 1616 00dd 9642     		.uleb128 0x2116
+ 1617 00df 19       		.uleb128 0x19
+ 1618 00e0 01       		.uleb128 0x1
+ 1619 00e1 13       		.uleb128 0x13
+ 1620 00e2 00       		.byte	0
+ 1621 00e3 00       		.byte	0
+ 1622 00e4 0E       		.uleb128 0xe
+ 1623 00e5 34       		.uleb128 0x34
+ 1624 00e6 00       		.byte	0
+ 1625 00e7 03       		.uleb128 0x3
+ 1626 00e8 0E       		.uleb128 0xe
+ 1627 00e9 3A       		.uleb128 0x3a
+ 1628 00ea 0B       		.uleb128 0xb
+ 1629 00eb 3B       		.uleb128 0x3b
+ 1630 00ec 05       		.uleb128 0x5
+ 1631 00ed 49       		.uleb128 0x49
+ 1632 00ee 13       		.uleb128 0x13
+ 1633 00ef 02       		.uleb128 0x2
+ 1634 00f0 18       		.uleb128 0x18
+ 1635 00f1 00       		.byte	0
+ 1636 00f2 00       		.byte	0
+ 1637 00f3 0F       		.uleb128 0xf
+ 1638 00f4 34       		.uleb128 0x34
+ 1639 00f5 00       		.byte	0
+ 1640 00f6 03       		.uleb128 0x3
+ 1641 00f7 08       		.uleb128 0x8
+ 1642 00f8 3A       		.uleb128 0x3a
+ 1643 00f9 0B       		.uleb128 0xb
+ 1644 00fa 3B       		.uleb128 0x3b
+ 1645 00fb 05       		.uleb128 0x5
+ 1646 00fc 49       		.uleb128 0x49
+ 1647 00fd 13       		.uleb128 0x13
+ 1648 00fe 02       		.uleb128 0x2
+ 1649 00ff 18       		.uleb128 0x18
+ 1650 0100 00       		.byte	0
+ 1651 0101 00       		.byte	0
+ 1652 0102 10       		.uleb128 0x10
+ 1653 0103 34       		.uleb128 0x34
+ 1654 0104 00       		.byte	0
+ 1655 0105 03       		.uleb128 0x3
+ 1656 0106 0E       		.uleb128 0xe
+ 1657 0107 3A       		.uleb128 0x3a
+ 1658 0108 0B       		.uleb128 0xb
+ 1659 0109 3B       		.uleb128 0x3b
+ 1660 010a 0B       		.uleb128 0xb
+ 1661 010b 49       		.uleb128 0x49
+ 1662 010c 13       		.uleb128 0x13
+ 1663 010d 3F       		.uleb128 0x3f
+ 1664 010e 19       		.uleb128 0x19
+ 1665 010f 02       		.uleb128 0x2
+ 1666 0110 18       		.uleb128 0x18
+ 1667 0111 00       		.byte	0
+ 1668 0112 00       		.byte	0
+ 1669 0113 00       		.byte	0
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 38
+
+
+ 1670              		.section	.debug_aranges,"",%progbits
+ 1671 0000 3C000000 		.4byte	0x3c
+ 1672 0004 0200     		.2byte	0x2
+ 1673 0006 00000000 		.4byte	.Ldebug_info0
+ 1674 000a 04       		.byte	0x4
+ 1675 000b 00       		.byte	0
+ 1676 000c 0000     		.2byte	0
+ 1677 000e 0000     		.2byte	0
+ 1678 0010 00000000 		.4byte	.LFB32
+ 1679 0014 28000000 		.4byte	.LFE32-.LFB32
+ 1680 0018 00000000 		.4byte	.LFB33
+ 1681 001c 34000000 		.4byte	.LFE33-.LFB33
+ 1682 0020 00000000 		.4byte	.LFB34
+ 1683 0024 54040000 		.4byte	.LFE34-.LFB34
+ 1684 0028 00000000 		.4byte	.LFB35
+ 1685 002c 70000000 		.4byte	.LFE35-.LFB35
+ 1686 0030 00000000 		.4byte	.LFB36
+ 1687 0034 84000000 		.4byte	.LFE36-.LFB36
+ 1688 0038 00000000 		.4byte	0
+ 1689 003c 00000000 		.4byte	0
+ 1690              		.section	.debug_ranges,"",%progbits
+ 1691              	.Ldebug_ranges0:
+ 1692 0000 00000000 		.4byte	.LFB32
+ 1693 0004 28000000 		.4byte	.LFE32
+ 1694 0008 00000000 		.4byte	.LFB33
+ 1695 000c 34000000 		.4byte	.LFE33
+ 1696 0010 00000000 		.4byte	.LFB34
+ 1697 0014 54040000 		.4byte	.LFE34
+ 1698 0018 00000000 		.4byte	.LFB35
+ 1699 001c 70000000 		.4byte	.LFE35
+ 1700 0020 00000000 		.4byte	.LFB36
+ 1701 0024 84000000 		.4byte	.LFE36
+ 1702 0028 00000000 		.4byte	0
+ 1703 002c 00000000 		.4byte	0
+ 1704              		.section	.debug_line,"",%progbits
+ 1705              	.Ldebug_line0:
+ 1706 0000 BC010000 		.section	.debug_str,"MS",%progbits,1
+ 1706      02004100 
+ 1706      00000201 
+ 1706      FB0E0D00 
+ 1706      01010101 
+ 1707              	.LASF31:
+ 1708 0000 706C6179 		.ascii	"playSong\000"
+ 1708      536F6E67 
+ 1708      00
+ 1709              	.LASF27:
+ 1710 0009 646F6E65 		.ascii	"doneFlag\000"
+ 1710      466C6167 
+ 1710      00
+ 1711              	.LASF33:
+ 1712 0012 64757261 		.ascii	"duration\000"
+ 1712      74696F6E 
+ 1712      00
+ 1713              	.LASF3:
+ 1714 001b 73686F72 		.ascii	"short unsigned int\000"
+ 1714      7420756E 
+ 1714      7369676E 
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 39
+
+
+ 1714      65642069 
+ 1714      6E7400
+ 1715              	.LASF23:
+ 1716 002e 6465626F 		.ascii	"debounceCheat\000"
+ 1716      756E6365 
+ 1716      43686561 
+ 1716      7400
+ 1717              	.LASF35:
+ 1718 003c 736C6565 		.ascii	"sleepCount\000"
+ 1718      70436F75 
+ 1718      6E7400
+ 1719              	.LASF12:
+ 1720 0047 666C6F61 		.ascii	"float\000"
+ 1720      7400
+ 1721              	.LASF37:
+ 1722 004d 73706565 		.ascii	"speedVal\000"
+ 1722      6456616C 
+ 1722      00
+ 1723              	.LASF40:
+ 1724 0056 433A5C53 		.ascii	"C:\\SVN\\apps\\trunk\\Cypress Academy\\PSoC-101\\Pr"
+ 1724      564E5C61 
+ 1724      7070735C 
+ 1724      7472756E 
+ 1724      6B5C4379 
+ 1725 0083 6F6A6563 		.ascii	"ojects\\Team_Project\\Simon\\Simon_Slave_Pioneer\\S"
+ 1725      74735C54 
+ 1725      65616D5F 
+ 1725      50726F6A 
+ 1725      6563745C 
+ 1726 00b2 696D6F6E 		.ascii	"imon_Slave_Pioneer.cydsn\000"
+ 1726      5F536C61 
+ 1726      76655F50 
+ 1726      696F6E65 
+ 1726      65722E63 
+ 1727              	.LASF1:
+ 1728 00cb 756E7369 		.ascii	"unsigned char\000"
+ 1728      676E6564 
+ 1728      20636861 
+ 1728      7200
+ 1729              	.LASF17:
+ 1730 00d9 4661696C 		.ascii	"FailISR\000"
+ 1730      49535200 
+ 1731              	.LASF5:
+ 1732 00e1 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1732      20756E73 
+ 1732      69676E65 
+ 1732      6420696E 
+ 1732      7400
+ 1733              	.LASF9:
+ 1734 00f3 75696E74 		.ascii	"uint8\000"
+ 1734      3800
+ 1735              	.LASF38:
+ 1736 00f9 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1736      43313120 
+ 1736      352E342E 
+ 1736      31203230 
+ 1736      31363036 
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 40
+
+
+ 1737 012c 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1737      20726576 
+ 1737      6973696F 
+ 1737      6E203233 
+ 1737      37373135 
+ 1738 015f 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1738      66756E63 
+ 1738      74696F6E 
+ 1738      2D736563 
+ 1738      74696F6E 
+ 1739              	.LASF29:
+ 1740 0187 536C6565 		.ascii	"SleepISR\000"
+ 1740      70495352 
+ 1740      00
+ 1741              	.LASF13:
+ 1742 0190 646F7562 		.ascii	"double\000"
+ 1742      6C6500
+ 1743              	.LASF28:
+ 1744 0197 656E6446 		.ascii	"endFlag\000"
+ 1744      6C616700 
+ 1745              	.LASF10:
+ 1746 019f 75696E74 		.ascii	"uint16\000"
+ 1746      313600
+ 1747              	.LASF11:
+ 1748 01a6 75696E74 		.ascii	"uint32\000"
+ 1748      333200
+ 1749              	.LASF18:
+ 1750 01ad 6D61696E 		.ascii	"main\000"
+ 1750      00
+ 1751              	.LASF26:
+ 1752 01b2 73657175 		.ascii	"sequence\000"
+ 1752      656E6365 
+ 1752      00
+ 1753              	.LASF8:
+ 1754 01bb 756E7369 		.ascii	"unsigned int\000"
+ 1754      676E6564 
+ 1754      20696E74 
+ 1754      00
+ 1755              	.LASF7:
+ 1756 01c8 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1756      206C6F6E 
+ 1756      6720756E 
+ 1756      7369676E 
+ 1756      65642069 
+ 1757              	.LASF30:
+ 1758 01df 63686563 		.ascii	"checkSpeed\000"
+ 1758      6B537065 
+ 1758      656400
+ 1759              	.LASF21:
+ 1760 01ea 6465626F 		.ascii	"debounce\000"
+ 1760      756E6365 
+ 1760      00
+ 1761              	.LASF22:
+ 1762 01f3 63686561 		.ascii	"cheatMode\000"
+ 1762      744D6F64 
+ 1762      6500
+ 1763              	.LASF16:
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 41
+
+
+ 1764 01fd 73697A65 		.ascii	"sizetype\000"
+ 1764      74797065 
+ 1764      00
+ 1765              	.LASF24:
+ 1766 0206 6465626F 		.ascii	"debounceToggled\000"
+ 1766      756E6365 
+ 1766      546F6767 
+ 1766      6C656400 
+ 1767              	.LASF25:
+ 1768 0216 73657175 		.ascii	"sequenceCount\000"
+ 1768      656E6365 
+ 1768      436F756E 
+ 1768      7400
+ 1769              	.LASF6:
+ 1770 0224 6C6F6E67 		.ascii	"long long int\000"
+ 1770      206C6F6E 
+ 1770      6720696E 
+ 1770      7400
+ 1771              	.LASF39:
+ 1772 0232 6D61696E 		.ascii	"main.c\000"
+ 1772      2E6300
+ 1773              	.LASF14:
+ 1774 0239 63686172 		.ascii	"char\000"
+ 1774      00
+ 1775              	.LASF19:
+ 1776 023e 6661696C 		.ascii	"failCount\000"
+ 1776      436F756E 
+ 1776      7400
+ 1777              	.LASF32:
+ 1778 0248 6E6F7465 		.ascii	"notes\000"
+ 1778      7300
+ 1779              	.LASF2:
+ 1780 024e 73686F72 		.ascii	"short int\000"
+ 1780      7420696E 
+ 1780      7400
+ 1781              	.LASF20:
+ 1782 0258 62757474 		.ascii	"buttonData\000"
+ 1782      6F6E4461 
+ 1782      746100
+ 1783              	.LASF4:
+ 1784 0263 6C6F6E67 		.ascii	"long int\000"
+ 1784      20696E74 
+ 1784      00
+ 1785              	.LASF36:
+ 1786 026c 72657375 		.ascii	"resultADC\000"
+ 1786      6C744144 
+ 1786      4300
+ 1787              	.LASF15:
+ 1788 0276 6C6F6E67 		.ascii	"long double\000"
+ 1788      20646F75 
+ 1788      626C6500 
+ 1789              	.LASF0:
+ 1790 0282 7369676E 		.ascii	"signed char\000"
+ 1790      65642063 
+ 1790      68617200 
+ 1791              	.LASF34:
+ 1792 028e 69326342 		.ascii	"i2cBuf\000"
+ARM GAS  C:\Users\gjl\AppData\Local\Temp\cck9dmkF.s 			page 42
+
+
+ 1792      756600
+ 1793              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

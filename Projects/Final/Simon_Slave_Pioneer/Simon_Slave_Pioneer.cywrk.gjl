@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Simon_Slave_Pioneer\Simon_Slave_Pioneer\Generated_Source">
+<ExpandedNodeIds>
+<v>Simon_Slave_Pioneer</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\TopDesign</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer.cydwr</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer.cydwr\Pins</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer.cydwr\Analog</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer.cydwr\Clocks</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer.cydwr\Interrupts</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer.cydwr\System</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer.cydwr\Directives</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer.cydwr\Flash Security</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Header Files</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Header Files\device.h</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Source Files</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Source Files\main.c</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Generated_Source</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Generated_Source\PSoC4</v>
+</ExpandedNodeIds>
+<VisibleNodeIds />
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>Simon_Slave_Pioneer</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\TopDesign</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds />
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>Simon_Slave_Pioneer</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_INT.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_intClock.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_IRQ.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Button_Reg.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Button1.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Button1_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Button2.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Button2_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Button3.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Button3_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Button4.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Button4_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\BUZZER.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\BUZZER_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Cheat.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Cheat_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_1.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_2.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_3.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Cm0Start.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLFClk.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_BOOT.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_EZI2C.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_EZI2C_BOOT.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_EZI2C_INT.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_SCB_IRQ.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_SCBCLK.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_scl.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_scl_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_sda.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\EZI2C_sda_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_fail.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_sleep.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LCD.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LCD_LCDPort.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LCD_LCDPort_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LCD_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_AWAKE.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_AWAKE_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_B.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_B_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_G.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_G_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_R.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_R_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED1.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED1_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED2.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED2_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED3.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED3_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED4.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LED4_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LEDreg.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\LEDreg_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\PWM_Fail.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\PWM_Fail_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\PWM_Pass.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\PWM_Pass_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Sleep_Reg.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\Sleep_Reg_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\SpeedPin.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Listing Files\SpeedPin_PM.lst</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.elf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.hex</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CortexM0\ARM_GCC_541\Debug\Simon_Slave_Pioneer.map</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer.gpdsc</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer.rpt</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Simon_Slave_Pioneer_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds />
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>Simon_Slave_Pioneer</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\PSoC 4 Architecture TRM</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\PSoC 4200 Family Datasheet</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\System Reference Guides</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\System Reference Guides\cy_boot_v5_60</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\System Reference Guides\cy_lfclk_v1_20</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\ADC_SAR_SEQ_P4_v2_50.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CharLCD_v2_20.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\cy_clock_v2_20</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\cy_clock_v2_20\cy_clock_v2_20.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\cy_constant_v1_0</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\cy_constant_v1_0\cy_constant_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\cy_gsref_v2_10.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\cy_isr_v1_70</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\cy_pins_v2_20</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CyControlReg_v1_80</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CyControlReg_v1_80\CyControlReg_v1_80.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\CyStatusReg_v1_90.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\FreqDiv_v1_0</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\FreqDiv_v1_0\FreqDiv_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Gnd_v1_0</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Gnd_v1_0\Gnd_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\LED_v1_0</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\LED_v1_0\LED_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\LUT_v1_60.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\nand_v1_0</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\nand_v1_0\nand_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\not_v1_0</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\not_v1_0\not_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\or_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Power_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Resistor_v1_0</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Resistor_v1_0\Resistor_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\SCB_P4_v4_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\Speaker_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\SwitchSPST_v1_0</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\SwitchSPST_v1_0\SwitchSPST_v1_0.pdf</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\TCPWM_P4_v2_10</v>
+<v>Simon_Slave_Pioneer\Simon_Slave_Pioneer\TCPWM_P4_v2_10\TCPWM_P4_v2_10.pdf</v>
+</ExpandedNodeIds>
+<VisibleNodeIds />
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs>
+<name v=".\Simon_Slave_Pioneer.cydsn\Simon_Slave_Pioneer.cydwr" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="897, 377" SelectedTabbedMdiWindow="4f7275b5-9258-4e7a-b60e-bff50598e119"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="ea0ee789-38c5-4422-be54-f13926744240" /><DocumentWindow Key="C:\SVN\apps\trunk\Cypress Academy\PSoC-101\Projects\Team_Project\Simon\Simon_Slave_Pioneer\Simon_Slave_Pioneer.cydsn\Simon_Slave_Pioneer.cydwr" Guid="4f7275b5-9258-4e7a-b60e-bff50598e119" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

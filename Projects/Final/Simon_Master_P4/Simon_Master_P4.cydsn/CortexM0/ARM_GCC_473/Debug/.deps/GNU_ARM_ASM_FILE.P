@@ -1,0 +1,4 @@
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/CortexM0/ARM_GCC_473/Debug/CyBootAsmGnu.o : C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/CyBootAsmGnu.s 
+
+C:/perforce/gjl_work/apps/CYSC/Cypress_PSoC_Academy/101_basic/Projects/Simon_Rev03/Simon_Master_P4/Simon_Master_P4.cydsn/Generated_Source/PSoC4/CyBootAsmGnu.s : 
+

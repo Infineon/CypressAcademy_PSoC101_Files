@@ -1,0 +1,2218 @@
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	i2cBuf
+  18              		.data
+  19              		.align	2
+  20              		.type	i2cBuf, %object
+  21              		.size	i2cBuf, 3
+  22              	i2cBuf:
+  23 0000 40       		.byte	64
+  24 0001 00       		.byte	0
+  25 0002 00       		.byte	0
+  26              		.global	sleepCount
+  27              		.type	sleepCount, %object
+  28              		.size	sleepCount, 1
+  29              	sleepCount:
+  30 0003 64       		.byte	100
+  31              		.comm	resultADC,2,2
+  32              		.comm	speedVal,1,1
+  33              		.section	.text.SleepISR,"ax",%progbits
+  34              		.align	2
+  35              		.global	SleepISR
+  36              		.code	16
+  37              		.thumb_func
+  38              		.type	SleepISR, %function
+  39              	SleepISR:
+  40              	.LFB33:
+  41              		.file 1 ".\\main.c"
+   1:.\main.c      **** /* ========================================
+   2:.\main.c      ****  * Copyright Cypress Semiconductor, 2012
+   3:.\main.c      ****  * All Rights Reserved
+   4:.\main.c      ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   5:.\main.c      ****  *
+   6:.\main.c      ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   7:.\main.c      ****  * WHICH IS THE PROPERTY OF Cypress Semiconductor.
+   8:.\main.c      ****  * ======================================== */
+   9:.\main.c      **** #include <project.h>
+  10:.\main.c      **** 
+  11:.\main.c      **** /* This must be commented out if an LCD is not connected */
+  12:.\main.c      **** #define LCD_ENABLE
+  13:.\main.c      **** 
+  14:.\main.c      **** #define FALSE			0
+  15:.\main.c      **** #define TRUE			1
+  16:.\main.c      **** 
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 2
+
+
+  17:.\main.c      **** #define NUM_BUTTONS     4
+  18:.\main.c      **** 
+  19:.\main.c      **** #define I2CSIZE			3
+  20:.\main.c      **** #define I2CWRITE		1
+  21:.\main.c      **** 
+  22:.\main.c      **** #define WDT_COUNT       3277    /* 100ms from a 32.768KHz clock is 3277 cycles */
+  23:.\main.c      **** #define SLEEP_COUNT		100		/* 200 * 100ms = 10,000ms = 10s */
+  24:.\main.c      **** 
+  25:.\main.c      **** #define ALLOFF			0xF		/* Code to turn off all LEDs */
+  26:.\main.c      **** 
+  27:.\main.c      **** #define DEBOUNCE_COUNT  10
+  28:.\main.c      **** 
+  29:.\main.c      **** #define SPEED1 0x01
+  30:.\main.c      **** #define SPEED2 0x02
+  31:.\main.c      **** #define SPEED3 0x04
+  32:.\main.c      **** 
+  33:.\main.c      **** #define INIT			0x40
+  34:.\main.c      **** #define	PASS			0x20
+  35:.\main.c      **** #define FAIL			0x10
+  36:.\main.c      **** #define RUN				0x00
+  37:.\main.c      **** 
+  38:.\main.c      **** /* I2C register map */
+  39:.\main.c      **** #define INFO			0
+  40:.\main.c      **** #define BUTTON			1
+  41:.\main.c      **** #define	SPEED			2
+  42:.\main.c      **** 
+  43:.\main.c      **** /* Function prototype */
+  44:.\main.c      **** void checkSpeed(void);
+  45:.\main.c      **** 
+  46:.\main.c      **** uint8   i2cBuf[I2CSIZE] = {INIT,0x00,0x00};	/* 3 byte I2C buffer */
+  47:.\main.c      **** uint8   sleepCount=SLEEP_COUNT;	            /* Counter to determine when to sleep */
+  48:.\main.c      **** uint16	resultADC; 						    /* ADC result used for speed setting */
+  49:.\main.c      **** uint8 	speedVal;					    	/* Current speed setting */                     				        /* This is tr
+  50:.\main.c      **** 
+  51:.\main.c      **** /* Watchdog timer ISR */
+  52:.\main.c      **** /* This triggers every 100ms. It decrements the counter and after */
+  53:.\main.c      **** /* it has counted down to zero, sleep will be initiated */
+  54:.\main.c      **** CY_ISR(SleepISR)
+  55:.\main.c      **** {
+  42              		.loc 1 55 0
+  43              		.cfi_startproc
+  44 0000 80B5     		push	{r7, lr}
+  45              	.LCFI0:
+  46              		.cfi_def_cfa_offset 8
+  47              		.cfi_offset 7, -8
+  48              		.cfi_offset 14, -4
+  49 0002 00AF     		add	r7, sp, #0
+  50              	.LCFI1:
+  51              		.cfi_def_cfa_register 7
+  56:.\main.c      ****     CySysWdtClearInterrupt(CY_SYS_WDT_COUNTER0_INT);
+  52              		.loc 1 56 0
+  53 0004 0420     		mov	r0, #4
+  54 0006 FFF7FEFF 		bl	CySysWdtClearInterrupt
+  57:.\main.c      ****     
+  58:.\main.c      ****     if(sleepCount)
+  55              		.loc 1 58 0
+  56 000a 064B     		ldr	r3, .L3
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 3
+
+
+  57 000c 1B78     		ldrb	r3, [r3]
+  58 000e 002B     		cmp	r3, #0
+  59 0010 05D0     		beq	.L1
+  59:.\main.c      ****     {
+  60:.\main.c      **** 		sleepCount--;
+  60              		.loc 1 60 0
+  61 0012 044B     		ldr	r3, .L3
+  62 0014 1B78     		ldrb	r3, [r3]
+  63 0016 013B     		sub	r3, r3, #1
+  64 0018 DAB2     		uxtb	r2, r3
+  65 001a 024B     		ldr	r3, .L3
+  66 001c 1A70     		strb	r2, [r3]
+  67              	.L1:
+  61:.\main.c      **** 	}
+  62:.\main.c      **** 
+  63:.\main.c      **** }
+  68              		.loc 1 63 0
+  69 001e BD46     		mov	sp, r7
+  70              		@ sp needed for prologue
+  71 0020 80BD     		pop	{r7, pc}
+  72              	.L4:
+  73 0022 C046     		.align	2
+  74              	.L3:
+  75 0024 00000000 		.word	sleepCount
+  76              		.cfi_endproc
+  77              	.LFE33:
+  78              		.size	SleepISR, .-SleepISR
+  79              		.section	.text.FailISR,"ax",%progbits
+  80              		.align	2
+  81              		.global	FailISR
+  82              		.code	16
+  83              		.thumb_func
+  84              		.type	FailISR, %function
+  85              	FailISR:
+  86              	.LFB34:
+  64:.\main.c      **** 
+  65:.\main.c      **** /* This ISR stops the fail PWM once the beep is done */
+  66:.\main.c      **** CY_ISR(FailISR)
+  67:.\main.c      **** {
+  87              		.loc 1 67 0
+  88              		.cfi_startproc
+  89 0000 80B5     		push	{r7, lr}
+  90              	.LCFI2:
+  91              		.cfi_def_cfa_offset 8
+  92              		.cfi_offset 7, -8
+  93              		.cfi_offset 14, -4
+  94 0002 00AF     		add	r7, sp, #0
+  95              	.LCFI3:
+  96              		.cfi_def_cfa_register 7
+  68:.\main.c      ****     PWM_Fail_ClearInterrupt(PWM_Fail_INTR_MASK_TC);
+  97              		.loc 1 68 0
+  98 0004 0120     		mov	r0, #1
+  99 0006 FFF7FEFF 		bl	PWM_Fail_ClearInterrupt
+  69:.\main.c      ****     
+  70:.\main.c      ****     /* The fail PWM will go through this many periods before turning off */
+  71:.\main.c      ****     #define FAIL_COUNT      75
+  72:.\main.c      ****     
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 4
+
+
+  73:.\main.c      ****     static uint8 failCount = FAIL_COUNT;
+  74:.\main.c      ****     
+  75:.\main.c      ****     if(failCount)
+ 100              		.loc 1 75 0
+ 101 000a 094B     		ldr	r3, .L8
+ 102 000c 1B78     		ldrb	r3, [r3]
+ 103 000e 002B     		cmp	r3, #0
+ 104 0010 06D0     		beq	.L6
+  76:.\main.c      ****     {
+  77:.\main.c      ****         failCount--;
+ 105              		.loc 1 77 0
+ 106 0012 074B     		ldr	r3, .L8
+ 107 0014 1B78     		ldrb	r3, [r3]
+ 108 0016 013B     		sub	r3, r3, #1
+ 109 0018 DAB2     		uxtb	r2, r3
+ 110 001a 054B     		ldr	r3, .L8
+ 111 001c 1A70     		strb	r2, [r3]
+ 112 001e 04E0     		b	.L5
+ 113              	.L6:
+  78:.\main.c      ****     }
+  79:.\main.c      ****     else
+  80:.\main.c      ****     {
+  81:.\main.c      ****         PWM_Fail_Stop();
+ 114              		.loc 1 81 0
+ 115 0020 FFF7FEFF 		bl	PWM_Fail_Stop
+  82:.\main.c      ****         failCount = FAIL_COUNT;
+ 116              		.loc 1 82 0
+ 117 0024 024B     		ldr	r3, .L8
+ 118 0026 4B22     		mov	r2, #75
+ 119 0028 1A70     		strb	r2, [r3]
+ 120              	.L5:
+  83:.\main.c      ****     }
+  84:.\main.c      **** }
+ 121              		.loc 1 84 0
+ 122 002a BD46     		mov	sp, r7
+ 123              		@ sp needed for prologue
+ 124 002c 80BD     		pop	{r7, pc}
+ 125              	.L9:
+ 126 002e C046     		.align	2
+ 127              	.L8:
+ 128 0030 04000000 		.word	failCount.5326
+ 129              		.cfi_endproc
+ 130              	.LFE34:
+ 131              		.size	FailISR, .-FailISR
+ 132              		.section	.rodata
+ 133              		.align	2
+ 134              	.LC2:
+ 135 0000 53706565 		.ascii	"Speed: \000"
+ 135      643A2000 
+ 136              		.align	2
+ 137              	.LC8:
+ 138 0008 43686561 		.ascii	"Cheat\000"
+ 138      7400
+ 139 000e 0000     		.align	2
+ 140              	.LC10:
+ 141 0010 20202020 		.ascii	"     \000"
+ 141      2000
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 5
+
+
+ 142 0016 0000     		.align	2
+ 143              	.LC12:
+ 144 0018 494E4954 		.ascii	"INIT\000"
+ 144      00
+ 145 001d 000000   		.align	2
+ 146              	.LC14:
+ 147 0020 50415353 		.ascii	"PASS\000"
+ 147      00
+ 148 0025 000000   		.align	2
+ 149              	.LC16:
+ 150 0028 4641494C 		.ascii	"FAIL\000"
+ 150      00
+ 151 002d 000000   		.align	2
+ 152              	.LC18:
+ 153 0030 52554E20 		.ascii	"RUN \000"
+ 153      00
+ 154 0035 000000   		.section	.text.main,"ax",%progbits
+ 155              		.align	2
+ 156              		.global	main
+ 157              		.code	16
+ 158              		.thumb_func
+ 159              		.type	main, %function
+ 160              	main:
+ 161              	.LFB35:
+  85:.\main.c      **** 
+  86:.\main.c      **** int main()
+  87:.\main.c      **** {
+ 162              		.loc 1 87 0
+ 163              		.cfi_startproc
+ 164 0000 80B5     		push	{r7, lr}
+ 165              	.LCFI4:
+ 166              		.cfi_def_cfa_offset 8
+ 167              		.cfi_offset 7, -8
+ 168              		.cfi_offset 14, -4
+ 169 0002 9CB0     		sub	sp, sp, #112
+ 170              	.LCFI5:
+ 171              		.cfi_def_cfa_offset 120
+ 172 0004 00AF     		add	r7, sp, #0
+ 173              	.LCFI6:
+ 174              		.cfi_def_cfa_register 7
+  88:.\main.c      **** 	uint8 i;						    /* Loop counter */
+  89:.\main.c      **** 	uint8 buttonData;				    /* Contains value of button being pressed */
+  90:.\main.c      ****     uint8 debounce = DEBOUNCE_COUNT;    /* Button debounce counter */
+ 175              		.loc 1 90 0
+ 176 0006 3B1C     		mov	r3, r7
+ 177 0008 6D33     		add	r3, r3, #109
+ 178 000a 0A22     		mov	r2, #10
+ 179 000c 1A70     		strb	r2, [r3]
+  91:.\main.c      **** 
+  92:.\main.c      ****     
+  93:.\main.c      **** 	/* Cheat mode variables */
+  94:.\main.c      **** 	uint8  cheatMode = FALSE;	                /* Flag to toggle cheat mode on/off */
+ 180              		.loc 1 94 0
+ 181 000e 3B1C     		mov	r3, r7
+ 182 0010 6C33     		add	r3, r3, #108
+ 183 0012 0022     		mov	r2, #0
+ 184 0014 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 6
+
+
+  95:.\main.c      ****     uint8  debounceCheat = DEBOUNCE_COUNT;      /* Cheat button debounce counter */
+ 185              		.loc 1 95 0
+ 186 0016 3B1C     		mov	r3, r7
+ 187 0018 6B33     		add	r3, r3, #107
+ 188 001a 0A22     		mov	r2, #10
+ 189 001c 1A70     		strb	r2, [r3]
+  96:.\main.c      ****     uint8  debounceToggled = FALSE;             /* Flag so we don't toggle cheat mutilple times */
+ 190              		.loc 1 96 0
+ 191 001e 3B1C     		mov	r3, r7
+ 192 0020 6A33     		add	r3, r3, #106
+ 193 0022 0022     		mov	r2, #0
+ 194 0024 1A70     		strb	r2, [r3]
+  97:.\main.c      **** 	uint8  sequenceCount = 1;	                /* Sequence length for the current round */
+ 195              		.loc 1 97 0
+ 196 0026 3B1C     		mov	r3, r7
+ 197 0028 6933     		add	r3, r3, #105
+ 198 002a 0122     		mov	r2, #1
+ 199 002c 1A70     		strb	r2, [r3]
+  98:.\main.c      **** 	uint8  sequence[99];			            /* This holds the passing sequence */
+  99:.\main.c      **** 	uint8  doneFlag = FALSE;		            /* Flag to know when game is done */
+ 200              		.loc 1 99 0
+ 201 002e 3B1C     		mov	r3, r7
+ 202 0030 6833     		add	r3, r3, #104
+ 203 0032 0022     		mov	r2, #0
+ 204 0034 1A70     		strb	r2, [r3]
+ 100:.\main.c      **** 	uint16 failFlag = FALSE;		            /* Count to control fail beeper */
+ 205              		.loc 1 100 0
+ 206 0036 3B1C     		mov	r3, r7
+ 207 0038 6633     		add	r3, r3, #102
+ 208 003a 0022     		mov	r2, #0
+ 209 003c 1A80     		strh	r2, [r3]
+ 101:.\main.c      **** 
+ 102:.\main.c      ****    
+ 103:.\main.c      **** 	CyGlobalIntEnable;
+ 210              		.loc 1 103 0
+ 211              	@ 103 ".\main.c" 1
+ 212 003e 62B6     		CPSIE   i
+ 213              	@ 0 "" 2
+ 104:.\main.c      **** 	
+ 105:.\main.c      **** 	/* Start/Initialize everything */
+ 106:.\main.c      **** 	#ifdef LCD_ENABLE
+ 107:.\main.c      ****         LCD_Start();
+ 214              		.loc 1 107 0
+ 215              		.code	16
+ 216 0040 FFF7FEFF 		bl	LCD_Start
+ 108:.\main.c      **** 	    LCD_Position(1,0);
+ 217              		.loc 1 108 0
+ 218 0044 0120     		mov	r0, #1
+ 219 0046 0021     		mov	r1, #0
+ 220 0048 FFF7FEFF 		bl	LCD_Position
+ 109:.\main.c      **** 	    LCD_PrintString("Speed: ");
+ 221              		.loc 1 109 0
+ 222 004c CA4B     		ldr	r3, .L46
+ 223 004e 181C     		mov	r0, r3
+ 224 0050 FFF7FEFF 		bl	LCD_PrintString
+ 110:.\main.c      ****     #endif
+ 111:.\main.c      **** 	ADC_Start();
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 7
+
+
+ 225              		.loc 1 111 0
+ 226 0054 FFF7FEFF 		bl	ADC_Start
+ 112:.\main.c      ****     ADC_StartConvert();
+ 227              		.loc 1 112 0
+ 228 0058 FFF7FEFF 		bl	ADC_StartConvert
+ 113:.\main.c      ****     EZI2C_EzI2CSetBuffer1(I2CSIZE,I2CWRITE,i2cBuf); /* 3 byte buffer but only 1st byte can be writt
+ 229              		.loc 1 113 0
+ 230 005c C74B     		ldr	r3, .L46+4
+ 231 005e 0320     		mov	r0, #3
+ 232 0060 0121     		mov	r1, #1
+ 233 0062 1A1C     		mov	r2, r3
+ 234 0064 FFF7FEFF 		bl	EZI2C_EzI2CSetBuffer1
+ 114:.\main.c      ****     EZI2C_Start();
+ 235              		.loc 1 114 0
+ 236 0068 FFF7FEFF 		bl	EZI2C_Start
+ 115:.\main.c      **** 
+ 116:.\main.c      ****     LED_AWAKE_Write(TRUE); /* Turn on LED */
+ 237              		.loc 1 116 0
+ 238 006c 0120     		mov	r0, #1
+ 239 006e FFF7FEFF 		bl	LED_AWAKE_Write
+ 117:.\main.c      **** 
+ 118:.\main.c      **** 	/* Start up Watchdog timer */
+ 119:.\main.c      **** 	CySysWdtWriteMode(CY_SYS_WDT_COUNTER0,CY_SYS_WDT_MODE_INT);
+ 240              		.loc 1 119 0
+ 241 0072 0020     		mov	r0, #0
+ 242 0074 0121     		mov	r1, #1
+ 243 0076 FFF7FEFF 		bl	CySysWdtWriteMode
+ 120:.\main.c      **** 	CySysWdtWriteMatch(CY_SYS_WDT_COUNTER0,WDT_COUNT);
+ 244              		.loc 1 120 0
+ 245 007a C14B     		ldr	r3, .L46+8
+ 246 007c 0020     		mov	r0, #0
+ 247 007e 191C     		mov	r1, r3
+ 248 0080 FFF7FEFF 		bl	CySysWdtWriteMatch
+ 121:.\main.c      **** 	CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER0, 1u);
+ 249              		.loc 1 121 0
+ 250 0084 0020     		mov	r0, #0
+ 251 0086 0121     		mov	r1, #1
+ 252 0088 FFF7FEFF 		bl	CySysWdtWriteClearOnMatch
+ 122:.\main.c      **** 	CySysWdtWriteCascade(CY_SYS_WDT_CASCADE_NONE);
+ 253              		.loc 1 122 0
+ 254 008c 0020     		mov	r0, #0
+ 255 008e FFF7FEFF 		bl	CySysWdtWriteCascade
+ 123:.\main.c      **** 	CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK);    
+ 256              		.loc 1 123 0
+ 257 0092 0120     		mov	r0, #1
+ 258 0094 FFF7FEFF 		bl	CySysWdtEnable
+ 124:.\main.c      ****     
+ 125:.\main.c      ****     isr_fail_StartEx(FailISR);
+ 259              		.loc 1 125 0
+ 260 0098 BA4B     		ldr	r3, .L46+12
+ 261 009a 181C     		mov	r0, r3
+ 262 009c FFF7FEFF 		bl	isr_fail_StartEx
+ 126:.\main.c      ****     isr_sleep_StartEx(SleepISR);
+ 263              		.loc 1 126 0
+ 264 00a0 B94B     		ldr	r3, .L46+16
+ 265 00a2 181C     		mov	r0, r3
+ 266 00a4 FFF7FEFF 		bl	isr_sleep_StartEx
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 8
+
+
+ 267 00a8 00E0     		b	.L42
+ 268              	.L45:
+ 127:.\main.c      ****     
+ 128:.\main.c      ****     for(;;)
+ 129:.\main.c      ****     {
+ 130:.\main.c      **** 		/****************************************************************************************/
+ 131:.\main.c      **** 		/* Check Cheat Mode Switch */
+ 132:.\main.c      **** 		/****************************************************************************************/
+ 133:.\main.c      ****         if(!Cheat_Read()) /* Toggle cheat mode when switch is pressed/released */
+ 134:.\main.c      **** 		{
+ 135:.\main.c      **** 			if(debounceCheat) /* Not past the debounce yet */
+ 136:.\main.c      ****             {
+ 137:.\main.c      ****                 debounceCheat--;
+ 138:.\main.c      ****             }
+ 139:.\main.c      ****             else if(!debounceToggled) /* Past the debounce - toggle cheat mode */
+ 140:.\main.c      ****             {
+ 141:.\main.c      ****                 debounceToggled = TRUE;     /* Set flag so we don't toggle on next loop */
+ 142:.\main.c      ****                 sleepCount = SLEEP_COUNT;   /* Reset sleep count */
+ 143:.\main.c      ****                 cheatMode = !cheatMode;     /* Toggle cheat mode */
+ 144:.\main.c      **** 			    #ifdef LCD_ENABLE
+ 145:.\main.c      ****                     LCD_Position(0,11);
+ 146:.\main.c      ****     			    if(cheatMode)
+ 147:.\main.c      ****     			    {
+ 148:.\main.c      ****     				    LCD_PrintString("Cheat");
+ 149:.\main.c      ****     			    }
+ 150:.\main.c      ****     			    else
+ 151:.\main.c      ****     			    {
+ 152:.\main.c      ****     				    LCD_PrintString("     ");
+ 153:.\main.c      ****     			    }
+ 154:.\main.c      ****                 #endif
+ 155:.\main.c      ****             }
+ 156:.\main.c      **** 		}
+ 157:.\main.c      ****         else /* Button not pressed - reset debounce */
+ 158:.\main.c      ****         {
+ 159:.\main.c      ****             debounceCheat = DEBOUNCE_COUNT;
+ 160:.\main.c      ****             debounceToggled = FALSE;
+ 161:.\main.c      ****         }
+ 162:.\main.c      **** 		
+ 163:.\main.c      **** 		/****************************************************************************************/
+ 164:.\main.c      **** 		/* Check buttons and update the LED state and I2C register */
+ 165:.\main.c      **** 		/****************************************************************************************/
+ 166:.\main.c      ****         if(!cheatMode) /* Regular game play */
+ 167:.\main.c      **** 		{
+ 168:.\main.c      **** 			checkSpeed();	/* Check for new speed value */
+ 169:.\main.c      **** 			
+ 170:.\main.c      **** 			/* Read button press state from register. */
+ 171:.\main.c      **** 			/* The XOR inverts each bit since the buttons are active low */
+ 172:.\main.c      **** 			buttonData = (Button_Reg_Read() ^ 0xF);
+ 173:.\main.c      **** 			
+ 174:.\main.c      ****             if(buttonData == 0) /* No button is being pressed - reset debounce */
+ 175:.\main.c      ****             {
+ 176:.\main.c      ****                 debounce = DEBOUNCE_COUNT;
+ 177:.\main.c      ****             }
+ 178:.\main.c      ****             else /* A button is being pressed */
+ 179:.\main.c      ****             {
+ 180:.\main.c      ****                 sleepCount = SLEEP_COUNT; /* Reset sleep count */
+ 181:.\main.c      ****                 if(debounce)    /* We are not yet passed the debounce */
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 9
+
+
+ 182:.\main.c      ****                 {
+ 183:.\main.c      ****                     buttonData = 0;
+ 184:.\main.c      ****                     debounce--;               
+ 185:.\main.c      ****                 }
+ 186:.\main.c      ****             }
+ 187:.\main.c      ****             i2cBuf[BUTTON] = buttonData; /* Update I2C register with pressed button value */
+ 188:.\main.c      **** 		}
+ 189:.\main.c      **** 		else /* Cheat mode - look at sequence and send back */
+ 190:.\main.c      **** 		{
+ 191:.\main.c      **** 			if(i2cBuf[INFO] == PASS || i2cBuf[INFO] == FAIL || i2cBuf[INFO] == INIT) /* Reset sequence for n
+ 192:.\main.c      **** 			{
+ 193:.\main.c      **** 				sequenceCount = 1;
+ 194:.\main.c      **** 				doneFlag = FALSE;
+ 195:.\main.c      **** 			}
+ 196:.\main.c      **** 			else /* Game in progress */
+ 197:.\main.c      **** 			{
+ 198:.\main.c      **** 				for(i=0;i<sequenceCount;i++) /* Capture the sequence */
+ 199:.\main.c      **** 				{
+ 200:.\main.c      **** 					while(i2cBuf[INFO] == RUN)
+ 201:.\main.c      **** 					{
+ 202:.\main.c      **** 						CyDelay(1); 	/* Wait until we have button press info from master */	
+ 203:.\main.c      **** 						checkSpeed();	/* Check for new speed value */
+ 204:.\main.c      **** 					}
+ 205:.\main.c      **** 					if(i2cBuf[INFO] == PASS || i2cBuf[INFO] == FAIL ) /* We have completed the game */
+ 206:.\main.c      **** 					{
+ 207:.\main.c      **** 						doneFlag = TRUE;
+ 208:.\main.c      **** 						LEDreg_Write(ALLOFF);
+ 209:.\main.c      **** 					}
+ 210:.\main.c      **** 					else /* Game still in progress - wait for next value from master */
+ 211:.\main.c      **** 					{
+ 212:.\main.c      **** 						sequence[i] = i2cBuf[INFO]; /* Capture the button press */
+ 213:.\main.c      **** 						LEDreg_Write(~sequence[i]); /* Turn on LED for this button */
+ 214:.\main.c      **** 						while(i2cBuf[INFO] != RUN)
+ 215:.\main.c      **** 						{	
+ 216:.\main.c      **** 							CyDelay(1); /* Wait until we have no button press */
+ 217:.\main.c      **** 						}
+ 218:.\main.c      **** 						LEDreg_Write(ALLOFF);	/* Turn LED back off again */
+ 219:.\main.c      **** 					}
+ 220:.\main.c      **** 				}
+ 221:.\main.c      **** 				CyDelay(400); /* Wait for master to be looking for user input */
+ 222:.\main.c      **** 				if(!doneFlag) /* Game still in progress */
+ 223:.\main.c      **** 				{
+ 224:.\main.c      **** 					for(i=0;i<sequenceCount;i++) /* Send back the sequence */
+ 225:.\main.c      **** 					{
+ 226:.\main.c      **** 						i2cBuf[BUTTON] = sequence[i]; /* Send button press */
+ 227:.\main.c      **** 						LEDreg_Write(~sequence[i]); /* Turn on LED */
+ 228:.\main.c      **** 						CyDelay(60); /* Wait long enough for master to get the button press */
+ 229:.\main.c      **** 						i2cBuf[BUTTON] = 0; /* Clear button press */
+ 230:.\main.c      **** 						LEDreg_Write(ALLOFF); /* Turn off LED */
+ 231:.\main.c      **** 						CyDelay(60); /* Wait long enough for master to get button clear */
+ 232:.\main.c      **** 						checkSpeed();	/* Check for new speed value */
+ 233:.\main.c      **** 					}
+ 234:.\main.c      **** 					sequenceCount++; /* Get read for next sequence */
+ 235:.\main.c      **** 				}
+ 236:.\main.c      **** 			}
+ 237:.\main.c      **** 		} /* End Cheat Mode */
+ 238:.\main.c      ****         
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 10
+
+
+ 239:.\main.c      **** 		/****************************************************************************************/
+ 240:.\main.c      **** 		/* Update LCD based on info register */
+ 241:.\main.c      **** 		/****************************************************************************************/
+ 242:.\main.c      **** 	    #ifdef LCD_ENABLE
+ 243:.\main.c      ****             LCD_Position(0,0);
+ 244:.\main.c      **** 		#endif
+ 245:.\main.c      ****         
+ 246:.\main.c      **** 		i = i2cBuf[INFO];
+ 247:.\main.c      **** 		switch(i)
+ 248:.\main.c      **** 		{
+ 249:.\main.c      **** 			case INIT:
+ 250:.\main.c      **** 			    #ifdef LCD_ENABLE
+ 251:.\main.c      ****                     LCD_PrintString("INIT");
+ 252:.\main.c      ****                 #endif
+ 253:.\main.c      **** 				break;
+ 254:.\main.c      **** 			case PASS:
+ 255:.\main.c      **** 			    #ifdef LCD_ENABLE
+ 256:.\main.c      ****                     LCD_PrintString("PASS");
+ 257:.\main.c      ****                 #endif
+ 258:.\main.c      **** 				break;
+ 259:.\main.c      **** 			case FAIL:
+ 260:.\main.c      **** 				#ifdef LCD_ENABLE
+ 261:.\main.c      ****                     LCD_PrintString("FAIL");
+ 262:.\main.c      ****                 #endif
+ 263:.\main.c      ****                 if(failFlag == FALSE) /* Start beep when we transition to fail state */
+ 264:.\main.c      **** 				{                     /* The stop is done by the PWM isr */
+ 265:.\main.c      **** 					PWM_Fail_Start();
+ 266:.\main.c      ****                     failFlag = TRUE;
+ 267:.\main.c      ****                 }
+ 268:.\main.c      **** 				break;
+ 269:.\main.c      **** 			case RUN:
+ 270:.\main.c      **** 				#ifdef LCD_ENABLE	
+ 271:.\main.c      ****                     LCD_PrintString("RUN ");
+ 272:.\main.c      ****                 #endif
+ 273:.\main.c      **** 				failFlag = FALSE; /* Reset fail flag for next game */
+ 274:.\main.c      **** 				sleepCount=SLEEP_COUNT; /* Reset sleep count */
+ 275:.\main.c      **** 				break;
+ 276:.\main.c      **** 			default: 	/* If we get here, an LED is being lit by the host */ 
+ 277:.\main.c      **** 						/* We need to light same one on slave */
+ 278:.\main.c      **** 				LEDreg_Write(~i);
+ 279:.\main.c      **** 				buttonData = 1; /* Set button data flag so that we don't turn off the LED right away */		
+ 280:.\main.c      **** 				sleepCount=SLEEP_COUNT; /* Reset sleep count */
+ 281:.\main.c      **** 				break;
+ 282:.\main.c      **** 		}
+ 283:.\main.c      **** 
+ 284:.\main.c      **** 		/* If LED is not written by either button press on slave or from host then turn off all LEDs */
+ 285:.\main.c      **** 		if(!buttonData)
+ 286:.\main.c      **** 		{
+ 287:.\main.c      **** 			LEDreg_Write(ALLOFF);
+ 288:.\main.c      **** 		}
+ 289:.\main.c      **** 
+ 290:.\main.c      **** 		/****************************************************************************************/
+ 291:.\main.c      **** 		/* Low Power Mode */
+ 292:.\main.c      **** 		/****************************************************************************************/
+ 293:.\main.c      **** 		if (!sleepCount) /* Time to go to sleep */
+ 294:.\main.c      **** 		{
+ 295:.\main.c      ****             CySysWdtDisable(CY_SYS_WDT_COUNTER0_MASK); /* Turn off the WDT interrupt so that it doe
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 11
+
+
+ 296:.\main.c      **** 			#ifdef LCD_ENABLE	
+ 297:.\main.c      ****                 LCD_Sleep();
+ 298:.\main.c      **** 			#endif
+ 299:.\main.c      **** 			ADC_Sleep();                
+ 300:.\main.c      **** 			LED_AWAKE_Write(FALSE); /* Turn off LED */
+ 301:.\main.c      **** 			LEDreg_Write(ALLOFF);	/* Turn off all button LEDs */
+ 302:.\main.c      ****             EZI2C_Sleep();
+ 303:.\main.c      **** 
+ 304:.\main.c      ****             CySysPmDeepSleep(); /* Prepare to Deep Sleep: enables wakeup interrupt */
+ 305:.\main.c      ****             /* When we get here, it is time to wake back up */
+ 306:.\main.c      ****             
+ 307:.\main.c      ****             EZI2C_Wakeup();; /* Restore for Active operation */
+ 308:.\main.c      **** 			
+ 309:.\main.c      **** 			LED_AWAKE_Write(TRUE); /* Turn on LED */
+ 310:.\main.c      **** 			ADC_Wakeup();
+ 311:.\main.c      **** 		    #ifdef LCD_ENABLE
+ 312:.\main.c      ****                 LCD_Wakeup();
+ 313:.\main.c      **** 			#endif
+ 314:.\main.c      ****             LEDreg_Write(ALLOFF); /* Reset the LED control register since it wakes with all 0's */	
+ 315:.\main.c      ****             CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK); /* Turn off the WDT interrupt so that it does
+ 316:.\main.c      **** 			sleepCount=SLEEP_COUNT; /* Reset sleep count */
+ 317:.\main.c      **** 		} /* End of low power mode */
+ 318:.\main.c      **** 	} /* End of infinite loop */
+ 269              		.loc 1 318 0
+ 270 00aa C046     		mov	r8, r8
+ 271              	.L42:
+ 133:.\main.c      ****         if(!Cheat_Read()) /* Toggle cheat mode when switch is pressed/released */
+ 272              		.loc 1 133 0
+ 273 00ac FFF7FEFF 		bl	Cheat_Read
+ 274 00b0 031C     		mov	r3, r0
+ 275 00b2 002B     		cmp	r3, #0
+ 276 00b4 34D1     		bne	.L11
+ 135:.\main.c      **** 			if(debounceCheat) /* Not past the debounce yet */
+ 277              		.loc 1 135 0
+ 278 00b6 3B1C     		mov	r3, r7
+ 279 00b8 6B33     		add	r3, r3, #107
+ 280 00ba 1B78     		ldrb	r3, [r3]
+ 281 00bc 002B     		cmp	r3, #0
+ 282 00be 07D0     		beq	.L12
+ 137:.\main.c      ****                 debounceCheat--;
+ 283              		.loc 1 137 0
+ 284 00c0 3B1C     		mov	r3, r7
+ 285 00c2 6B33     		add	r3, r3, #107
+ 286 00c4 3A1C     		mov	r2, r7
+ 287 00c6 6B32     		add	r2, r2, #107
+ 288 00c8 1278     		ldrb	r2, [r2]
+ 289 00ca 013A     		sub	r2, r2, #1
+ 290 00cc 1A70     		strb	r2, [r3]
+ 291 00ce 2FE0     		b	.L13
+ 292              	.L12:
+ 139:.\main.c      ****             else if(!debounceToggled) /* Past the debounce - toggle cheat mode */
+ 293              		.loc 1 139 0
+ 294 00d0 3B1C     		mov	r3, r7
+ 295 00d2 6A33     		add	r3, r3, #106
+ 296 00d4 1B78     		ldrb	r3, [r3]
+ 297 00d6 002B     		cmp	r3, #0
+ 298 00d8 2AD1     		bne	.L13
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 12
+
+
+ 141:.\main.c      ****                 debounceToggled = TRUE;     /* Set flag so we don't toggle on next loop */
+ 299              		.loc 1 141 0
+ 300 00da 3B1C     		mov	r3, r7
+ 301 00dc 6A33     		add	r3, r3, #106
+ 302 00de 0122     		mov	r2, #1
+ 303 00e0 1A70     		strb	r2, [r3]
+ 142:.\main.c      ****                 sleepCount = SLEEP_COUNT;   /* Reset sleep count */
+ 304              		.loc 1 142 0
+ 305 00e2 AA4B     		ldr	r3, .L46+20
+ 306 00e4 6422     		mov	r2, #100
+ 307 00e6 1A70     		strb	r2, [r3]
+ 143:.\main.c      ****                 cheatMode = !cheatMode;     /* Toggle cheat mode */
+ 308              		.loc 1 143 0
+ 309 00e8 3B1C     		mov	r3, r7
+ 310 00ea 6C33     		add	r3, r3, #108
+ 311 00ec 1B78     		ldrb	r3, [r3]
+ 312 00ee 5A42     		neg	r2, r3
+ 313 00f0 5341     		adc	r3, r3, r2
+ 314 00f2 DAB2     		uxtb	r2, r3
+ 315 00f4 3B1C     		mov	r3, r7
+ 316 00f6 6C33     		add	r3, r3, #108
+ 317 00f8 1A70     		strb	r2, [r3]
+ 145:.\main.c      ****                     LCD_Position(0,11);
+ 318              		.loc 1 145 0
+ 319 00fa 0020     		mov	r0, #0
+ 320 00fc 0B21     		mov	r1, #11
+ 321 00fe FFF7FEFF 		bl	LCD_Position
+ 146:.\main.c      ****     			    if(cheatMode)
+ 322              		.loc 1 146 0
+ 323 0102 3B1C     		mov	r3, r7
+ 324 0104 6C33     		add	r3, r3, #108
+ 325 0106 1B78     		ldrb	r3, [r3]
+ 326 0108 002B     		cmp	r3, #0
+ 327 010a 04D0     		beq	.L14
+ 148:.\main.c      ****     				    LCD_PrintString("Cheat");
+ 328              		.loc 1 148 0
+ 329 010c A04B     		ldr	r3, .L46+24
+ 330 010e 181C     		mov	r0, r3
+ 331 0110 FFF7FEFF 		bl	LCD_PrintString
+ 332 0114 0CE0     		b	.L13
+ 333              	.L14:
+ 152:.\main.c      ****     				    LCD_PrintString("     ");
+ 334              		.loc 1 152 0
+ 335 0116 9F4B     		ldr	r3, .L46+28
+ 336 0118 181C     		mov	r0, r3
+ 337 011a FFF7FEFF 		bl	LCD_PrintString
+ 338 011e 07E0     		b	.L13
+ 339              	.L11:
+ 159:.\main.c      ****             debounceCheat = DEBOUNCE_COUNT;
+ 340              		.loc 1 159 0
+ 341 0120 3B1C     		mov	r3, r7
+ 342 0122 6B33     		add	r3, r3, #107
+ 343 0124 0A22     		mov	r2, #10
+ 344 0126 1A70     		strb	r2, [r3]
+ 160:.\main.c      ****             debounceToggled = FALSE;
+ 345              		.loc 1 160 0
+ 346 0128 3B1C     		mov	r3, r7
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 13
+
+
+ 347 012a 6A33     		add	r3, r3, #106
+ 348 012c 0022     		mov	r2, #0
+ 349 012e 1A70     		strb	r2, [r3]
+ 350              	.L13:
+ 166:.\main.c      ****         if(!cheatMode) /* Regular game play */
+ 351              		.loc 1 166 0
+ 352 0130 3B1C     		mov	r3, r7
+ 353 0132 6C33     		add	r3, r3, #108
+ 354 0134 1B78     		ldrb	r3, [r3]
+ 355 0136 002B     		cmp	r3, #0
+ 356 0138 2DD1     		bne	.L15
+ 168:.\main.c      **** 			checkSpeed();	/* Check for new speed value */
+ 357              		.loc 1 168 0
+ 358 013a FFF7FEFF 		bl	checkSpeed
+ 172:.\main.c      **** 			buttonData = (Button_Reg_Read() ^ 0xF);
+ 359              		.loc 1 172 0
+ 360 013e FFF7FEFF 		bl	Button_Reg_Read
+ 361 0142 031C     		mov	r3, r0
+ 362 0144 1A1C     		mov	r2, r3
+ 363 0146 3B1C     		mov	r3, r7
+ 364 0148 6E33     		add	r3, r3, #110
+ 365 014a 0F21     		mov	r1, #15
+ 366 014c 4A40     		eor	r2, r1
+ 367 014e 1A70     		strb	r2, [r3]
+ 174:.\main.c      ****             if(buttonData == 0) /* No button is being pressed - reset debounce */
+ 368              		.loc 1 174 0
+ 369 0150 3B1C     		mov	r3, r7
+ 370 0152 6E33     		add	r3, r3, #110
+ 371 0154 1B78     		ldrb	r3, [r3]
+ 372 0156 002B     		cmp	r3, #0
+ 373 0158 04D1     		bne	.L16
+ 176:.\main.c      ****                 debounce = DEBOUNCE_COUNT;
+ 374              		.loc 1 176 0
+ 375 015a 3B1C     		mov	r3, r7
+ 376 015c 6D33     		add	r3, r3, #109
+ 377 015e 0A22     		mov	r2, #10
+ 378 0160 1A70     		strb	r2, [r3]
+ 379 0162 12E0     		b	.L17
+ 380              	.L16:
+ 180:.\main.c      ****                 sleepCount = SLEEP_COUNT; /* Reset sleep count */
+ 381              		.loc 1 180 0
+ 382 0164 894B     		ldr	r3, .L46+20
+ 383 0166 6422     		mov	r2, #100
+ 384 0168 1A70     		strb	r2, [r3]
+ 181:.\main.c      ****                 if(debounce)    /* We are not yet passed the debounce */
+ 385              		.loc 1 181 0
+ 386 016a 3B1C     		mov	r3, r7
+ 387 016c 6D33     		add	r3, r3, #109
+ 388 016e 1B78     		ldrb	r3, [r3]
+ 389 0170 002B     		cmp	r3, #0
+ 390 0172 0AD0     		beq	.L17
+ 183:.\main.c      ****                     buttonData = 0;
+ 391              		.loc 1 183 0
+ 392 0174 3B1C     		mov	r3, r7
+ 393 0176 6E33     		add	r3, r3, #110
+ 394 0178 0022     		mov	r2, #0
+ 395 017a 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 14
+
+
+ 184:.\main.c      ****                     debounce--;               
+ 396              		.loc 1 184 0
+ 397 017c 3B1C     		mov	r3, r7
+ 398 017e 6D33     		add	r3, r3, #109
+ 399 0180 3A1C     		mov	r2, r7
+ 400 0182 6D32     		add	r2, r2, #109
+ 401 0184 1278     		ldrb	r2, [r2]
+ 402 0186 013A     		sub	r2, r2, #1
+ 403 0188 1A70     		strb	r2, [r3]
+ 404              	.L17:
+ 187:.\main.c      ****             i2cBuf[BUTTON] = buttonData; /* Update I2C register with pressed button value */
+ 405              		.loc 1 187 0
+ 406 018a 7C4B     		ldr	r3, .L46+4
+ 407 018c 3A1C     		mov	r2, r7
+ 408 018e 6E32     		add	r2, r2, #110
+ 409 0190 1278     		ldrb	r2, [r2]
+ 410 0192 5A70     		strb	r2, [r3, #1]
+ 411 0194 A3E0     		b	.L18
+ 412              	.L15:
+ 191:.\main.c      **** 			if(i2cBuf[INFO] == PASS || i2cBuf[INFO] == FAIL || i2cBuf[INFO] == INIT) /* Reset sequence for n
+ 413              		.loc 1 191 0
+ 414 0196 794B     		ldr	r3, .L46+4
+ 415 0198 1B78     		ldrb	r3, [r3]
+ 416 019a 202B     		cmp	r3, #32
+ 417 019c 07D0     		beq	.L19
+ 191:.\main.c      **** 			if(i2cBuf[INFO] == PASS || i2cBuf[INFO] == FAIL || i2cBuf[INFO] == INIT) /* Reset sequence for n
+ 418              		.loc 1 191 0 is_stmt 0 discriminator 1
+ 419 019e 774B     		ldr	r3, .L46+4
+ 420 01a0 1B78     		ldrb	r3, [r3]
+ 421 01a2 102B     		cmp	r3, #16
+ 422 01a4 03D0     		beq	.L19
+ 423 01a6 754B     		ldr	r3, .L46+4
+ 424 01a8 1B78     		ldrb	r3, [r3]
+ 425 01aa 402B     		cmp	r3, #64
+ 426 01ac 08D1     		bne	.L20
+ 427              	.L19:
+ 193:.\main.c      **** 				sequenceCount = 1;
+ 428              		.loc 1 193 0 is_stmt 1
+ 429 01ae 3B1C     		mov	r3, r7
+ 430 01b0 6933     		add	r3, r3, #105
+ 431 01b2 0122     		mov	r2, #1
+ 432 01b4 1A70     		strb	r2, [r3]
+ 194:.\main.c      **** 				doneFlag = FALSE;
+ 433              		.loc 1 194 0
+ 434 01b6 3B1C     		mov	r3, r7
+ 435 01b8 6833     		add	r3, r3, #104
+ 436 01ba 0022     		mov	r2, #0
+ 437 01bc 1A70     		strb	r2, [r3]
+ 438 01be 8EE0     		b	.L18
+ 439              	.L20:
+ 198:.\main.c      **** 				for(i=0;i<sequenceCount;i++) /* Capture the sequence */
+ 440              		.loc 1 198 0
+ 441 01c0 3B1C     		mov	r3, r7
+ 442 01c2 6F33     		add	r3, r3, #111
+ 443 01c4 0022     		mov	r2, #0
+ 444 01c6 1A70     		strb	r2, [r3]
+ 445 01c8 3DE0     		b	.L21
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 15
+
+
+ 446              	.L23:
+ 202:.\main.c      **** 						CyDelay(1); 	/* Wait until we have button press info from master */	
+ 447              		.loc 1 202 0
+ 448 01ca 0120     		mov	r0, #1
+ 449 01cc FFF7FEFF 		bl	CyDelay
+ 203:.\main.c      **** 						checkSpeed();	/* Check for new speed value */
+ 450              		.loc 1 203 0
+ 451 01d0 FFF7FEFF 		bl	checkSpeed
+ 452 01d4 00E0     		b	.L22
+ 453              	.L43:
+ 200:.\main.c      **** 					while(i2cBuf[INFO] == RUN)
+ 454              		.loc 1 200 0
+ 455 01d6 C046     		mov	r8, r8
+ 456              	.L22:
+ 200:.\main.c      **** 					while(i2cBuf[INFO] == RUN)
+ 457              		.loc 1 200 0 is_stmt 0 discriminator 1
+ 458 01d8 684B     		ldr	r3, .L46+4
+ 459 01da 1B78     		ldrb	r3, [r3]
+ 460 01dc 002B     		cmp	r3, #0
+ 461 01de F4D0     		beq	.L23
+ 205:.\main.c      **** 					if(i2cBuf[INFO] == PASS || i2cBuf[INFO] == FAIL ) /* We have completed the game */
+ 462              		.loc 1 205 0 is_stmt 1
+ 463 01e0 664B     		ldr	r3, .L46+4
+ 464 01e2 1B78     		ldrb	r3, [r3]
+ 465 01e4 202B     		cmp	r3, #32
+ 466 01e6 03D0     		beq	.L24
+ 205:.\main.c      **** 					if(i2cBuf[INFO] == PASS || i2cBuf[INFO] == FAIL ) /* We have completed the game */
+ 467              		.loc 1 205 0 is_stmt 0 discriminator 1
+ 468 01e8 644B     		ldr	r3, .L46+4
+ 469 01ea 1B78     		ldrb	r3, [r3]
+ 470 01ec 102B     		cmp	r3, #16
+ 471 01ee 07D1     		bne	.L25
+ 472              	.L24:
+ 207:.\main.c      **** 						doneFlag = TRUE;
+ 473              		.loc 1 207 0 is_stmt 1
+ 474 01f0 3B1C     		mov	r3, r7
+ 475 01f2 6833     		add	r3, r3, #104
+ 476 01f4 0122     		mov	r2, #1
+ 477 01f6 1A70     		strb	r2, [r3]
+ 208:.\main.c      **** 						LEDreg_Write(ALLOFF);
+ 478              		.loc 1 208 0
+ 479 01f8 0F20     		mov	r0, #15
+ 480 01fa FFF7FEFF 		bl	LEDreg_Write
+ 481 01fe 1BE0     		b	.L26
+ 482              	.L25:
+ 212:.\main.c      **** 						sequence[i] = i2cBuf[INFO]; /* Capture the button press */
+ 483              		.loc 1 212 0
+ 484 0200 3B1C     		mov	r3, r7
+ 485 0202 6F33     		add	r3, r3, #111
+ 486 0204 1B78     		ldrb	r3, [r3]
+ 487 0206 5D4A     		ldr	r2, .L46+4
+ 488 0208 1178     		ldrb	r1, [r2]
+ 489 020a 3A1C     		mov	r2, r7
+ 490 020c D154     		strb	r1, [r2, r3]
+ 213:.\main.c      **** 						LEDreg_Write(~sequence[i]); /* Turn on LED for this button */
+ 491              		.loc 1 213 0
+ 492 020e 3B1C     		mov	r3, r7
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 16
+
+
+ 493 0210 6F33     		add	r3, r3, #111
+ 494 0212 1B78     		ldrb	r3, [r3]
+ 495 0214 3A1C     		mov	r2, r7
+ 496 0216 D35C     		ldrb	r3, [r2, r3]
+ 497 0218 DB43     		mvn	r3, r3
+ 498 021a DBB2     		uxtb	r3, r3
+ 499 021c 181C     		mov	r0, r3
+ 500 021e FFF7FEFF 		bl	LEDreg_Write
+ 214:.\main.c      **** 						while(i2cBuf[INFO] != RUN)
+ 501              		.loc 1 214 0
+ 502 0222 02E0     		b	.L27
+ 503              	.L28:
+ 216:.\main.c      **** 							CyDelay(1); /* Wait until we have no button press */
+ 504              		.loc 1 216 0
+ 505 0224 0120     		mov	r0, #1
+ 506 0226 FFF7FEFF 		bl	CyDelay
+ 507              	.L27:
+ 214:.\main.c      **** 						while(i2cBuf[INFO] != RUN)
+ 508              		.loc 1 214 0 discriminator 1
+ 509 022a 544B     		ldr	r3, .L46+4
+ 510 022c 1B78     		ldrb	r3, [r3]
+ 511 022e 002B     		cmp	r3, #0
+ 512 0230 F8D1     		bne	.L28
+ 218:.\main.c      **** 						LEDreg_Write(ALLOFF);	/* Turn LED back off again */
+ 513              		.loc 1 218 0
+ 514 0232 0F20     		mov	r0, #15
+ 515 0234 FFF7FEFF 		bl	LEDreg_Write
+ 516              	.L26:
+ 198:.\main.c      **** 				for(i=0;i<sequenceCount;i++) /* Capture the sequence */
+ 517              		.loc 1 198 0
+ 518 0238 3B1C     		mov	r3, r7
+ 519 023a 6F33     		add	r3, r3, #111
+ 520 023c 3A1C     		mov	r2, r7
+ 521 023e 6F32     		add	r2, r2, #111
+ 522 0240 1278     		ldrb	r2, [r2]
+ 523 0242 0132     		add	r2, r2, #1
+ 524 0244 1A70     		strb	r2, [r3]
+ 525              	.L21:
+ 198:.\main.c      **** 				for(i=0;i<sequenceCount;i++) /* Capture the sequence */
+ 526              		.loc 1 198 0 is_stmt 0 discriminator 1
+ 527 0246 3A1C     		mov	r2, r7
+ 528 0248 6F32     		add	r2, r2, #111
+ 529 024a 3B1C     		mov	r3, r7
+ 530 024c 6933     		add	r3, r3, #105
+ 531 024e 1278     		ldrb	r2, [r2]
+ 532 0250 1B78     		ldrb	r3, [r3]
+ 533 0252 9A42     		cmp	r2, r3
+ 534 0254 BFD3     		bcc	.L43
+ 221:.\main.c      **** 				CyDelay(400); /* Wait for master to be looking for user input */
+ 535              		.loc 1 221 0 is_stmt 1
+ 536 0256 C823     		mov	r3, #200
+ 537 0258 5B00     		lsl	r3, r3, #1
+ 538 025a 181C     		mov	r0, r3
+ 539 025c FFF7FEFF 		bl	CyDelay
+ 222:.\main.c      **** 				if(!doneFlag) /* Game still in progress */
+ 540              		.loc 1 222 0
+ 541 0260 3B1C     		mov	r3, r7
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 17
+
+
+ 542 0262 6833     		add	r3, r3, #104
+ 543 0264 1B78     		ldrb	r3, [r3]
+ 544 0266 002B     		cmp	r3, #0
+ 545 0268 39D1     		bne	.L18
+ 224:.\main.c      **** 					for(i=0;i<sequenceCount;i++) /* Send back the sequence */
+ 546              		.loc 1 224 0
+ 547 026a 3B1C     		mov	r3, r7
+ 548 026c 6F33     		add	r3, r3, #111
+ 549 026e 0022     		mov	r2, #0
+ 550 0270 1A70     		strb	r2, [r3]
+ 551 0272 25E0     		b	.L30
+ 552              	.L31:
+ 226:.\main.c      **** 						i2cBuf[BUTTON] = sequence[i]; /* Send button press */
+ 553              		.loc 1 226 0 discriminator 2
+ 554 0274 3B1C     		mov	r3, r7
+ 555 0276 6F33     		add	r3, r3, #111
+ 556 0278 1B78     		ldrb	r3, [r3]
+ 557 027a 3A1C     		mov	r2, r7
+ 558 027c D25C     		ldrb	r2, [r2, r3]
+ 559 027e 3F4B     		ldr	r3, .L46+4
+ 560 0280 5A70     		strb	r2, [r3, #1]
+ 227:.\main.c      **** 						LEDreg_Write(~sequence[i]); /* Turn on LED */
+ 561              		.loc 1 227 0 discriminator 2
+ 562 0282 3B1C     		mov	r3, r7
+ 563 0284 6F33     		add	r3, r3, #111
+ 564 0286 1B78     		ldrb	r3, [r3]
+ 565 0288 3A1C     		mov	r2, r7
+ 566 028a D35C     		ldrb	r3, [r2, r3]
+ 567 028c DB43     		mvn	r3, r3
+ 568 028e DBB2     		uxtb	r3, r3
+ 569 0290 181C     		mov	r0, r3
+ 570 0292 FFF7FEFF 		bl	LEDreg_Write
+ 228:.\main.c      **** 						CyDelay(60); /* Wait long enough for master to get the button press */
+ 571              		.loc 1 228 0 discriminator 2
+ 572 0296 3C20     		mov	r0, #60
+ 573 0298 FFF7FEFF 		bl	CyDelay
+ 229:.\main.c      **** 						i2cBuf[BUTTON] = 0; /* Clear button press */
+ 574              		.loc 1 229 0 discriminator 2
+ 575 029c 374B     		ldr	r3, .L46+4
+ 576 029e 0022     		mov	r2, #0
+ 577 02a0 5A70     		strb	r2, [r3, #1]
+ 230:.\main.c      **** 						LEDreg_Write(ALLOFF); /* Turn off LED */
+ 578              		.loc 1 230 0 discriminator 2
+ 579 02a2 0F20     		mov	r0, #15
+ 580 02a4 FFF7FEFF 		bl	LEDreg_Write
+ 231:.\main.c      **** 						CyDelay(60); /* Wait long enough for master to get button clear */
+ 581              		.loc 1 231 0 discriminator 2
+ 582 02a8 3C20     		mov	r0, #60
+ 583 02aa FFF7FEFF 		bl	CyDelay
+ 232:.\main.c      **** 						checkSpeed();	/* Check for new speed value */
+ 584              		.loc 1 232 0 discriminator 2
+ 585 02ae FFF7FEFF 		bl	checkSpeed
+ 224:.\main.c      **** 					for(i=0;i<sequenceCount;i++) /* Send back the sequence */
+ 586              		.loc 1 224 0 discriminator 2
+ 587 02b2 3B1C     		mov	r3, r7
+ 588 02b4 6F33     		add	r3, r3, #111
+ 589 02b6 3A1C     		mov	r2, r7
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 18
+
+
+ 590 02b8 6F32     		add	r2, r2, #111
+ 591 02ba 1278     		ldrb	r2, [r2]
+ 592 02bc 0132     		add	r2, r2, #1
+ 593 02be 1A70     		strb	r2, [r3]
+ 594              	.L30:
+ 224:.\main.c      **** 					for(i=0;i<sequenceCount;i++) /* Send back the sequence */
+ 595              		.loc 1 224 0 is_stmt 0 discriminator 1
+ 596 02c0 3A1C     		mov	r2, r7
+ 597 02c2 6F32     		add	r2, r2, #111
+ 598 02c4 3B1C     		mov	r3, r7
+ 599 02c6 6933     		add	r3, r3, #105
+ 600 02c8 1278     		ldrb	r2, [r2]
+ 601 02ca 1B78     		ldrb	r3, [r3]
+ 602 02cc 9A42     		cmp	r2, r3
+ 603 02ce D1D3     		bcc	.L31
+ 234:.\main.c      **** 					sequenceCount++; /* Get read for next sequence */
+ 604              		.loc 1 234 0 is_stmt 1
+ 605 02d0 3B1C     		mov	r3, r7
+ 606 02d2 6933     		add	r3, r3, #105
+ 607 02d4 3A1C     		mov	r2, r7
+ 608 02d6 6932     		add	r2, r2, #105
+ 609 02d8 1278     		ldrb	r2, [r2]
+ 610 02da 0132     		add	r2, r2, #1
+ 611 02dc 1A70     		strb	r2, [r3]
+ 612              	.L18:
+ 243:.\main.c      ****             LCD_Position(0,0);
+ 613              		.loc 1 243 0
+ 614 02de 0020     		mov	r0, #0
+ 615 02e0 0021     		mov	r1, #0
+ 616 02e2 FFF7FEFF 		bl	LCD_Position
+ 246:.\main.c      **** 		i = i2cBuf[INFO];
+ 617              		.loc 1 246 0
+ 618 02e6 3B1C     		mov	r3, r7
+ 619 02e8 6F33     		add	r3, r3, #111
+ 620 02ea 244A     		ldr	r2, .L46+4
+ 621 02ec 1278     		ldrb	r2, [r2]
+ 622 02ee 1A70     		strb	r2, [r3]
+ 247:.\main.c      **** 		switch(i)
+ 623              		.loc 1 247 0
+ 624 02f0 3B1C     		mov	r3, r7
+ 625 02f2 6F33     		add	r3, r3, #111
+ 626 02f4 1B78     		ldrb	r3, [r3]
+ 627 02f6 102B     		cmp	r3, #16
+ 628 02f8 11D0     		beq	.L34
+ 629 02fa 02DC     		bgt	.L37
+ 630 02fc 002B     		cmp	r3, #0
+ 631 02fe 1ED0     		beq	.L33
+ 632 0300 29E0     		b	.L32
+ 633              	.L37:
+ 634 0302 202B     		cmp	r3, #32
+ 635 0304 06D0     		beq	.L35
+ 636 0306 402B     		cmp	r3, #64
+ 637 0308 25D1     		bne	.L32
+ 638              	.L36:
+ 251:.\main.c      ****                     LCD_PrintString("INIT");
+ 639              		.loc 1 251 0
+ 640 030a 234B     		ldr	r3, .L46+32
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 19
+
+
+ 641 030c 181C     		mov	r0, r3
+ 642 030e FFF7FEFF 		bl	LCD_PrintString
+ 253:.\main.c      **** 				break;
+ 643              		.loc 1 253 0
+ 644 0312 4AE0     		b	.L38
+ 645              	.L35:
+ 256:.\main.c      ****                     LCD_PrintString("PASS");
+ 646              		.loc 1 256 0
+ 647 0314 214B     		ldr	r3, .L46+36
+ 648 0316 181C     		mov	r0, r3
+ 649 0318 FFF7FEFF 		bl	LCD_PrintString
+ 258:.\main.c      **** 				break;
+ 650              		.loc 1 258 0
+ 651 031c 45E0     		b	.L38
+ 652              	.L34:
+ 261:.\main.c      ****                     LCD_PrintString("FAIL");
+ 653              		.loc 1 261 0
+ 654 031e 204B     		ldr	r3, .L46+40
+ 655 0320 181C     		mov	r0, r3
+ 656 0322 FFF7FEFF 		bl	LCD_PrintString
+ 263:.\main.c      ****                 if(failFlag == FALSE) /* Start beep when we transition to fail state */
+ 657              		.loc 1 263 0
+ 658 0326 3B1C     		mov	r3, r7
+ 659 0328 6633     		add	r3, r3, #102
+ 660 032a 1B88     		ldrh	r3, [r3]
+ 661 032c 002B     		cmp	r3, #0
+ 662 032e 3BD1     		bne	.L44
+ 265:.\main.c      **** 					PWM_Fail_Start();
+ 663              		.loc 1 265 0
+ 664 0330 FFF7FEFF 		bl	PWM_Fail_Start
+ 266:.\main.c      ****                     failFlag = TRUE;
+ 665              		.loc 1 266 0
+ 666 0334 3B1C     		mov	r3, r7
+ 667 0336 6633     		add	r3, r3, #102
+ 668 0338 0122     		mov	r2, #1
+ 669 033a 1A80     		strh	r2, [r3]
+ 268:.\main.c      **** 				break;
+ 670              		.loc 1 268 0
+ 671 033c 34E0     		b	.L44
+ 672              	.L33:
+ 271:.\main.c      ****                     LCD_PrintString("RUN ");
+ 673              		.loc 1 271 0
+ 674 033e 194B     		ldr	r3, .L46+44
+ 675 0340 181C     		mov	r0, r3
+ 676 0342 FFF7FEFF 		bl	LCD_PrintString
+ 273:.\main.c      **** 				failFlag = FALSE; /* Reset fail flag for next game */
+ 677              		.loc 1 273 0
+ 678 0346 3B1C     		mov	r3, r7
+ 679 0348 6633     		add	r3, r3, #102
+ 680 034a 0022     		mov	r2, #0
+ 681 034c 1A80     		strh	r2, [r3]
+ 274:.\main.c      **** 				sleepCount=SLEEP_COUNT; /* Reset sleep count */
+ 682              		.loc 1 274 0
+ 683 034e 0F4B     		ldr	r3, .L46+20
+ 684 0350 6422     		mov	r2, #100
+ 685 0352 1A70     		strb	r2, [r3]
+ 275:.\main.c      **** 				break;
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 20
+
+
+ 686              		.loc 1 275 0
+ 687 0354 29E0     		b	.L38
+ 688              	.L32:
+ 278:.\main.c      **** 				LEDreg_Write(~i);
+ 689              		.loc 1 278 0
+ 690 0356 3B1C     		mov	r3, r7
+ 691 0358 6F33     		add	r3, r3, #111
+ 692 035a 1B78     		ldrb	r3, [r3]
+ 693 035c DB43     		mvn	r3, r3
+ 694 035e DBB2     		uxtb	r3, r3
+ 695 0360 181C     		mov	r0, r3
+ 696 0362 FFF7FEFF 		bl	LEDreg_Write
+ 279:.\main.c      **** 				buttonData = 1; /* Set button data flag so that we don't turn off the LED right away */		
+ 697              		.loc 1 279 0
+ 698 0366 3B1C     		mov	r3, r7
+ 699 0368 6E33     		add	r3, r3, #110
+ 700 036a 0122     		mov	r2, #1
+ 701 036c 1A70     		strb	r2, [r3]
+ 280:.\main.c      **** 				sleepCount=SLEEP_COUNT; /* Reset sleep count */
+ 702              		.loc 1 280 0
+ 703 036e 074B     		ldr	r3, .L46+20
+ 704 0370 6422     		mov	r2, #100
+ 705 0372 1A70     		strb	r2, [r3]
+ 281:.\main.c      **** 				break;
+ 706              		.loc 1 281 0
+ 707 0374 19E0     		b	.L38
+ 708              	.L47:
+ 709 0376 C046     		.align	2
+ 710              	.L46:
+ 711 0378 00000000 		.word	.LC2
+ 712 037c 00000000 		.word	i2cBuf
+ 713 0380 CD0C0000 		.word	3277
+ 714 0384 00000000 		.word	FailISR
+ 715 0388 00000000 		.word	SleepISR
+ 716 038c 00000000 		.word	sleepCount
+ 717 0390 08000000 		.word	.LC8
+ 718 0394 10000000 		.word	.LC10
+ 719 0398 18000000 		.word	.LC12
+ 720 039c 20000000 		.word	.LC14
+ 721 03a0 28000000 		.word	.LC16
+ 722 03a4 30000000 		.word	.LC18
+ 723              	.L44:
+ 268:.\main.c      **** 				break;
+ 724              		.loc 1 268 0
+ 725 03a8 C046     		mov	r8, r8
+ 726              	.L38:
+ 285:.\main.c      **** 		if(!buttonData)
+ 727              		.loc 1 285 0
+ 728 03aa 3B1C     		mov	r3, r7
+ 729 03ac 6E33     		add	r3, r3, #110
+ 730 03ae 1B78     		ldrb	r3, [r3]
+ 731 03b0 002B     		cmp	r3, #0
+ 732 03b2 02D1     		bne	.L40
+ 287:.\main.c      **** 			LEDreg_Write(ALLOFF);
+ 733              		.loc 1 287 0
+ 734 03b4 0F20     		mov	r0, #15
+ 735 03b6 FFF7FEFF 		bl	LEDreg_Write
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 21
+
+
+ 736              	.L40:
+ 293:.\main.c      **** 		if (!sleepCount) /* Time to go to sleep */
+ 737              		.loc 1 293 0
+ 738 03ba 144B     		ldr	r3, .L48
+ 739 03bc 1B78     		ldrb	r3, [r3]
+ 740 03be 002B     		cmp	r3, #0
+ 741 03c0 00D0     		beq	.LCB608
+ 742 03c2 72E6     		b	.L45	@long jump
+ 743              	.LCB608:
+ 295:.\main.c      ****             CySysWdtDisable(CY_SYS_WDT_COUNTER0_MASK); /* Turn off the WDT interrupt so that it doe
+ 744              		.loc 1 295 0
+ 745 03c4 0120     		mov	r0, #1
+ 746 03c6 FFF7FEFF 		bl	CySysWdtDisable
+ 297:.\main.c      ****                 LCD_Sleep();
+ 747              		.loc 1 297 0
+ 748 03ca FFF7FEFF 		bl	LCD_Sleep
+ 299:.\main.c      **** 			ADC_Sleep();                
+ 749              		.loc 1 299 0
+ 750 03ce FFF7FEFF 		bl	ADC_Sleep
+ 300:.\main.c      **** 			LED_AWAKE_Write(FALSE); /* Turn off LED */
+ 751              		.loc 1 300 0
+ 752 03d2 0020     		mov	r0, #0
+ 753 03d4 FFF7FEFF 		bl	LED_AWAKE_Write
+ 301:.\main.c      **** 			LEDreg_Write(ALLOFF);	/* Turn off all button LEDs */
+ 754              		.loc 1 301 0
+ 755 03d8 0F20     		mov	r0, #15
+ 756 03da FFF7FEFF 		bl	LEDreg_Write
+ 302:.\main.c      ****             EZI2C_Sleep();
+ 757              		.loc 1 302 0
+ 758 03de FFF7FEFF 		bl	EZI2C_Sleep
+ 304:.\main.c      ****             CySysPmDeepSleep(); /* Prepare to Deep Sleep: enables wakeup interrupt */
+ 759              		.loc 1 304 0
+ 760 03e2 FFF7FEFF 		bl	CySysPmDeepSleep
+ 307:.\main.c      ****             EZI2C_Wakeup();; /* Restore for Active operation */
+ 761              		.loc 1 307 0
+ 762 03e6 FFF7FEFF 		bl	EZI2C_Wakeup
+ 309:.\main.c      **** 			LED_AWAKE_Write(TRUE); /* Turn on LED */
+ 763              		.loc 1 309 0
+ 764 03ea 0120     		mov	r0, #1
+ 765 03ec FFF7FEFF 		bl	LED_AWAKE_Write
+ 310:.\main.c      **** 			ADC_Wakeup();
+ 766              		.loc 1 310 0
+ 767 03f0 FFF7FEFF 		bl	ADC_Wakeup
+ 312:.\main.c      ****                 LCD_Wakeup();
+ 768              		.loc 1 312 0
+ 769 03f4 FFF7FEFF 		bl	LCD_Wakeup
+ 314:.\main.c      ****             LEDreg_Write(ALLOFF); /* Reset the LED control register since it wakes with all 0's */	
+ 770              		.loc 1 314 0
+ 771 03f8 0F20     		mov	r0, #15
+ 772 03fa FFF7FEFF 		bl	LEDreg_Write
+ 315:.\main.c      ****             CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK); /* Turn off the WDT interrupt so that it does
+ 773              		.loc 1 315 0
+ 774 03fe 0120     		mov	r0, #1
+ 775 0400 FFF7FEFF 		bl	CySysWdtEnable
+ 316:.\main.c      **** 			sleepCount=SLEEP_COUNT; /* Reset sleep count */
+ 776              		.loc 1 316 0
+ 777 0404 014B     		ldr	r3, .L48
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 22
+
+
+ 778 0406 6422     		mov	r2, #100
+ 779 0408 1A70     		strb	r2, [r3]
+ 780              		.loc 1 318 0
+ 781 040a 4EE6     		b	.L45
+ 782              	.L49:
+ 783              		.align	2
+ 784              	.L48:
+ 785 040c 00000000 		.word	sleepCount
+ 786              		.cfi_endproc
+ 787              	.LFE35:
+ 788              		.size	main, .-main
+ 789              		.section	.text.checkSpeed,"ax",%progbits
+ 790              		.align	2
+ 791              		.global	checkSpeed
+ 792              		.code	16
+ 793              		.thumb_func
+ 794              		.type	checkSpeed, %function
+ 795              	checkSpeed:
+ 796              	.LFB36:
+ 319:.\main.c      **** } /* End of main */
+ 320:.\main.c      **** 
+ 321:.\main.c      **** 
+ 322:.\main.c      **** /****************************************************************************************/
+ 323:.\main.c      **** /* Check speed control and update I2C register and LCD */
+ 324:.\main.c      **** /****************************************************************************************/
+ 325:.\main.c      **** void checkSpeed(void)
+ 326:.\main.c      **** {
+ 797              		.loc 1 326 0
+ 798              		.cfi_startproc
+ 799 0000 80B5     		push	{r7, lr}
+ 800              	.LCFI7:
+ 801              		.cfi_def_cfa_offset 8
+ 802              		.cfi_offset 7, -8
+ 803              		.cfi_offset 14, -4
+ 804 0002 00AF     		add	r7, sp, #0
+ 805              	.LCFI8:
+ 806              		.cfi_def_cfa_register 7
+ 327:.\main.c      ****     if(ADC_IsEndConversion(ADC_RETURN_STATUS)) /* A conversion result is ready */
+ 807              		.loc 1 327 0
+ 808 0004 0120     		mov	r0, #1
+ 809 0006 FFF7FEFF 		bl	ADC_IsEndConversion
+ 810 000a 031C     		mov	r3, r0
+ 811 000c 002B     		cmp	r3, #0
+ 812 000e 19D0     		beq	.L51
+ 328:.\main.c      ****     {
+ 329:.\main.c      ****         resultADC = ADC_GetResult16(0); /* Get result from channel 0 */
+ 813              		.loc 1 329 0
+ 814 0010 0020     		mov	r0, #0
+ 815 0012 FFF7FEFF 		bl	ADC_GetResult16
+ 816 0016 031C     		mov	r3, r0
+ 817 0018 9AB2     		uxth	r2, r3
+ 818 001a 124B     		ldr	r3, .L54
+ 819 001c 1A80     		strh	r2, [r3]
+ 330:.\main.c      ****         if(resultADC < 70)
+ 820              		.loc 1 330 0
+ 821 001e 114B     		ldr	r3, .L54
+ 822 0020 1B88     		ldrh	r3, [r3]
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 23
+
+
+ 823 0022 452B     		cmp	r3, #69
+ 824 0024 03D8     		bhi	.L52
+ 331:.\main.c      ****         {
+ 332:.\main.c      ****             speedVal = SPEED1;
+ 825              		.loc 1 332 0
+ 826 0026 104B     		ldr	r3, .L54+4
+ 827 0028 0122     		mov	r2, #1
+ 828 002a 1A70     		strb	r2, [r3]
+ 829 002c 0AE0     		b	.L51
+ 830              	.L52:
+ 333:.\main.c      ****         }
+ 334:.\main.c      ****         else if (resultADC < 220)
+ 831              		.loc 1 334 0
+ 832 002e 0D4B     		ldr	r3, .L54
+ 833 0030 1B88     		ldrh	r3, [r3]
+ 834 0032 DB2B     		cmp	r3, #219
+ 835 0034 03D8     		bhi	.L53
+ 335:.\main.c      ****         {
+ 336:.\main.c      ****             speedVal = SPEED2;
+ 836              		.loc 1 336 0
+ 837 0036 0C4B     		ldr	r3, .L54+4
+ 838 0038 0222     		mov	r2, #2
+ 839 003a 1A70     		strb	r2, [r3]
+ 840 003c 02E0     		b	.L51
+ 841              	.L53:
+ 337:.\main.c      ****         }
+ 338:.\main.c      ****         else
+ 339:.\main.c      ****         {
+ 340:.\main.c      ****             speedVal = SPEED3;
+ 842              		.loc 1 340 0
+ 843 003e 0A4B     		ldr	r3, .L54+4
+ 844 0040 0422     		mov	r2, #4
+ 845 0042 1A70     		strb	r2, [r3]
+ 846              	.L51:
+ 341:.\main.c      ****         }
+ 342:.\main.c      ****     }
+ 343:.\main.c      **** 	i2cBuf[SPEED] = speedVal;
+ 847              		.loc 1 343 0
+ 848 0044 084B     		ldr	r3, .L54+4
+ 849 0046 1A78     		ldrb	r2, [r3]
+ 850 0048 084B     		ldr	r3, .L54+8
+ 851 004a 9A70     		strb	r2, [r3, #2]
+ 344:.\main.c      ****     #ifdef LCD_ENABLE
+ 345:.\main.c      ****         LCD_Position(1,8);
+ 852              		.loc 1 345 0
+ 853 004c 0120     		mov	r0, #1
+ 854 004e 0821     		mov	r1, #8
+ 855 0050 FFF7FEFF 		bl	LCD_Position
+ 346:.\main.c      ****         LCD_PrintNumber(speedVal);
+ 856              		.loc 1 346 0
+ 857 0054 044B     		ldr	r3, .L54+4
+ 858 0056 1B78     		ldrb	r3, [r3]
+ 859 0058 181C     		mov	r0, r3
+ 860 005a FFF7FEFF 		bl	LCD_PrintU32Number
+ 347:.\main.c      **** 	#endif
+ 348:.\main.c      **** }
+ 861              		.loc 1 348 0
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 24
+
+
+ 862 005e BD46     		mov	sp, r7
+ 863              		@ sp needed for prologue
+ 864 0060 80BD     		pop	{r7, pc}
+ 865              	.L55:
+ 866 0062 C046     		.align	2
+ 867              	.L54:
+ 868 0064 00000000 		.word	resultADC
+ 869 0068 00000000 		.word	speedVal
+ 870 006c 00000000 		.word	i2cBuf
+ 871              		.cfi_endproc
+ 872              	.LFE36:
+ 873              		.size	checkSpeed, .-checkSpeed
+ 874              		.data
+ 875              		.type	failCount.5326, %object
+ 876              		.size	failCount.5326, 1
+ 877              	failCount.5326:
+ 878 0004 4B       		.byte	75
+ 879 0005 000000   		.text
+ 880              	.Letext0:
+ 881              		.file 2 "./Generated_Source/PSoC4/cytypes.h"
+ 882              		.section	.debug_info,"",%progbits
+ 883              	.Ldebug_info0:
+ 884 0000 13020000 		.4byte	0x213
+ 885 0004 0200     		.2byte	0x2
+ 886 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 887 000a 04       		.byte	0x4
+ 888 000b 01       		.uleb128 0x1
+ 889 000c B7010000 		.4byte	.LASF34
+ 890 0010 01       		.byte	0x1
+ 891 0011 82000000 		.4byte	.LASF35
+ 892 0015 2C010000 		.4byte	.LASF36
+ 893 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 894 001d 00000000 		.4byte	0
+ 895 0021 00000000 		.4byte	0
+ 896 0025 00000000 		.4byte	.Ldebug_line0
+ 897 0029 02       		.uleb128 0x2
+ 898 002a 01       		.byte	0x1
+ 899 002b 06       		.byte	0x6
+ 900 002c 28020000 		.4byte	.LASF0
+ 901 0030 02       		.uleb128 0x2
+ 902 0031 01       		.byte	0x1
+ 903 0032 08       		.byte	0x8
+ 904 0033 44000000 		.4byte	.LASF1
+ 905 0037 02       		.uleb128 0x2
+ 906 0038 02       		.byte	0x2
+ 907 0039 05       		.byte	0x5
+ 908 003a 00020000 		.4byte	.LASF2
+ 909 003e 02       		.uleb128 0x2
+ 910 003f 02       		.byte	0x2
+ 911 0040 07       		.byte	0x7
+ 912 0041 09000000 		.4byte	.LASF3
+ 913 0045 02       		.uleb128 0x2
+ 914 0046 04       		.byte	0x4
+ 915 0047 05       		.byte	0x5
+ 916 0048 15020000 		.4byte	.LASF4
+ 917 004c 02       		.uleb128 0x2
+ 918 004d 04       		.byte	0x4
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 25
+
+
+ 919 004e 07       		.byte	0x7
+ 920 004f 5A000000 		.4byte	.LASF5
+ 921 0053 02       		.uleb128 0x2
+ 922 0054 08       		.byte	0x8
+ 923 0055 05       		.byte	0x5
+ 924 0056 19010000 		.4byte	.LASF6
+ 925 005a 02       		.uleb128 0x2
+ 926 005b 08       		.byte	0x8
+ 927 005c 07       		.byte	0x7
+ 928 005d BD000000 		.4byte	.LASF7
+ 929 0061 03       		.uleb128 0x3
+ 930 0062 04       		.byte	0x4
+ 931 0063 05       		.byte	0x5
+ 932 0064 696E7400 		.ascii	"int\000"
+ 933 0068 02       		.uleb128 0x2
+ 934 0069 04       		.byte	0x4
+ 935 006a 07       		.byte	0x7
+ 936 006b A7000000 		.4byte	.LASF8
+ 937 006f 04       		.uleb128 0x4
+ 938 0070 6C000000 		.4byte	.LASF9
+ 939 0074 02       		.byte	0x2
+ 940 0075 5B       		.byte	0x5b
+ 941 0076 30000000 		.4byte	0x30
+ 942 007a 04       		.uleb128 0x4
+ 943 007b 8B000000 		.4byte	.LASF10
+ 944 007f 02       		.byte	0x2
+ 945 0080 5C       		.byte	0x5c
+ 946 0081 3E000000 		.4byte	0x3e
+ 947 0085 04       		.uleb128 0x4
+ 948 0086 92000000 		.4byte	.LASF11
+ 949 008a 02       		.byte	0x2
+ 950 008b 5D       		.byte	0x5d
+ 951 008c 4C000000 		.4byte	0x4c
+ 952 0090 02       		.uleb128 0x2
+ 953 0091 04       		.byte	0x4
+ 954 0092 04       		.byte	0x4
+ 955 0093 35000000 		.4byte	.LASF12
+ 956 0097 02       		.uleb128 0x2
+ 957 0098 08       		.byte	0x8
+ 958 0099 04       		.byte	0x4
+ 959 009a 7B000000 		.4byte	.LASF13
+ 960 009e 02       		.uleb128 0x2
+ 961 009f 01       		.byte	0x1
+ 962 00a0 08       		.byte	0x8
+ 963 00a1 27010000 		.4byte	.LASF14
+ 964 00a5 02       		.uleb128 0x2
+ 965 00a6 04       		.byte	0x4
+ 966 00a7 07       		.byte	0x7
+ 967 00a8 F2000000 		.4byte	.LASF15
+ 968 00ac 05       		.uleb128 0x5
+ 969 00ad 01       		.byte	0x1
+ 970 00ae 72000000 		.4byte	.LASF28
+ 971 00b2 01       		.byte	0x1
+ 972 00b3 36       		.byte	0x36
+ 973 00b4 01       		.byte	0x1
+ 974 00b5 00000000 		.4byte	.LFB33
+ 975 00b9 28000000 		.4byte	.LFE33
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 26
+
+
+ 976 00bd 00000000 		.4byte	.LLST0
+ 977 00c1 01       		.byte	0x1
+ 978 00c2 06       		.uleb128 0x6
+ 979 00c3 01       		.byte	0x1
+ 980 00c4 52000000 		.4byte	.LASF16
+ 981 00c8 01       		.byte	0x1
+ 982 00c9 42       		.byte	0x42
+ 983 00ca 01       		.byte	0x1
+ 984 00cb 00000000 		.4byte	.LFB34
+ 985 00cf 34000000 		.4byte	.LFE34
+ 986 00d3 2C000000 		.4byte	.LLST1
+ 987 00d7 01       		.byte	0x1
+ 988 00d8 EE000000 		.4byte	0xee
+ 989 00dc 07       		.uleb128 0x7
+ 990 00dd AD010000 		.4byte	.LASF18
+ 991 00e1 01       		.byte	0x1
+ 992 00e2 49       		.byte	0x49
+ 993 00e3 6F000000 		.4byte	0x6f
+ 994 00e7 05       		.byte	0x5
+ 995 00e8 03       		.byte	0x3
+ 996 00e9 04000000 		.4byte	failCount.5326
+ 997 00ed 00       		.byte	0
+ 998 00ee 08       		.uleb128 0x8
+ 999 00ef 01       		.byte	0x1
+ 1000 00f0 99000000 		.4byte	.LASF17
+ 1001 00f4 01       		.byte	0x1
+ 1002 00f5 56       		.byte	0x56
+ 1003 00f6 61000000 		.4byte	0x61
+ 1004 00fa 00000000 		.4byte	.LFB35
+ 1005 00fe 10040000 		.4byte	.LFE35
+ 1006 0102 58000000 		.4byte	.LLST2
+ 1007 0106 01       		.byte	0x1
+ 1008 0107 97010000 		.4byte	0x197
+ 1009 010b 09       		.uleb128 0x9
+ 1010 010c 6900     		.ascii	"i\000"
+ 1011 010e 01       		.byte	0x1
+ 1012 010f 58       		.byte	0x58
+ 1013 0110 6F000000 		.4byte	0x6f
+ 1014 0114 02       		.byte	0x2
+ 1015 0115 91       		.byte	0x91
+ 1016 0116 77       		.sleb128 -9
+ 1017 0117 07       		.uleb128 0x7
+ 1018 0118 0A020000 		.4byte	.LASF19
+ 1019 011c 01       		.byte	0x1
+ 1020 011d 59       		.byte	0x59
+ 1021 011e 6F000000 		.4byte	0x6f
+ 1022 0122 02       		.byte	0x2
+ 1023 0123 91       		.byte	0x91
+ 1024 0124 76       		.sleb128 -10
+ 1025 0125 07       		.uleb128 0x7
+ 1026 0126 DF000000 		.4byte	.LASF20
+ 1027 012a 01       		.byte	0x1
+ 1028 012b 5A       		.byte	0x5a
+ 1029 012c 6F000000 		.4byte	0x6f
+ 1030 0130 02       		.byte	0x2
+ 1031 0131 91       		.byte	0x91
+ 1032 0132 75       		.sleb128 -11
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 27
+
+
+ 1033 0133 07       		.uleb128 0x7
+ 1034 0134 E8000000 		.4byte	.LASF21
+ 1035 0138 01       		.byte	0x1
+ 1036 0139 5E       		.byte	0x5e
+ 1037 013a 6F000000 		.4byte	0x6f
+ 1038 013e 02       		.byte	0x2
+ 1039 013f 91       		.byte	0x91
+ 1040 0140 74       		.sleb128 -12
+ 1041 0141 07       		.uleb128 0x7
+ 1042 0142 1C000000 		.4byte	.LASF22
+ 1043 0146 01       		.byte	0x1
+ 1044 0147 5F       		.byte	0x5f
+ 1045 0148 6F000000 		.4byte	0x6f
+ 1046 014c 02       		.byte	0x2
+ 1047 014d 91       		.byte	0x91
+ 1048 014e 73       		.sleb128 -13
+ 1049 014f 07       		.uleb128 0x7
+ 1050 0150 FB000000 		.4byte	.LASF23
+ 1051 0154 01       		.byte	0x1
+ 1052 0155 60       		.byte	0x60
+ 1053 0156 6F000000 		.4byte	0x6f
+ 1054 015a 02       		.byte	0x2
+ 1055 015b 91       		.byte	0x91
+ 1056 015c 72       		.sleb128 -14
+ 1057 015d 07       		.uleb128 0x7
+ 1058 015e 0B010000 		.4byte	.LASF24
+ 1059 0162 01       		.byte	0x1
+ 1060 0163 61       		.byte	0x61
+ 1061 0164 6F000000 		.4byte	0x6f
+ 1062 0168 02       		.byte	0x2
+ 1063 0169 91       		.byte	0x91
+ 1064 016a 71       		.sleb128 -15
+ 1065 016b 07       		.uleb128 0x7
+ 1066 016c 9E000000 		.4byte	.LASF25
+ 1067 0170 01       		.byte	0x1
+ 1068 0171 62       		.byte	0x62
+ 1069 0172 97010000 		.4byte	0x197
+ 1070 0176 03       		.byte	0x3
+ 1071 0177 91       		.byte	0x91
+ 1072 0178 887F     		.sleb128 -120
+ 1073 017a 07       		.uleb128 0x7
+ 1074 017b 00000000 		.4byte	.LASF26
+ 1075 017f 01       		.byte	0x1
+ 1076 0180 63       		.byte	0x63
+ 1077 0181 6F000000 		.4byte	0x6f
+ 1078 0185 02       		.byte	0x2
+ 1079 0186 91       		.byte	0x91
+ 1080 0187 70       		.sleb128 -16
+ 1081 0188 07       		.uleb128 0x7
+ 1082 0189 B4000000 		.4byte	.LASF27
+ 1083 018d 01       		.byte	0x1
+ 1084 018e 64       		.byte	0x64
+ 1085 018f 7A000000 		.4byte	0x7a
+ 1086 0193 02       		.byte	0x2
+ 1087 0194 91       		.byte	0x91
+ 1088 0195 6E       		.sleb128 -18
+ 1089 0196 00       		.byte	0
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 28
+
+
+ 1090 0197 0A       		.uleb128 0xa
+ 1091 0198 6F000000 		.4byte	0x6f
+ 1092 019c A7010000 		.4byte	0x1a7
+ 1093 01a0 0B       		.uleb128 0xb
+ 1094 01a1 A5000000 		.4byte	0xa5
+ 1095 01a5 62       		.byte	0x62
+ 1096 01a6 00       		.byte	0
+ 1097 01a7 0C       		.uleb128 0xc
+ 1098 01a8 01       		.byte	0x1
+ 1099 01a9 D4000000 		.4byte	.LASF29
+ 1100 01ad 01       		.byte	0x1
+ 1101 01ae 4501     		.2byte	0x145
+ 1102 01b0 01       		.byte	0x1
+ 1103 01b1 00000000 		.4byte	.LFB36
+ 1104 01b5 70000000 		.4byte	.LFE36
+ 1105 01b9 92000000 		.4byte	.LLST3
+ 1106 01bd 01       		.byte	0x1
+ 1107 01be 0A       		.uleb128 0xa
+ 1108 01bf 6F000000 		.4byte	0x6f
+ 1109 01c3 CE010000 		.4byte	0x1ce
+ 1110 01c7 0B       		.uleb128 0xb
+ 1111 01c8 A5000000 		.4byte	0xa5
+ 1112 01cc 02       		.byte	0x2
+ 1113 01cd 00       		.byte	0
+ 1114 01ce 0D       		.uleb128 0xd
+ 1115 01cf 34020000 		.4byte	.LASF30
+ 1116 01d3 01       		.byte	0x1
+ 1117 01d4 2E       		.byte	0x2e
+ 1118 01d5 BE010000 		.4byte	0x1be
+ 1119 01d9 01       		.byte	0x1
+ 1120 01da 05       		.byte	0x5
+ 1121 01db 03       		.byte	0x3
+ 1122 01dc 00000000 		.4byte	i2cBuf
+ 1123 01e0 0D       		.uleb128 0xd
+ 1124 01e1 2A000000 		.4byte	.LASF31
+ 1125 01e5 01       		.byte	0x1
+ 1126 01e6 2F       		.byte	0x2f
+ 1127 01e7 6F000000 		.4byte	0x6f
+ 1128 01eb 01       		.byte	0x1
+ 1129 01ec 05       		.byte	0x5
+ 1130 01ed 03       		.byte	0x3
+ 1131 01ee 00000000 		.4byte	sleepCount
+ 1132 01f2 0D       		.uleb128 0xd
+ 1133 01f3 1E020000 		.4byte	.LASF32
+ 1134 01f7 01       		.byte	0x1
+ 1135 01f8 30       		.byte	0x30
+ 1136 01f9 7A000000 		.4byte	0x7a
+ 1137 01fd 01       		.byte	0x1
+ 1138 01fe 05       		.byte	0x5
+ 1139 01ff 03       		.byte	0x3
+ 1140 0200 00000000 		.4byte	resultADC
+ 1141 0204 0D       		.uleb128 0xd
+ 1142 0205 3B000000 		.4byte	.LASF33
+ 1143 0209 01       		.byte	0x1
+ 1144 020a 31       		.byte	0x31
+ 1145 020b 6F000000 		.4byte	0x6f
+ 1146 020f 01       		.byte	0x1
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 29
+
+
+ 1147 0210 05       		.byte	0x5
+ 1148 0211 03       		.byte	0x3
+ 1149 0212 00000000 		.4byte	speedVal
+ 1150 0216 00       		.byte	0
+ 1151              		.section	.debug_abbrev,"",%progbits
+ 1152              	.Ldebug_abbrev0:
+ 1153 0000 01       		.uleb128 0x1
+ 1154 0001 11       		.uleb128 0x11
+ 1155 0002 01       		.byte	0x1
+ 1156 0003 25       		.uleb128 0x25
+ 1157 0004 0E       		.uleb128 0xe
+ 1158 0005 13       		.uleb128 0x13
+ 1159 0006 0B       		.uleb128 0xb
+ 1160 0007 03       		.uleb128 0x3
+ 1161 0008 0E       		.uleb128 0xe
+ 1162 0009 1B       		.uleb128 0x1b
+ 1163 000a 0E       		.uleb128 0xe
+ 1164 000b 55       		.uleb128 0x55
+ 1165 000c 06       		.uleb128 0x6
+ 1166 000d 11       		.uleb128 0x11
+ 1167 000e 01       		.uleb128 0x1
+ 1168 000f 52       		.uleb128 0x52
+ 1169 0010 01       		.uleb128 0x1
+ 1170 0011 10       		.uleb128 0x10
+ 1171 0012 06       		.uleb128 0x6
+ 1172 0013 00       		.byte	0
+ 1173 0014 00       		.byte	0
+ 1174 0015 02       		.uleb128 0x2
+ 1175 0016 24       		.uleb128 0x24
+ 1176 0017 00       		.byte	0
+ 1177 0018 0B       		.uleb128 0xb
+ 1178 0019 0B       		.uleb128 0xb
+ 1179 001a 3E       		.uleb128 0x3e
+ 1180 001b 0B       		.uleb128 0xb
+ 1181 001c 03       		.uleb128 0x3
+ 1182 001d 0E       		.uleb128 0xe
+ 1183 001e 00       		.byte	0
+ 1184 001f 00       		.byte	0
+ 1185 0020 03       		.uleb128 0x3
+ 1186 0021 24       		.uleb128 0x24
+ 1187 0022 00       		.byte	0
+ 1188 0023 0B       		.uleb128 0xb
+ 1189 0024 0B       		.uleb128 0xb
+ 1190 0025 3E       		.uleb128 0x3e
+ 1191 0026 0B       		.uleb128 0xb
+ 1192 0027 03       		.uleb128 0x3
+ 1193 0028 08       		.uleb128 0x8
+ 1194 0029 00       		.byte	0
+ 1195 002a 00       		.byte	0
+ 1196 002b 04       		.uleb128 0x4
+ 1197 002c 16       		.uleb128 0x16
+ 1198 002d 00       		.byte	0
+ 1199 002e 03       		.uleb128 0x3
+ 1200 002f 0E       		.uleb128 0xe
+ 1201 0030 3A       		.uleb128 0x3a
+ 1202 0031 0B       		.uleb128 0xb
+ 1203 0032 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 30
+
+
+ 1204 0033 0B       		.uleb128 0xb
+ 1205 0034 49       		.uleb128 0x49
+ 1206 0035 13       		.uleb128 0x13
+ 1207 0036 00       		.byte	0
+ 1208 0037 00       		.byte	0
+ 1209 0038 05       		.uleb128 0x5
+ 1210 0039 2E       		.uleb128 0x2e
+ 1211 003a 00       		.byte	0
+ 1212 003b 3F       		.uleb128 0x3f
+ 1213 003c 0C       		.uleb128 0xc
+ 1214 003d 03       		.uleb128 0x3
+ 1215 003e 0E       		.uleb128 0xe
+ 1216 003f 3A       		.uleb128 0x3a
+ 1217 0040 0B       		.uleb128 0xb
+ 1218 0041 3B       		.uleb128 0x3b
+ 1219 0042 0B       		.uleb128 0xb
+ 1220 0043 27       		.uleb128 0x27
+ 1221 0044 0C       		.uleb128 0xc
+ 1222 0045 11       		.uleb128 0x11
+ 1223 0046 01       		.uleb128 0x1
+ 1224 0047 12       		.uleb128 0x12
+ 1225 0048 01       		.uleb128 0x1
+ 1226 0049 40       		.uleb128 0x40
+ 1227 004a 06       		.uleb128 0x6
+ 1228 004b 9642     		.uleb128 0x2116
+ 1229 004d 0C       		.uleb128 0xc
+ 1230 004e 00       		.byte	0
+ 1231 004f 00       		.byte	0
+ 1232 0050 06       		.uleb128 0x6
+ 1233 0051 2E       		.uleb128 0x2e
+ 1234 0052 01       		.byte	0x1
+ 1235 0053 3F       		.uleb128 0x3f
+ 1236 0054 0C       		.uleb128 0xc
+ 1237 0055 03       		.uleb128 0x3
+ 1238 0056 0E       		.uleb128 0xe
+ 1239 0057 3A       		.uleb128 0x3a
+ 1240 0058 0B       		.uleb128 0xb
+ 1241 0059 3B       		.uleb128 0x3b
+ 1242 005a 0B       		.uleb128 0xb
+ 1243 005b 27       		.uleb128 0x27
+ 1244 005c 0C       		.uleb128 0xc
+ 1245 005d 11       		.uleb128 0x11
+ 1246 005e 01       		.uleb128 0x1
+ 1247 005f 12       		.uleb128 0x12
+ 1248 0060 01       		.uleb128 0x1
+ 1249 0061 40       		.uleb128 0x40
+ 1250 0062 06       		.uleb128 0x6
+ 1251 0063 9642     		.uleb128 0x2116
+ 1252 0065 0C       		.uleb128 0xc
+ 1253 0066 01       		.uleb128 0x1
+ 1254 0067 13       		.uleb128 0x13
+ 1255 0068 00       		.byte	0
+ 1256 0069 00       		.byte	0
+ 1257 006a 07       		.uleb128 0x7
+ 1258 006b 34       		.uleb128 0x34
+ 1259 006c 00       		.byte	0
+ 1260 006d 03       		.uleb128 0x3
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 31
+
+
+ 1261 006e 0E       		.uleb128 0xe
+ 1262 006f 3A       		.uleb128 0x3a
+ 1263 0070 0B       		.uleb128 0xb
+ 1264 0071 3B       		.uleb128 0x3b
+ 1265 0072 0B       		.uleb128 0xb
+ 1266 0073 49       		.uleb128 0x49
+ 1267 0074 13       		.uleb128 0x13
+ 1268 0075 02       		.uleb128 0x2
+ 1269 0076 0A       		.uleb128 0xa
+ 1270 0077 00       		.byte	0
+ 1271 0078 00       		.byte	0
+ 1272 0079 08       		.uleb128 0x8
+ 1273 007a 2E       		.uleb128 0x2e
+ 1274 007b 01       		.byte	0x1
+ 1275 007c 3F       		.uleb128 0x3f
+ 1276 007d 0C       		.uleb128 0xc
+ 1277 007e 03       		.uleb128 0x3
+ 1278 007f 0E       		.uleb128 0xe
+ 1279 0080 3A       		.uleb128 0x3a
+ 1280 0081 0B       		.uleb128 0xb
+ 1281 0082 3B       		.uleb128 0x3b
+ 1282 0083 0B       		.uleb128 0xb
+ 1283 0084 49       		.uleb128 0x49
+ 1284 0085 13       		.uleb128 0x13
+ 1285 0086 11       		.uleb128 0x11
+ 1286 0087 01       		.uleb128 0x1
+ 1287 0088 12       		.uleb128 0x12
+ 1288 0089 01       		.uleb128 0x1
+ 1289 008a 40       		.uleb128 0x40
+ 1290 008b 06       		.uleb128 0x6
+ 1291 008c 9642     		.uleb128 0x2116
+ 1292 008e 0C       		.uleb128 0xc
+ 1293 008f 01       		.uleb128 0x1
+ 1294 0090 13       		.uleb128 0x13
+ 1295 0091 00       		.byte	0
+ 1296 0092 00       		.byte	0
+ 1297 0093 09       		.uleb128 0x9
+ 1298 0094 34       		.uleb128 0x34
+ 1299 0095 00       		.byte	0
+ 1300 0096 03       		.uleb128 0x3
+ 1301 0097 08       		.uleb128 0x8
+ 1302 0098 3A       		.uleb128 0x3a
+ 1303 0099 0B       		.uleb128 0xb
+ 1304 009a 3B       		.uleb128 0x3b
+ 1305 009b 0B       		.uleb128 0xb
+ 1306 009c 49       		.uleb128 0x49
+ 1307 009d 13       		.uleb128 0x13
+ 1308 009e 02       		.uleb128 0x2
+ 1309 009f 0A       		.uleb128 0xa
+ 1310 00a0 00       		.byte	0
+ 1311 00a1 00       		.byte	0
+ 1312 00a2 0A       		.uleb128 0xa
+ 1313 00a3 01       		.uleb128 0x1
+ 1314 00a4 01       		.byte	0x1
+ 1315 00a5 49       		.uleb128 0x49
+ 1316 00a6 13       		.uleb128 0x13
+ 1317 00a7 01       		.uleb128 0x1
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 32
+
+
+ 1318 00a8 13       		.uleb128 0x13
+ 1319 00a9 00       		.byte	0
+ 1320 00aa 00       		.byte	0
+ 1321 00ab 0B       		.uleb128 0xb
+ 1322 00ac 21       		.uleb128 0x21
+ 1323 00ad 00       		.byte	0
+ 1324 00ae 49       		.uleb128 0x49
+ 1325 00af 13       		.uleb128 0x13
+ 1326 00b0 2F       		.uleb128 0x2f
+ 1327 00b1 0B       		.uleb128 0xb
+ 1328 00b2 00       		.byte	0
+ 1329 00b3 00       		.byte	0
+ 1330 00b4 0C       		.uleb128 0xc
+ 1331 00b5 2E       		.uleb128 0x2e
+ 1332 00b6 00       		.byte	0
+ 1333 00b7 3F       		.uleb128 0x3f
+ 1334 00b8 0C       		.uleb128 0xc
+ 1335 00b9 03       		.uleb128 0x3
+ 1336 00ba 0E       		.uleb128 0xe
+ 1337 00bb 3A       		.uleb128 0x3a
+ 1338 00bc 0B       		.uleb128 0xb
+ 1339 00bd 3B       		.uleb128 0x3b
+ 1340 00be 05       		.uleb128 0x5
+ 1341 00bf 27       		.uleb128 0x27
+ 1342 00c0 0C       		.uleb128 0xc
+ 1343 00c1 11       		.uleb128 0x11
+ 1344 00c2 01       		.uleb128 0x1
+ 1345 00c3 12       		.uleb128 0x12
+ 1346 00c4 01       		.uleb128 0x1
+ 1347 00c5 40       		.uleb128 0x40
+ 1348 00c6 06       		.uleb128 0x6
+ 1349 00c7 9642     		.uleb128 0x2116
+ 1350 00c9 0C       		.uleb128 0xc
+ 1351 00ca 00       		.byte	0
+ 1352 00cb 00       		.byte	0
+ 1353 00cc 0D       		.uleb128 0xd
+ 1354 00cd 34       		.uleb128 0x34
+ 1355 00ce 00       		.byte	0
+ 1356 00cf 03       		.uleb128 0x3
+ 1357 00d0 0E       		.uleb128 0xe
+ 1358 00d1 3A       		.uleb128 0x3a
+ 1359 00d2 0B       		.uleb128 0xb
+ 1360 00d3 3B       		.uleb128 0x3b
+ 1361 00d4 0B       		.uleb128 0xb
+ 1362 00d5 49       		.uleb128 0x49
+ 1363 00d6 13       		.uleb128 0x13
+ 1364 00d7 3F       		.uleb128 0x3f
+ 1365 00d8 0C       		.uleb128 0xc
+ 1366 00d9 02       		.uleb128 0x2
+ 1367 00da 0A       		.uleb128 0xa
+ 1368 00db 00       		.byte	0
+ 1369 00dc 00       		.byte	0
+ 1370 00dd 00       		.byte	0
+ 1371              		.section	.debug_loc,"",%progbits
+ 1372              	.Ldebug_loc0:
+ 1373              	.LLST0:
+ 1374 0000 00000000 		.4byte	.LFB33
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 33
+
+
+ 1375 0004 02000000 		.4byte	.LCFI0
+ 1376 0008 0200     		.2byte	0x2
+ 1377 000a 7D       		.byte	0x7d
+ 1378 000b 00       		.sleb128 0
+ 1379 000c 02000000 		.4byte	.LCFI0
+ 1380 0010 04000000 		.4byte	.LCFI1
+ 1381 0014 0200     		.2byte	0x2
+ 1382 0016 7D       		.byte	0x7d
+ 1383 0017 08       		.sleb128 8
+ 1384 0018 04000000 		.4byte	.LCFI1
+ 1385 001c 28000000 		.4byte	.LFE33
+ 1386 0020 0200     		.2byte	0x2
+ 1387 0022 77       		.byte	0x77
+ 1388 0023 08       		.sleb128 8
+ 1389 0024 00000000 		.4byte	0
+ 1390 0028 00000000 		.4byte	0
+ 1391              	.LLST1:
+ 1392 002c 00000000 		.4byte	.LFB34
+ 1393 0030 02000000 		.4byte	.LCFI2
+ 1394 0034 0200     		.2byte	0x2
+ 1395 0036 7D       		.byte	0x7d
+ 1396 0037 00       		.sleb128 0
+ 1397 0038 02000000 		.4byte	.LCFI2
+ 1398 003c 04000000 		.4byte	.LCFI3
+ 1399 0040 0200     		.2byte	0x2
+ 1400 0042 7D       		.byte	0x7d
+ 1401 0043 08       		.sleb128 8
+ 1402 0044 04000000 		.4byte	.LCFI3
+ 1403 0048 34000000 		.4byte	.LFE34
+ 1404 004c 0200     		.2byte	0x2
+ 1405 004e 77       		.byte	0x77
+ 1406 004f 08       		.sleb128 8
+ 1407 0050 00000000 		.4byte	0
+ 1408 0054 00000000 		.4byte	0
+ 1409              	.LLST2:
+ 1410 0058 00000000 		.4byte	.LFB35
+ 1411 005c 02000000 		.4byte	.LCFI4
+ 1412 0060 0200     		.2byte	0x2
+ 1413 0062 7D       		.byte	0x7d
+ 1414 0063 00       		.sleb128 0
+ 1415 0064 02000000 		.4byte	.LCFI4
+ 1416 0068 04000000 		.4byte	.LCFI5
+ 1417 006c 0200     		.2byte	0x2
+ 1418 006e 7D       		.byte	0x7d
+ 1419 006f 08       		.sleb128 8
+ 1420 0070 04000000 		.4byte	.LCFI5
+ 1421 0074 06000000 		.4byte	.LCFI6
+ 1422 0078 0300     		.2byte	0x3
+ 1423 007a 7D       		.byte	0x7d
+ 1424 007b F800     		.sleb128 120
+ 1425 007d 06000000 		.4byte	.LCFI6
+ 1426 0081 10040000 		.4byte	.LFE35
+ 1427 0085 0300     		.2byte	0x3
+ 1428 0087 77       		.byte	0x77
+ 1429 0088 F800     		.sleb128 120
+ 1430 008a 00000000 		.4byte	0
+ 1431 008e 00000000 		.4byte	0
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 34
+
+
+ 1432              	.LLST3:
+ 1433 0092 00000000 		.4byte	.LFB36
+ 1434 0096 02000000 		.4byte	.LCFI7
+ 1435 009a 0200     		.2byte	0x2
+ 1436 009c 7D       		.byte	0x7d
+ 1437 009d 00       		.sleb128 0
+ 1438 009e 02000000 		.4byte	.LCFI7
+ 1439 00a2 04000000 		.4byte	.LCFI8
+ 1440 00a6 0200     		.2byte	0x2
+ 1441 00a8 7D       		.byte	0x7d
+ 1442 00a9 08       		.sleb128 8
+ 1443 00aa 04000000 		.4byte	.LCFI8
+ 1444 00ae 70000000 		.4byte	.LFE36
+ 1445 00b2 0200     		.2byte	0x2
+ 1446 00b4 77       		.byte	0x77
+ 1447 00b5 08       		.sleb128 8
+ 1448 00b6 00000000 		.4byte	0
+ 1449 00ba 00000000 		.4byte	0
+ 1450              		.section	.debug_aranges,"",%progbits
+ 1451 0000 34000000 		.4byte	0x34
+ 1452 0004 0200     		.2byte	0x2
+ 1453 0006 00000000 		.4byte	.Ldebug_info0
+ 1454 000a 04       		.byte	0x4
+ 1455 000b 00       		.byte	0
+ 1456 000c 0000     		.2byte	0
+ 1457 000e 0000     		.2byte	0
+ 1458 0010 00000000 		.4byte	.LFB33
+ 1459 0014 28000000 		.4byte	.LFE33-.LFB33
+ 1460 0018 00000000 		.4byte	.LFB34
+ 1461 001c 34000000 		.4byte	.LFE34-.LFB34
+ 1462 0020 00000000 		.4byte	.LFB35
+ 1463 0024 10040000 		.4byte	.LFE35-.LFB35
+ 1464 0028 00000000 		.4byte	.LFB36
+ 1465 002c 70000000 		.4byte	.LFE36-.LFB36
+ 1466 0030 00000000 		.4byte	0
+ 1467 0034 00000000 		.4byte	0
+ 1468              		.section	.debug_ranges,"",%progbits
+ 1469              	.Ldebug_ranges0:
+ 1470 0000 00000000 		.4byte	.LFB33
+ 1471 0004 28000000 		.4byte	.LFE33
+ 1472 0008 00000000 		.4byte	.LFB34
+ 1473 000c 34000000 		.4byte	.LFE34
+ 1474 0010 00000000 		.4byte	.LFB35
+ 1475 0014 10040000 		.4byte	.LFE35
+ 1476 0018 00000000 		.4byte	.LFB36
+ 1477 001c 70000000 		.4byte	.LFE36
+ 1478 0020 00000000 		.4byte	0
+ 1479 0024 00000000 		.4byte	0
+ 1480              		.section	.debug_line,"",%progbits
+ 1481              	.Ldebug_line0:
+ 1482 0000 6E010000 		.section	.debug_str,"MS",%progbits,1
+ 1482      02004500 
+ 1482      00000201 
+ 1482      FB0E0D00 
+ 1482      01010101 
+ 1483              	.LASF26:
+ 1484 0000 646F6E65 		.ascii	"doneFlag\000"
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 35
+
+
+ 1484      466C6167 
+ 1484      00
+ 1485              	.LASF3:
+ 1486 0009 73686F72 		.ascii	"short unsigned int\000"
+ 1486      7420756E 
+ 1486      7369676E 
+ 1486      65642069 
+ 1486      6E7400
+ 1487              	.LASF22:
+ 1488 001c 6465626F 		.ascii	"debounceCheat\000"
+ 1488      756E6365 
+ 1488      43686561 
+ 1488      7400
+ 1489              	.LASF31:
+ 1490 002a 736C6565 		.ascii	"sleepCount\000"
+ 1490      70436F75 
+ 1490      6E7400
+ 1491              	.LASF12:
+ 1492 0035 666C6F61 		.ascii	"float\000"
+ 1492      7400
+ 1493              	.LASF33:
+ 1494 003b 73706565 		.ascii	"speedVal\000"
+ 1494      6456616C 
+ 1494      00
+ 1495              	.LASF1:
+ 1496 0044 756E7369 		.ascii	"unsigned char\000"
+ 1496      676E6564 
+ 1496      20636861 
+ 1496      7200
+ 1497              	.LASF16:
+ 1498 0052 4661696C 		.ascii	"FailISR\000"
+ 1498      49535200 
+ 1499              	.LASF5:
+ 1500 005a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1500      20756E73 
+ 1500      69676E65 
+ 1500      6420696E 
+ 1500      7400
+ 1501              	.LASF9:
+ 1502 006c 75696E74 		.ascii	"uint8\000"
+ 1502      3800
+ 1503              	.LASF28:
+ 1504 0072 536C6565 		.ascii	"SleepISR\000"
+ 1504      70495352 
+ 1504      00
+ 1505              	.LASF13:
+ 1506 007b 646F7562 		.ascii	"double\000"
+ 1506      6C6500
+ 1507              	.LASF35:
+ 1508 0082 2E5C6D61 		.ascii	".\\main.c\000"
+ 1508      696E2E63 
+ 1508      00
+ 1509              	.LASF10:
+ 1510 008b 75696E74 		.ascii	"uint16\000"
+ 1510      313600
+ 1511              	.LASF11:
+ 1512 0092 75696E74 		.ascii	"uint32\000"
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 36
+
+
+ 1512      333200
+ 1513              	.LASF17:
+ 1514 0099 6D61696E 		.ascii	"main\000"
+ 1514      00
+ 1515              	.LASF25:
+ 1516 009e 73657175 		.ascii	"sequence\000"
+ 1516      656E6365 
+ 1516      00
+ 1517              	.LASF8:
+ 1518 00a7 756E7369 		.ascii	"unsigned int\000"
+ 1518      676E6564 
+ 1518      20696E74 
+ 1518      00
+ 1519              	.LASF27:
+ 1520 00b4 6661696C 		.ascii	"failFlag\000"
+ 1520      466C6167 
+ 1520      00
+ 1521              	.LASF7:
+ 1522 00bd 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1522      206C6F6E 
+ 1522      6720756E 
+ 1522      7369676E 
+ 1522      65642069 
+ 1523              	.LASF29:
+ 1524 00d4 63686563 		.ascii	"checkSpeed\000"
+ 1524      6B537065 
+ 1524      656400
+ 1525              	.LASF20:
+ 1526 00df 6465626F 		.ascii	"debounce\000"
+ 1526      756E6365 
+ 1526      00
+ 1527              	.LASF21:
+ 1528 00e8 63686561 		.ascii	"cheatMode\000"
+ 1528      744D6F64 
+ 1528      6500
+ 1529              	.LASF15:
+ 1530 00f2 73697A65 		.ascii	"sizetype\000"
+ 1530      74797065 
+ 1530      00
+ 1531              	.LASF23:
+ 1532 00fb 6465626F 		.ascii	"debounceToggled\000"
+ 1532      756E6365 
+ 1532      546F6767 
+ 1532      6C656400 
+ 1533              	.LASF24:
+ 1534 010b 73657175 		.ascii	"sequenceCount\000"
+ 1534      656E6365 
+ 1534      436F756E 
+ 1534      7400
+ 1535              	.LASF6:
+ 1536 0119 6C6F6E67 		.ascii	"long long int\000"
+ 1536      206C6F6E 
+ 1536      6720696E 
+ 1536      7400
+ 1537              	.LASF14:
+ 1538 0127 63686172 		.ascii	"char\000"
+ 1538      00
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccdKNDdc.s 			page 37
+
+
+ 1539              	.LASF36:
+ 1540 012c 433A5C70 		.ascii	"C:\\perforce\\gjl_work\\apps\\CYSC\\Cypress_PSoC_Ac"
+ 1540      6572666F 
+ 1540      7263655C 
+ 1540      676A6C5F 
+ 1540      776F726B 
+ 1541 015a 6164656D 		.ascii	"ademy\\101_basic\\Projects\\Simon_Rev03\\Simon_Slav"
+ 1541      795C3130 
+ 1541      315F6261 
+ 1541      7369635C 
+ 1541      50726F6A 
+ 1542 0189 655F5069 		.ascii	"e_Pioneer\\Simon_Slave_Pioneer.cydsn\000"
+ 1542      6F6E6565 
+ 1542      725C5369 
+ 1542      6D6F6E5F 
+ 1542      536C6176 
+ 1543              	.LASF18:
+ 1544 01ad 6661696C 		.ascii	"failCount\000"
+ 1544      436F756E 
+ 1544      7400
+ 1545              	.LASF34:
+ 1546 01b7 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1546      4320342E 
+ 1546      372E3320 
+ 1546      32303133 
+ 1546      30333132 
+ 1547 01ea 616E6368 		.ascii	"anch revision 196615]\000"
+ 1547      20726576 
+ 1547      6973696F 
+ 1547      6E203139 
+ 1547      36363135 
+ 1548              	.LASF2:
+ 1549 0200 73686F72 		.ascii	"short int\000"
+ 1549      7420696E 
+ 1549      7400
+ 1550              	.LASF19:
+ 1551 020a 62757474 		.ascii	"buttonData\000"
+ 1551      6F6E4461 
+ 1551      746100
+ 1552              	.LASF4:
+ 1553 0215 6C6F6E67 		.ascii	"long int\000"
+ 1553      20696E74 
+ 1553      00
+ 1554              	.LASF32:
+ 1555 021e 72657375 		.ascii	"resultADC\000"
+ 1555      6C744144 
+ 1555      4300
+ 1556              	.LASF0:
+ 1557 0228 7369676E 		.ascii	"signed char\000"
+ 1557      65642063 
+ 1557      68617200 
+ 1558              	.LASF30:
+ 1559 0234 69326342 		.ascii	"i2cBuf\000"
+ 1559      756600
+ 1560              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

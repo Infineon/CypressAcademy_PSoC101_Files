@@ -1,0 +1,2589 @@
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	rdData
+  18              		.bss
+  19              		.align	2
+  20              		.type	rdData, %object
+  21              		.size	rdData, 3
+  22              	rdData:
+  23 0000 000000   		.space	3
+  24              		.comm	wrData,2,4
+  25              		.comm	status,1,1
+  26              		.section	.rodata
+  27              		.align	2
+  28              		.type	EEData, %object
+  29              		.size	EEData, 1
+  30              	EEData:
+  31 0000 00       		.space	1
+  32              		.global	SRData
+  33              		.bss
+  34 0003 00       		.align	2
+  35              		.type	SRData, %object
+  36              		.size	SRData, 1
+  37              	SRData:
+  38 0004 00       		.space	1
+  39 0005 000000   		.section	.rodata
+  40 0001 000000   		.align	2
+  41              	.LC0:
+  42 0004 20202020 		.ascii	"       #:     HS\000"
+  42      20202023 
+  42      3A202020 
+  42      20204853 
+  42      00
+  43 0015 000000   		.align	2
+  44              	.LC2:
+  45 0018 20202020 		.ascii	"     MAX:\000"
+  45      204D4158 
+  45      3A00
+  46 0022 0000     		.align	2
+  47              	.LC8:
+  48 0024 52554E20 		.ascii	"RUN \000"
+  48      00
+  49 0029 000000   		.align	2
+  50              	.LC11:
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 2
+
+
+  51 002c 4641494C 		.ascii	"FAIL\000"
+  51      00
+  52 0031 000000   		.align	2
+  53              	.LC13:
+  54 0034 50415353 		.ascii	"PASS\000"
+  54      00
+  55              		.section	.text.main,"ax",%progbits
+  56              		.align	2
+  57              		.global	main
+  58              		.code	16
+  59              		.thumb_func
+  60              		.type	main, %function
+  61              	main:
+  62              	.LFB33:
+  63              		.file 1 ".\\main.c"
+   1:.\main.c      **** /* ========================================
+   2:.\main.c      ****  *
+   3:.\main.c      ****  * Copyright Cypress Semiconductor, 2012
+   4:.\main.c      ****  * All Rights Reserved
+   5:.\main.c      ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\main.c      ****  *
+   7:.\main.c      ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\main.c      ****  * WHICH IS THE PROPERTY OF Cypress Semiconductor.
+   9:.\main.c      ****  *
+  10:.\main.c      ****  * ========================================
+  11:.\main.c      **** */
+  12:.\main.c      **** #include <project.h>
+  13:.\main.c      **** #include <stdlib.h>
+  14:.\main.c      **** 
+  15:.\main.c      **** #define SLAVE_ADDRESS	0x36
+  16:.\main.c      **** #define I2COFFSET		0x00
+  17:.\main.c      **** 
+  18:.\main.c      **** /* I2C register map */
+  19:.\main.c      **** #define INFO	0
+  20:.\main.c      **** #define BUTTON  1
+  21:.\main.c      **** #define SPEED   2
+  22:.\main.c      **** 
+  23:.\main.c      **** #define MAX_SEQUENCE 	99	/* Longest allowed sequence to pass the game */
+  24:.\main.c      **** 
+  25:.\main.c      **** #define ALLOFF		0x00	/* Turn off all LEDs */
+  26:.\main.c      **** 
+  27:.\main.c      **** /* Button values from slave */
+  28:.\main.c      **** #define NOBUTTON	0x00	
+  29:.\main.c      **** #define BUTTON1		0x01	
+  30:.\main.c      **** #define BUTTON2		0x02
+  31:.\main.c      **** #define BUTTON3		0x04
+  32:.\main.c      **** #define BUTTON4		0x08
+  33:.\main.c      **** 
+  34:.\main.c      **** /* Info messages passed to slave */
+  35:.\main.c      **** #define INIT		0x40
+  36:.\main.c      **** #define	PASS		0x20	
+  37:.\main.c      **** #define FAIL		0x10
+  38:.\main.c      **** #define RUN			0x00
+  39:.\main.c      **** #define LED1		0x01
+  40:.\main.c      **** #define LED2		0x02
+  41:.\main.c      **** #define LED3		0x04
+  42:.\main.c      **** #define LED4		0x08
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 3
+
+
+  43:.\main.c      **** 
+  44:.\main.c      **** /* State machine for game state */
+  45:.\main.c      **** #define IDLE		0x00	
+  46:.\main.c      **** #define RUNNING		0x01
+  47:.\main.c      **** 
+  48:.\main.c      **** /* Speed values from slave */
+  49:.\main.c      **** #define SLOW		1		
+  50:.\main.c      **** #define MEDIUM		2
+  51:.\main.c      **** #define FAST		4
+  52:.\main.c      **** 
+  53:.\main.c      **** /* Blink delays in ms */
+  54:.\main.c      **** #define SLOW_DELAY		300
+  55:.\main.c      **** #define MEDIUM_DELAY	100
+  56:.\main.c      **** #define FAST_DELAY		1
+  57:.\main.c      **** 
+  58:.\main.c      **** /* Number of correct guesses to pass the game */
+  59:.\main.c      **** #define MAX1	5
+  60:.\main.c      **** #define MAX2	10
+  61:.\main.c      **** #define MAX3	99
+  62:.\main.c      **** 
+  63:.\main.c      **** #define RESET_PRESSES	3	/* Nuber of presses until HS is reset */
+  64:.\main.c      **** 
+  65:.\main.c      **** #define DEBOUNCE        100 /* Cycles used for switch debounce */
+  66:.\main.c      **** 
+  67:.\main.c      **** /* function prototyptes */
+  68:.\main.c      **** void   	getI2Cdata(void);
+  69:.\main.c      **** void   	putI2Cdata(uint8 I2Cdata);
+  70:.\main.c      **** uint16	checkSpeed(void);
+  71:.\main.c      **** 
+  72:.\main.c      **** /* global varialbls */
+  73:.\main.c      **** uint8	rdData[3] = {0x00,0x00,0x00}; 	/* Three byte I2C read buffer */
+  74:.\main.c      **** uint8	wrData[2];						/* Two byte I2C write buffer (first byte is the offset) */
+  75:.\main.c      **** uint8	status;
+  76:.\main.c      **** 
+  77:.\main.c      **** static const uint8 CYCODE   EEData[1] = {0x00};     /* 1 byte of non-volatile data to hold the high
+  78:.\main.c      **** uint8                       SRData[1] = {0x00};     /* 1 byte SRAM array to hold high score in SRAM
+  79:.\main.c      **** 
+  80:.\main.c      **** int main()
+  81:.\main.c      **** {
+  64              		.loc 1 81 0
+  65              		.cfi_startproc
+  66 0000 90B5     		push	{r4, r7, lr}
+  67              	.LCFI0:
+  68              		.cfi_def_cfa_offset 12
+  69              		.cfi_offset 4, -12
+  70              		.cfi_offset 7, -8
+  71              		.cfi_offset 14, -4
+  72 0002 9FB0     		sub	sp, sp, #124
+  73              	.LCFI1:
+  74              		.cfi_def_cfa_offset 136
+  75 0004 00AF     		add	r7, sp, #0
+  76              	.LCFI2:
+  77              		.cfi_def_cfa_register 7
+  82:.\main.c      **** 	uint16  blinkDelay  = SLOW_DELAY; 		/* Blink delay in ms */
+  78              		.loc 1 82 0
+  79 0006 3B1C     		mov	r3, r7
+  80 0008 6C33     		add	r3, r3, #108
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 4
+
+
+  81 000a 9622     		mov	r2, #150
+  82 000c 5200     		lsl	r2, r2, #1
+  83 000e 1A80     		strh	r2, [r3]
+  83:.\main.c      **** 	uint8 	count 		= 0; 				/* Running count of how many sequences have been completed */
+  84              		.loc 1 83 0
+  85 0010 3B1C     		mov	r3, r7
+  86 0012 7733     		add	r3, r3, #119
+  87 0014 0022     		mov	r2, #0
+  88 0016 1A70     		strb	r2, [r3]
+  84:.\main.c      **** 	uint8  	gameOn 		= IDLE; 			/* State machine for game state - 0: not running, 1: started, 2: runni
+  89              		.loc 1 84 0
+  90 0018 3B1C     		mov	r3, r7
+  91 001a 7633     		add	r3, r3, #118
+  92 001c 0022     		mov	r2, #0
+  93 001e 1A70     		strb	r2, [r3]
+  85:.\main.c      **** 	uint8   button;							/* Variable indicating which button is pressed */
+  86:.\main.c      **** 	uint16	loop;							/* Loop counter */
+  87:.\main.c      **** 	uint8	badPressFlag = 0;				/* Flag to tell if sequence was incorrect */
+  94              		.loc 1 87 0
+  95 0020 3B1C     		mov	r3, r7
+  96 0022 7333     		add	r3, r3, #115
+  97 0024 0022     		mov	r2, #0
+  98 0026 1A70     		strb	r2, [r3]
+  88:.\main.c      **** 	uint8	sequence[MAX_SEQUENCE];			/* Array which holds the random LED sequence */
+  89:.\main.c      **** 	uint8	sequenceMask;					/* Bitmask value of sequence (i.e. 1->1, 2->2, 3->4, 4->8) */
+  90:.\main.c      ****     uint8   debounceMax = DEBOUNCE;         /* Debounce for max sequence selector switch */
+  99              		.loc 1 90 0
+ 100 0028 3B1C     		mov	r3, r7
+ 101 002a 7233     		add	r3, r3, #114
+ 102 002c 6422     		mov	r2, #100
+ 103 002e 1A70     		strb	r2, [r3]
+  91:.\main.c      ****     uint8	maxCount = MAX3;			    /* Max sequence to pass the game */
+ 104              		.loc 1 91 0
+ 105 0030 3B1C     		mov	r3, r7
+ 106 0032 7133     		add	r3, r3, #113
+ 107 0034 6322     		mov	r2, #99
+ 108 0036 1A70     		strb	r2, [r3]
+  92:.\main.c      **** 	uint8	resetCounter = RESET_PRESSES;	/* Nuber of presses until HS is reset */
+ 109              		.loc 1 92 0
+ 110 0038 3B1C     		mov	r3, r7
+ 111 003a 7033     		add	r3, r3, #112
+ 112 003c 0322     		mov	r2, #3
+ 113 003e 1A70     		strb	r2, [r3]
+  93:.\main.c      ****     uint8   debounceHS = DEBOUNCE;          /* Debounce for high score reset */
+ 114              		.loc 1 93 0
+ 115 0040 3B1C     		mov	r3, r7
+ 116 0042 6F33     		add	r3, r3, #111
+ 117 0044 6422     		mov	r2, #100
+ 118 0046 1A70     		strb	r2, [r3]
+  94:.\main.c      **** 	uint8   seed = 0;                       /* Seed for random number generator - will be set based on
+ 119              		.loc 1 94 0
+ 120 0048 3B1C     		mov	r3, r7
+ 121 004a 6E33     		add	r3, r3, #110
+ 122 004c 0022     		mov	r2, #0
+ 123 004e 1A70     		strb	r2, [r3]
+  95:.\main.c      ****     
+  96:.\main.c      **** 	CyGlobalIntEnable;
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 5
+
+
+ 124              		.loc 1 96 0
+ 125              	@ 96 ".\main.c" 1
+ 126 0050 62B6     		CPSIE   i
+ 127              	@ 0 "" 2
+  97:.\main.c      **** 	
+  98:.\main.c      **** 	/* Start LCD and print static information */
+  99:.\main.c      **** 	LCD_Start();
+ 128              		.loc 1 99 0
+ 129              		.code	16
+ 130 0052 FFF7FEFF 		bl	LCD_Start
+ 100:.\main.c      **** 	LCD_ClearDisplay();
+ 131              		.loc 1 100 0
+ 132 0056 0120     		mov	r0, #1
+ 133 0058 FFF7FEFF 		bl	LCD_WriteControl
+ 101:.\main.c      **** 	LCD_Position(0,0);
+ 134              		.loc 1 101 0
+ 135 005c 0020     		mov	r0, #0
+ 136 005e 0021     		mov	r1, #0
+ 137 0060 FFF7FEFF 		bl	LCD_Position
+ 102:.\main.c      **** 	LCD_PrintString("       #:     HS");
+ 138              		.loc 1 102 0
+ 139 0064 BF4B     		ldr	r3, .L48
+ 140 0066 181C     		mov	r0, r3
+ 141 0068 FFF7FEFF 		bl	LCD_PrintString
+ 103:.\main.c      **** 	LCD_Position(1,0);
+ 142              		.loc 1 103 0
+ 143 006c 0120     		mov	r0, #1
+ 144 006e 0021     		mov	r1, #0
+ 145 0070 FFF7FEFF 		bl	LCD_Position
+ 104:.\main.c      **** 	LCD_PrintString("     MAX:");
+ 146              		.loc 1 104 0
+ 147 0074 BC4B     		ldr	r3, .L48+4
+ 148 0076 181C     		mov	r0, r3
+ 149 0078 FFF7FEFF 		bl	LCD_PrintString
+ 105:.\main.c      ****     LCD_Position(1,10);
+ 150              		.loc 1 105 0
+ 151 007c 0120     		mov	r0, #1
+ 152 007e 0A21     		mov	r1, #10
+ 153 0080 FFF7FEFF 		bl	LCD_Position
+ 106:.\main.c      ****     LCD_PrintNumber(maxCount);
+ 154              		.loc 1 106 0
+ 155 0084 3B1C     		mov	r3, r7
+ 156 0086 7133     		add	r3, r3, #113
+ 157 0088 1B78     		ldrb	r3, [r3]
+ 158 008a 9BB2     		uxth	r3, r3
+ 159 008c 181C     		mov	r0, r3
+ 160 008e FFF7FEFF 		bl	LCD_PrintNumber
+ 107:.\main.c      **** 	
+ 108:.\main.c      **** 	I2C_Start();
+ 161              		.loc 1 108 0
+ 162 0092 FFF7FEFF 		bl	I2C_Start
+ 109:.\main.c      **** 
+ 110:.\main.c      **** 	EEPROM_Start();
+ 163              		.loc 1 110 0
+ 164 0096 FFF7FEFF 		bl	EEPROM_Start
+ 111:.\main.c      **** 
+ 112:.\main.c      **** 	/* Write the offset pointer to the slave with a value of 0. */
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 6
+
+
+ 113:.\main.c      **** 	/* We always write to offset 0 and we always read 3 bytes from */
+ 114:.\main.c      **** 	/* offset 0 so we only need to set this once */
+ 115:.\main.c      **** 	wrData[0] = I2COFFSET; /* Set pointer to the slave->master byte */
+ 165              		.loc 1 115 0
+ 166 009a B44B     		ldr	r3, .L48+8
+ 167 009c 0022     		mov	r2, #0
+ 168 009e 1A70     		strb	r2, [r3]
+ 116:.\main.c      **** 	status = I2C_I2CMasterWriteBuf(SLAVE_ADDRESS, wrData, 1, I2C_I2C_MODE_COMPLETE_XFER);
+ 169              		.loc 1 116 0
+ 170 00a0 B24B     		ldr	r3, .L48+8
+ 171 00a2 3620     		mov	r0, #54
+ 172 00a4 191C     		mov	r1, r3
+ 173 00a6 0122     		mov	r2, #1
+ 174 00a8 0023     		mov	r3, #0
+ 175 00aa FFF7FEFF 		bl	I2C_I2CMasterWriteBuf
+ 176 00ae 031C     		mov	r3, r0
+ 177 00b0 DAB2     		uxtb	r2, r3
+ 178 00b2 AF4B     		ldr	r3, .L48+12
+ 179 00b4 1A70     		strb	r2, [r3]
+ 117:.\main.c      **** 	while (status != I2C_I2C_MSTR_NO_ERROR); /* Wait for transfer to start */
+ 180              		.loc 1 117 0
+ 181 00b6 C046     		mov	r8, r8
+ 182              	.L2:
+ 183              		.loc 1 117 0 is_stmt 0 discriminator 1
+ 184 00b8 AD4B     		ldr	r3, .L48+12
+ 185 00ba 1B78     		ldrb	r3, [r3]
+ 186 00bc 002B     		cmp	r3, #0
+ 187 00be FBD1     		bne	.L2
+ 118:.\main.c      **** 	while(I2C_I2CMasterStatus() & I2C_I2C_MSTAT_XFER_INP); /* Wait for transfer to complete */
+ 188              		.loc 1 118 0 is_stmt 1
+ 189 00c0 C046     		mov	r8, r8
+ 190              	.L3:
+ 191              		.loc 1 118 0 is_stmt 0 discriminator 1
+ 192 00c2 FFF7FEFF 		bl	I2C_I2CMasterStatus
+ 193 00c6 021C     		mov	r2, r0
+ 194 00c8 0423     		mov	r3, #4
+ 195 00ca 1340     		and	r3, r2
+ 196 00cc F9D1     		bne	.L3
+ 119:.\main.c      **** 	status = I2C_I2CMasterClearStatus(); /* Clear status for next time */
+ 197              		.loc 1 119 0 is_stmt 1
+ 198 00ce FFF7FEFF 		bl	I2C_I2CMasterClearStatus
+ 199 00d2 031C     		mov	r3, r0
+ 200 00d4 DAB2     		uxtb	r2, r3
+ 201 00d6 A64B     		ldr	r3, .L48+12
+ 202 00d8 1A70     		strb	r2, [r3]
+ 120:.\main.c      **** 	
+ 121:.\main.c      **** 	/* Start out with the INIT state in the info register */
+ 122:.\main.c      **** 	putI2Cdata(INIT);
+ 203              		.loc 1 122 0
+ 204 00da 4020     		mov	r0, #64
+ 205 00dc FFF7FEFF 		bl	putI2Cdata
+ 206              	.L43:
+ 123:.\main.c      **** 	
+ 124:.\main.c      **** 	for(;;)
+ 125:.\main.c      ****     {
+ 126:.\main.c      **** 		/* Print current high score */
+ 127:.\main.c      **** 		LCD_Position(1,14);
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 7
+
+
+ 207              		.loc 1 127 0
+ 208 00e0 0120     		mov	r0, #1
+ 209 00e2 0E21     		mov	r1, #14
+ 210 00e4 FFF7FEFF 		bl	LCD_Position
+ 128:.\main.c      **** 		SRData[0] = *(volatile uint8 *) &EEData[0];
+ 211              		.loc 1 128 0
+ 212 00e8 A24B     		ldr	r3, .L48+16
+ 213 00ea 1B78     		ldrb	r3, [r3]
+ 214 00ec DAB2     		uxtb	r2, r3
+ 215 00ee A24B     		ldr	r3, .L48+20
+ 216 00f0 1A70     		strb	r2, [r3]
+ 129:.\main.c      ****         if(SRData[0] < 10)
+ 217              		.loc 1 129 0
+ 218 00f2 A14B     		ldr	r3, .L48+20
+ 219 00f4 1B78     		ldrb	r3, [r3]
+ 220 00f6 092B     		cmp	r3, #9
+ 221 00f8 02D8     		bhi	.L4
+ 130:.\main.c      **** 		{
+ 131:.\main.c      **** 			LCD_PutChar(' '); /* Leading space */
+ 222              		.loc 1 131 0
+ 223 00fa 2020     		mov	r0, #32
+ 224 00fc FFF7FEFF 		bl	LCD_PutChar
+ 225              	.L4:
+ 132:.\main.c      **** 		}	
+ 133:.\main.c      **** 		LCD_PrintNumber(SRData[0]);
+ 226              		.loc 1 133 0
+ 227 0100 9D4B     		ldr	r3, .L48+20
+ 228 0102 1B78     		ldrb	r3, [r3]
+ 229 0104 181C     		mov	r0, r3
+ 230 0106 FFF7FEFF 		bl	LCD_PrintNumber
+ 134:.\main.c      **** 
+ 135:.\main.c      **** 		/* Print how many have passed in current game */
+ 136:.\main.c      **** 		LCD_Position(0,10);
+ 231              		.loc 1 136 0
+ 232 010a 0020     		mov	r0, #0
+ 233 010c 0A21     		mov	r1, #10
+ 234 010e FFF7FEFF 		bl	LCD_Position
+ 137:.\main.c      **** 		if(count < 10)
+ 235              		.loc 1 137 0
+ 236 0112 3B1C     		mov	r3, r7
+ 237 0114 7733     		add	r3, r3, #119
+ 238 0116 1B78     		ldrb	r3, [r3]
+ 239 0118 092B     		cmp	r3, #9
+ 240 011a 02D8     		bhi	.L5
+ 138:.\main.c      **** 		{
+ 139:.\main.c      **** 			LCD_PutChar(' '); /* Leading space */
+ 241              		.loc 1 139 0
+ 242 011c 2020     		mov	r0, #32
+ 243 011e FFF7FEFF 		bl	LCD_PutChar
+ 244              	.L5:
+ 140:.\main.c      **** 		}
+ 141:.\main.c      **** 		LCD_PrintNumber(count);
+ 245              		.loc 1 141 0
+ 246 0122 3B1C     		mov	r3, r7
+ 247 0124 7733     		add	r3, r3, #119
+ 248 0126 1B78     		ldrb	r3, [r3]
+ 249 0128 9BB2     		uxth	r3, r3
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 8
+
+
+ 250 012a 181C     		mov	r0, r3
+ 251 012c FFF7FEFF 		bl	LCD_PrintNumber
+ 142:.\main.c      **** 		
+ 143:.\main.c      **** 		switch (gameOn)
+ 252              		.loc 1 143 0
+ 253 0130 3B1C     		mov	r3, r7
+ 254 0132 7633     		add	r3, r3, #118
+ 255 0134 1B78     		ldrb	r3, [r3]
+ 256 0136 002B     		cmp	r3, #0
+ 257 0138 03D0     		beq	.L7
+ 258 013a 012B     		cmp	r3, #1
+ 259 013c 00D1     		bne	.LCB163
+ 260 013e 0CE1     		b	.L8	@long jump
+ 261              	.LCB163:
+ 262 0140 17E2     		b	.L44
+ 263              	.L7:
+ 144:.\main.c      **** 		{
+ 145:.\main.c      ****        		/* Loop until Start switch is pressed */
+ 146:.\main.c      **** 			case IDLE: /* Game not started */ 		
+ 147:.\main.c      **** 
+ 148:.\main.c      ****                 /* Look for change to passing sequence length */
+ 149:.\main.c      ****     		    if(!Max_Read()) /* Max button is being pressed */
+ 264              		.loc 1 149 0
+ 265 0142 FFF7FEFF 		bl	Max_Read
+ 266 0146 031C     		mov	r3, r0
+ 267 0148 002B     		cmp	r3, #0
+ 268 014a 3CD1     		bne	.L9
+ 150:.\main.c      ****                 {
+ 151:.\main.c      ****                     if(debounceMax > 1) /* We are not passed the debounce yet */
+ 269              		.loc 1 151 0
+ 270 014c 3B1C     		mov	r3, r7
+ 271 014e 7233     		add	r3, r3, #114
+ 272 0150 1B78     		ldrb	r3, [r3]
+ 273 0152 012B     		cmp	r3, #1
+ 274 0154 07D9     		bls	.L10
+ 152:.\main.c      ****                     {
+ 153:.\main.c      ****                         debounceMax--;
+ 275              		.loc 1 153 0
+ 276 0156 3B1C     		mov	r3, r7
+ 277 0158 7233     		add	r3, r3, #114
+ 278 015a 3A1C     		mov	r2, r7
+ 279 015c 7232     		add	r2, r2, #114
+ 280 015e 1278     		ldrb	r2, [r2]
+ 281 0160 013A     		sub	r2, r2, #1
+ 282 0162 1A70     		strb	r2, [r3]
+ 283 0164 33E0     		b	.L11
+ 284              	.L10:
+ 154:.\main.c      ****                     }
+ 155:.\main.c      ****                     else if (debounceMax == 1) /* Change max on this cycle */
+ 285              		.loc 1 155 0
+ 286 0166 3B1C     		mov	r3, r7
+ 287 0168 7233     		add	r3, r3, #114
+ 288 016a 1B78     		ldrb	r3, [r3]
+ 289 016c 012B     		cmp	r3, #1
+ 290 016e 2ED1     		bne	.L11
+ 156:.\main.c      ****                     {
+ 157:.\main.c      ****                         LCD_Position(1,10);
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 9
+
+
+ 291              		.loc 1 157 0
+ 292 0170 0120     		mov	r0, #1
+ 293 0172 0A21     		mov	r1, #10
+ 294 0174 FFF7FEFF 		bl	LCD_Position
+ 158:.\main.c      ****                         if(maxCount == MAX1)
+ 295              		.loc 1 158 0
+ 296 0178 3B1C     		mov	r3, r7
+ 297 017a 7133     		add	r3, r3, #113
+ 298 017c 1B78     		ldrb	r3, [r3]
+ 299 017e 052B     		cmp	r3, #5
+ 300 0180 04D1     		bne	.L12
+ 159:.\main.c      ****                         {
+ 160:.\main.c      ****                             maxCount = MAX2;
+ 301              		.loc 1 160 0
+ 302 0182 3B1C     		mov	r3, r7
+ 303 0184 7133     		add	r3, r3, #113
+ 304 0186 0A22     		mov	r2, #10
+ 305 0188 1A70     		strb	r2, [r3]
+ 306 018a 10E0     		b	.L13
+ 307              	.L12:
+ 161:.\main.c      ****                         }
+ 162:.\main.c      ****                         else if(maxCount == MAX2)
+ 308              		.loc 1 162 0
+ 309 018c 3B1C     		mov	r3, r7
+ 310 018e 7133     		add	r3, r3, #113
+ 311 0190 1B78     		ldrb	r3, [r3]
+ 312 0192 0A2B     		cmp	r3, #10
+ 313 0194 04D1     		bne	.L14
+ 163:.\main.c      ****                         {
+ 164:.\main.c      ****                             maxCount = MAX3;
+ 314              		.loc 1 164 0
+ 315 0196 3B1C     		mov	r3, r7
+ 316 0198 7133     		add	r3, r3, #113
+ 317 019a 6322     		mov	r2, #99
+ 318 019c 1A70     		strb	r2, [r3]
+ 319 019e 06E0     		b	.L13
+ 320              	.L14:
+ 165:.\main.c      ****                         }
+ 166:.\main.c      ****                         else
+ 167:.\main.c      ****                         {
+ 168:.\main.c      ****                             maxCount = MAX1;
+ 321              		.loc 1 168 0
+ 322 01a0 3B1C     		mov	r3, r7
+ 323 01a2 7133     		add	r3, r3, #113
+ 324 01a4 0522     		mov	r2, #5
+ 325 01a6 1A70     		strb	r2, [r3]
+ 169:.\main.c      ****                             LCD_PutChar(' '); /* Leading space needed since MAX1 is 1 digit instead
+ 326              		.loc 1 169 0
+ 327 01a8 2020     		mov	r0, #32
+ 328 01aa FFF7FEFF 		bl	LCD_PutChar
+ 329              	.L13:
+ 170:.\main.c      ****                         }
+ 171:.\main.c      ****                         LCD_PrintNumber(maxCount);
+ 330              		.loc 1 171 0
+ 331 01ae 3B1C     		mov	r3, r7
+ 332 01b0 7133     		add	r3, r3, #113
+ 333 01b2 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 10
+
+
+ 334 01b4 9BB2     		uxth	r3, r3
+ 335 01b6 181C     		mov	r0, r3
+ 336 01b8 FFF7FEFF 		bl	LCD_PrintNumber
+ 172:.\main.c      ****                         debounceMax = 0; /* Use this so toggle only happens once per press of the s
+ 337              		.loc 1 172 0
+ 338 01bc 3B1C     		mov	r3, r7
+ 339 01be 7233     		add	r3, r3, #114
+ 340 01c0 0022     		mov	r2, #0
+ 341 01c2 1A70     		strb	r2, [r3]
+ 342 01c4 03E0     		b	.L11
+ 343              	.L9:
+ 173:.\main.c      ****                     }
+ 174:.\main.c      ****                 }
+ 175:.\main.c      ****                 else /* Switch not pressed - reset the debounce */
+ 176:.\main.c      ****                 {
+ 177:.\main.c      ****                     debounceMax = DEBOUNCE;
+ 344              		.loc 1 177 0
+ 345 01c6 3B1C     		mov	r3, r7
+ 346 01c8 7233     		add	r3, r3, #114
+ 347 01ca 6422     		mov	r2, #100
+ 348 01cc 1A70     		strb	r2, [r3]
+ 349              	.L11:
+ 178:.\main.c      ****                 }       
+ 179:.\main.c      **** 
+ 180:.\main.c      **** 
+ 181:.\main.c      ****                 /* Reset high score after 3 presses of SW3 */
+ 182:.\main.c      **** 				if(!ResetHS_Read())
+ 350              		.loc 1 182 0
+ 351 01ce FFF7FEFF 		bl	ResetHS_Read
+ 352 01d2 031C     		mov	r3, r0
+ 353 01d4 002B     		cmp	r3, #0
+ 354 01d6 35D1     		bne	.L15
+ 183:.\main.c      **** 				{
+ 184:.\main.c      **** 					if(debounceHS > 1) /* We are not passed the debounce yet */
+ 355              		.loc 1 184 0
+ 356 01d8 3B1C     		mov	r3, r7
+ 357 01da 6F33     		add	r3, r3, #111
+ 358 01dc 1B78     		ldrb	r3, [r3]
+ 359 01de 012B     		cmp	r3, #1
+ 360 01e0 07D9     		bls	.L16
+ 185:.\main.c      ****                     {
+ 186:.\main.c      ****                         debounceHS--;
+ 361              		.loc 1 186 0
+ 362 01e2 3B1C     		mov	r3, r7
+ 363 01e4 6F33     		add	r3, r3, #111
+ 364 01e6 3A1C     		mov	r2, r7
+ 365 01e8 6F32     		add	r2, r2, #111
+ 366 01ea 1278     		ldrb	r2, [r2]
+ 367 01ec 013A     		sub	r2, r2, #1
+ 368 01ee 1A70     		strb	r2, [r3]
+ 369 01f0 2CE0     		b	.L17
+ 370              	.L16:
+ 187:.\main.c      ****                     }
+ 188:.\main.c      ****                     else if (debounceHS == 1) /* Just passed debounce - look to see if HS should be
+ 371              		.loc 1 188 0
+ 372 01f2 3B1C     		mov	r3, r7
+ 373 01f4 6F33     		add	r3, r3, #111
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 11
+
+
+ 374 01f6 1B78     		ldrb	r3, [r3]
+ 375 01f8 012B     		cmp	r3, #1
+ 376 01fa 27D1     		bne	.L17
+ 189:.\main.c      ****                     {
+ 190:.\main.c      ****     					debounceHS = 0; /* Use this so we only recognize one event per press */
+ 377              		.loc 1 190 0
+ 378 01fc 3B1C     		mov	r3, r7
+ 379 01fe 6F33     		add	r3, r3, #111
+ 380 0200 0022     		mov	r2, #0
+ 381 0202 1A70     		strb	r2, [r3]
+ 191:.\main.c      ****                         if(resetCounter)
+ 382              		.loc 1 191 0
+ 383 0204 3B1C     		mov	r3, r7
+ 384 0206 7033     		add	r3, r3, #112
+ 385 0208 1B78     		ldrb	r3, [r3]
+ 386 020a 002B     		cmp	r3, #0
+ 387 020c 07D0     		beq	.L18
+ 192:.\main.c      ****     					{
+ 193:.\main.c      ****     						resetCounter--;
+ 388              		.loc 1 193 0
+ 389 020e 3B1C     		mov	r3, r7
+ 390 0210 7033     		add	r3, r3, #112
+ 391 0212 3A1C     		mov	r2, r7
+ 392 0214 7032     		add	r2, r2, #112
+ 393 0216 1278     		ldrb	r2, [r2]
+ 394 0218 013A     		sub	r2, r2, #1
+ 395 021a 1A70     		strb	r2, [r3]
+ 396 021c 16E0     		b	.L17
+ 397              	.L18:
+ 194:.\main.c      ****     					}
+ 195:.\main.c      ****     					else /* Switch has been pressed 3 times - reset high score */
+ 196:.\main.c      ****     					{
+ 197:.\main.c      ****     						resetCounter = RESET_PRESSES;
+ 398              		.loc 1 197 0
+ 399 021e 3B1C     		mov	r3, r7
+ 400 0220 7033     		add	r3, r3, #112
+ 401 0222 0322     		mov	r2, #3
+ 402 0224 1A70     		strb	r2, [r3]
+ 198:.\main.c      ****     						SRData[0] = 0x00;
+ 403              		.loc 1 198 0
+ 404 0226 544B     		ldr	r3, .L48+20
+ 405 0228 0022     		mov	r2, #0
+ 406 022a 1A70     		strb	r2, [r3]
+ 199:.\main.c      ****     						status = EEPROM_Write(SRData,EEData, 1u);  /* Write 1 byte to EEPROM */
+ 407              		.loc 1 199 0
+ 408 022c 524A     		ldr	r2, .L48+20
+ 409 022e 514B     		ldr	r3, .L48+16
+ 410 0230 101C     		mov	r0, r2
+ 411 0232 191C     		mov	r1, r3
+ 412 0234 0122     		mov	r2, #1
+ 413 0236 FFF7FEFF 		bl	EEPROM_Write
+ 414 023a 031C     		mov	r3, r0
+ 415 023c DAB2     		uxtb	r2, r3
+ 416 023e 4C4B     		ldr	r3, .L48+12
+ 417 0240 1A70     		strb	r2, [r3]
+ 418 0242 03E0     		b	.L17
+ 419              	.L15:
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 12
+
+
+ 200:.\main.c      ****     					}
+ 201:.\main.c      ****                     }
+ 202:.\main.c      **** 				}
+ 203:.\main.c      ****                 else /* Switch not pressed - reset the debounce */
+ 204:.\main.c      ****                 {
+ 205:.\main.c      ****                     debounceHS = DEBOUNCE;
+ 420              		.loc 1 205 0
+ 421 0244 3B1C     		mov	r3, r7
+ 422 0246 6F33     		add	r3, r3, #111
+ 423 0248 6422     		mov	r2, #100
+ 424 024a 1A70     		strb	r2, [r3]
+ 425              	.L17:
+ 206:.\main.c      ****                 }
+ 207:.\main.c      **** 				
+ 208:.\main.c      ****                 /* Switch is pressed, start the game */
+ 209:.\main.c      ****                 /* We don't need debounce on this one since once the game starts we */
+ 210:.\main.c      ****                 /* move out of the IDLE state to the RUNNING state and that state */
+ 211:.\main.c      ****                 /* doesn't look at the start switch. Therefore, the game will start on */
+ 212:.\main.c      ****                 /* the first falling edge of the Start switch. */
+ 213:.\main.c      **** 				if(!Start_Read()) 
+ 426              		.loc 1 213 0
+ 427 024c FFF7FEFF 		bl	Start_Read
+ 428 0250 031C     		mov	r3, r0
+ 429 0252 002B     		cmp	r3, #0
+ 430 0254 00D0     		beq	.LCB325
+ 431 0256 8DE1     		b	.L45	@long jump
+ 432              	.LCB325:
+ 214:.\main.c      **** 				{
+ 215:.\main.c      ****                     /* Set the random seed based on how long the switch is held */
+ 216:.\main.c      ****                     while (!Start_Read())
+ 433              		.loc 1 216 0
+ 434 0258 30E0     		b	.L20
+ 435              	.L25:
+ 217:.\main.c      ****                     {
+ 218:.\main.c      ****                         seed++;
+ 436              		.loc 1 218 0
+ 437 025a 3B1C     		mov	r3, r7
+ 438 025c 6E33     		add	r3, r3, #110
+ 439 025e 3A1C     		mov	r2, r7
+ 440 0260 6E32     		add	r2, r2, #110
+ 441 0262 1278     		ldrb	r2, [r2]
+ 442 0264 0132     		add	r2, r2, #1
+ 443 0266 1A70     		strb	r2, [r3]
+ 219:.\main.c      **** 						
+ 220:.\main.c      **** 						/* Test mode */
+ 221:.\main.c      **** 						/* If the Reset HS switch is held while start is being */
+ 222:.\main.c      **** 						/* held we will turn all 4 master LEDs on for 500ms each */
+ 223:.\main.c      **** 						/* until ResetHS is released */
+ 224:.\main.c      **** 						while(!ResetHS_Read())
+ 444              		.loc 1 224 0
+ 445 0268 23E0     		b	.L21
+ 446              	.L24:
+ 225:.\main.c      **** 						{
+ 226:.\main.c      **** 							for(loop = 0; loop < 4; loop++)
+ 447              		.loc 1 226 0
+ 448 026a 3B1C     		mov	r3, r7
+ 449 026c 7433     		add	r3, r3, #116
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 13
+
+
+ 450 026e 0022     		mov	r2, #0
+ 451 0270 1A80     		strh	r2, [r3]
+ 452 0272 19E0     		b	.L22
+ 453              	.L23:
+ 227:.\main.c      **** 							{
+ 228:.\main.c      **** 								LEDreg_Write(0x01 << loop);
+ 454              		.loc 1 228 0 discriminator 2
+ 455 0274 3B1C     		mov	r3, r7
+ 456 0276 7433     		add	r3, r3, #116
+ 457 0278 1B88     		ldrh	r3, [r3]
+ 458 027a 0122     		mov	r2, #1
+ 459 027c 101C     		mov	r0, r2
+ 460 027e 9840     		lsl	r0, r0, r3
+ 461 0280 031C     		mov	r3, r0
+ 462 0282 DBB2     		uxtb	r3, r3
+ 463 0284 181C     		mov	r0, r3
+ 464 0286 FFF7FEFF 		bl	LEDreg_Write
+ 229:.\main.c      **** 								CyDelay(500);
+ 465              		.loc 1 229 0 discriminator 2
+ 466 028a FA23     		mov	r3, #250
+ 467 028c 5B00     		lsl	r3, r3, #1
+ 468 028e 181C     		mov	r0, r3
+ 469 0290 FFF7FEFF 		bl	CyDelay
+ 230:.\main.c      **** 								LEDreg_Write(ALLOFF);
+ 470              		.loc 1 230 0 discriminator 2
+ 471 0294 0020     		mov	r0, #0
+ 472 0296 FFF7FEFF 		bl	LEDreg_Write
+ 226:.\main.c      **** 							for(loop = 0; loop < 4; loop++)
+ 473              		.loc 1 226 0 discriminator 2
+ 474 029a 3B1C     		mov	r3, r7
+ 475 029c 7433     		add	r3, r3, #116
+ 476 029e 3A1C     		mov	r2, r7
+ 477 02a0 7432     		add	r2, r2, #116
+ 478 02a2 1288     		ldrh	r2, [r2]
+ 479 02a4 0132     		add	r2, r2, #1
+ 480 02a6 1A80     		strh	r2, [r3]
+ 481              	.L22:
+ 226:.\main.c      **** 							for(loop = 0; loop < 4; loop++)
+ 482              		.loc 1 226 0 is_stmt 0 discriminator 1
+ 483 02a8 3B1C     		mov	r3, r7
+ 484 02aa 7433     		add	r3, r3, #116
+ 485 02ac 1B88     		ldrh	r3, [r3]
+ 486 02ae 032B     		cmp	r3, #3
+ 487 02b0 E0D9     		bls	.L23
+ 488              	.L21:
+ 224:.\main.c      **** 						while(!ResetHS_Read())
+ 489              		.loc 1 224 0 is_stmt 1 discriminator 1
+ 490 02b2 FFF7FEFF 		bl	ResetHS_Read
+ 491 02b6 031C     		mov	r3, r0
+ 492 02b8 002B     		cmp	r3, #0
+ 493 02ba D6D0     		beq	.L24
+ 494              	.L20:
+ 216:.\main.c      ****                     while (!Start_Read())
+ 495              		.loc 1 216 0 discriminator 1
+ 496 02bc FFF7FEFF 		bl	Start_Read
+ 497 02c0 031C     		mov	r3, r0
+ 498 02c2 002B     		cmp	r3, #0
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 14
+
+
+ 499 02c4 C9D0     		beq	.L25
+ 231:.\main.c      **** 							}
+ 232:.\main.c      **** 						}
+ 233:.\main.c      ****                     }
+ 234:.\main.c      ****                     srand(seed);   
+ 500              		.loc 1 234 0
+ 501 02c6 3B1C     		mov	r3, r7
+ 502 02c8 6E33     		add	r3, r3, #110
+ 503 02ca 1B78     		ldrb	r3, [r3]
+ 504 02cc 181C     		mov	r0, r3
+ 505 02ce FFF7FEFF 		bl	srand
+ 235:.\main.c      ****                     
+ 236:.\main.c      **** 					
+ 237:.\main.c      **** 					
+ 238:.\main.c      ****                     count = 0;
+ 506              		.loc 1 238 0
+ 507 02d2 3B1C     		mov	r3, r7
+ 508 02d4 7733     		add	r3, r3, #119
+ 509 02d6 0022     		mov	r2, #0
+ 510 02d8 1A70     		strb	r2, [r3]
+ 239:.\main.c      **** 					badPressFlag = 0;
+ 511              		.loc 1 239 0
+ 512 02da 3B1C     		mov	r3, r7
+ 513 02dc 7333     		add	r3, r3, #115
+ 514 02de 0022     		mov	r2, #0
+ 515 02e0 1A70     		strb	r2, [r3]
+ 240:.\main.c      **** 					/* Display running state to LCD */
+ 241:.\main.c      **** 					LCD_Position (0,0);
+ 516              		.loc 1 241 0
+ 517 02e2 0020     		mov	r0, #0
+ 518 02e4 0021     		mov	r1, #0
+ 519 02e6 FFF7FEFF 		bl	LCD_Position
+ 242:.\main.c      **** 					LCD_PrintString("RUN ");
+ 520              		.loc 1 242 0
+ 521 02ea 244B     		ldr	r3, .L48+24
+ 522 02ec 181C     		mov	r0, r3
+ 523 02ee FFF7FEFF 		bl	LCD_PrintString
+ 243:.\main.c      ****                     
+ 244:.\main.c      **** 					/* Create a sequence of LEDs to flash */
+ 245:.\main.c      **** 					for (loop = 0; loop < MAX_SEQUENCE; loop++)
+ 524              		.loc 1 245 0
+ 525 02f2 3B1C     		mov	r3, r7
+ 526 02f4 7433     		add	r3, r3, #116
+ 527 02f6 0022     		mov	r2, #0
+ 528 02f8 1A80     		strh	r2, [r3]
+ 529 02fa 19E0     		b	.L26
+ 530              	.L28:
+ 246:.\main.c      **** 					{
+ 247:.\main.c      **** 						sequence[loop] = (rand() % 4 + 1); /* random integer from 1 to 4 */
+ 531              		.loc 1 247 0 discriminator 2
+ 532 02fc 3B1C     		mov	r3, r7
+ 533 02fe 7433     		add	r3, r3, #116
+ 534 0300 1C88     		ldrh	r4, [r3]
+ 535 0302 FFF7FEFF 		bl	rand
+ 536 0306 021C     		mov	r2, r0
+ 537 0308 1D4B     		ldr	r3, .L48+28
+ 538 030a 1340     		and	r3, r2
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 15
+
+
+ 539 030c 04D5     		bpl	.L27
+ 540 030e 013B     		sub	r3, r3, #1
+ 541 0310 0422     		mov	r2, #4
+ 542 0312 5242     		neg	r2, r2
+ 543 0314 1343     		orr	r3, r2
+ 544 0316 0133     		add	r3, r3, #1
+ 545              	.L27:
+ 546 0318 DBB2     		uxtb	r3, r3
+ 547 031a 0133     		add	r3, r3, #1
+ 548 031c DAB2     		uxtb	r2, r3
+ 549 031e 3B1D     		add	r3, r7, #4
+ 550 0320 1A55     		strb	r2, [r3, r4]
+ 245:.\main.c      **** 					for (loop = 0; loop < MAX_SEQUENCE; loop++)
+ 551              		.loc 1 245 0 discriminator 2
+ 552 0322 3B1C     		mov	r3, r7
+ 553 0324 7433     		add	r3, r3, #116
+ 554 0326 3A1C     		mov	r2, r7
+ 555 0328 7432     		add	r2, r2, #116
+ 556 032a 1288     		ldrh	r2, [r2]
+ 557 032c 0132     		add	r2, r2, #1
+ 558 032e 1A80     		strh	r2, [r3]
+ 559              	.L26:
+ 245:.\main.c      **** 					for (loop = 0; loop < MAX_SEQUENCE; loop++)
+ 560              		.loc 1 245 0 is_stmt 0 discriminator 1
+ 561 0330 3B1C     		mov	r3, r7
+ 562 0332 7433     		add	r3, r3, #116
+ 563 0334 1B88     		ldrh	r3, [r3]
+ 564 0336 622B     		cmp	r3, #98
+ 565 0338 E0D9     		bls	.L28
+ 248:.\main.c      **** 					}
+ 249:.\main.c      **** 					
+ 250:.\main.c      **** 					putI2Cdata(RUN);
+ 566              		.loc 1 250 0 is_stmt 1
+ 567 033a 0020     		mov	r0, #0
+ 568 033c FFF7FEFF 		bl	putI2Cdata
+ 251:.\main.c      **** 					
+ 252:.\main.c      **** 					CyDelay(SLOW_DELAY); /* Wait before first sequence */
+ 569              		.loc 1 252 0
+ 570 0340 9623     		mov	r3, #150
+ 571 0342 5B00     		lsl	r3, r3, #1
+ 572 0344 181C     		mov	r0, r3
+ 573 0346 FFF7FEFF 		bl	CyDelay
+ 253:.\main.c      **** 					
+ 254:.\main.c      **** 					gameOn++; /* Go on to the next state */
+ 574              		.loc 1 254 0
+ 575 034a 3B1C     		mov	r3, r7
+ 576 034c 7633     		add	r3, r3, #118
+ 577 034e 3A1C     		mov	r2, r7
+ 578 0350 7632     		add	r2, r2, #118
+ 579 0352 1278     		ldrb	r2, [r2]
+ 580 0354 0132     		add	r2, r2, #1
+ 581 0356 1A70     		strb	r2, [r3]
+ 255:.\main.c      **** 				}
+ 256:.\main.c      **** 				
+ 257:.\main.c      **** 				break; /* End of IDLE state */
+ 582              		.loc 1 257 0
+ 583 0358 0CE1     		b	.L45
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 16
+
+
+ 584              	.L8:
+ 258:.\main.c      **** 			
+ 259:.\main.c      **** 			case RUNNING: /* Game is running */
+ 260:.\main.c      **** 			
+ 261:.\main.c      **** 				/* Blink LEDs for the complete sequence for this round */
+ 262:.\main.c      **** 				for (loop = 0; loop < count+1; loop++)
+ 585              		.loc 1 262 0
+ 586 035a 3B1C     		mov	r3, r7
+ 587 035c 7433     		add	r3, r3, #116
+ 588 035e 0022     		mov	r2, #0
+ 589 0360 1A80     		strh	r2, [r3]
+ 590 0362 47E0     		b	.L30
+ 591              	.L49:
+ 592              		.align	2
+ 593              	.L48:
+ 594 0364 04000000 		.word	.LC0
+ 595 0368 18000000 		.word	.LC2
+ 596 036c 00000000 		.word	wrData
+ 597 0370 00000000 		.word	status
+ 598 0374 00000000 		.word	EEData
+ 599 0378 00000000 		.word	SRData
+ 600 037c 24000000 		.word	.LC8
+ 601 0380 03000080 		.word	-2147483645
+ 602              	.L31:
+ 263:.\main.c      **** 				{
+ 264:.\main.c      **** 					/* Look for speed change from the slave */
+ 265:.\main.c      **** 					getI2Cdata();
+ 603              		.loc 1 265 0 discriminator 2
+ 604 0384 FFF7FEFF 		bl	getI2Cdata
+ 266:.\main.c      **** 					blinkDelay = checkSpeed();
+ 605              		.loc 1 266 0 discriminator 2
+ 606 0388 3C1C     		mov	r4, r7
+ 607 038a 6C34     		add	r4, r4, #108
+ 608 038c FFF7FEFF 		bl	checkSpeed
+ 609 0390 031C     		mov	r3, r0
+ 610 0392 2380     		strh	r3, [r4]
+ 267:.\main.c      **** 					
+ 268:.\main.c      **** 					CyDelay(blinkDelay);
+ 611              		.loc 1 268 0 discriminator 2
+ 612 0394 3B1C     		mov	r3, r7
+ 613 0396 6C33     		add	r3, r3, #108
+ 614 0398 1B88     		ldrh	r3, [r3]
+ 615 039a 181C     		mov	r0, r3
+ 616 039c FFF7FEFF 		bl	CyDelay
+ 269:.\main.c      **** 					sequenceMask = (1 << (sequence[loop]-1)); /* Bitmask  of sequence value */
+ 617              		.loc 1 269 0 discriminator 2
+ 618 03a0 3B1C     		mov	r3, r7
+ 619 03a2 7433     		add	r3, r3, #116
+ 620 03a4 1B88     		ldrh	r3, [r3]
+ 621 03a6 3A1D     		add	r2, r7, #4
+ 622 03a8 D35C     		ldrb	r3, [r2, r3]
+ 623 03aa 013B     		sub	r3, r3, #1
+ 624 03ac 0122     		mov	r2, #1
+ 625 03ae 9A40     		lsl	r2, r2, r3
+ 626 03b0 3B1C     		mov	r3, r7
+ 627 03b2 6B33     		add	r3, r3, #107
+ 628 03b4 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 17
+
+
+ 270:.\main.c      **** 					LEDreg_Write(sequenceMask); /* Light LED */
+ 629              		.loc 1 270 0 discriminator 2
+ 630 03b6 3B1C     		mov	r3, r7
+ 631 03b8 6B33     		add	r3, r3, #107
+ 632 03ba 1B78     		ldrb	r3, [r3]
+ 633 03bc 181C     		mov	r0, r3
+ 634 03be FFF7FEFF 		bl	LEDreg_Write
+ 271:.\main.c      **** 				 	putI2Cdata(sequenceMask); /* Put value in i2c register */
+ 635              		.loc 1 271 0 discriminator 2
+ 636 03c2 3B1C     		mov	r3, r7
+ 637 03c4 6B33     		add	r3, r3, #107
+ 638 03c6 1B78     		ldrb	r3, [r3]
+ 639 03c8 181C     		mov	r0, r3
+ 640 03ca FFF7FEFF 		bl	putI2Cdata
+ 272:.\main.c      **** 					CyDelay(blinkDelay);
+ 641              		.loc 1 272 0 discriminator 2
+ 642 03ce 3B1C     		mov	r3, r7
+ 643 03d0 6C33     		add	r3, r3, #108
+ 644 03d2 1B88     		ldrh	r3, [r3]
+ 645 03d4 181C     		mov	r0, r3
+ 646 03d6 FFF7FEFF 		bl	CyDelay
+ 273:.\main.c      **** 					LEDreg_Write(ALLOFF); /* Turn off LED */
+ 647              		.loc 1 273 0 discriminator 2
+ 648 03da 0020     		mov	r0, #0
+ 649 03dc FFF7FEFF 		bl	LEDreg_Write
+ 274:.\main.c      **** 					putI2Cdata(RUN); /* Clear i2c register */
+ 650              		.loc 1 274 0 discriminator 2
+ 651 03e0 0020     		mov	r0, #0
+ 652 03e2 FFF7FEFF 		bl	putI2Cdata
+ 262:.\main.c      **** 				for (loop = 0; loop < count+1; loop++)
+ 653              		.loc 1 262 0 discriminator 2
+ 654 03e6 3B1C     		mov	r3, r7
+ 655 03e8 7433     		add	r3, r3, #116
+ 656 03ea 3A1C     		mov	r2, r7
+ 657 03ec 7432     		add	r2, r2, #116
+ 658 03ee 1288     		ldrh	r2, [r2]
+ 659 03f0 0132     		add	r2, r2, #1
+ 660 03f2 1A80     		strh	r2, [r3]
+ 661              	.L30:
+ 262:.\main.c      **** 				for (loop = 0; loop < count+1; loop++)
+ 662              		.loc 1 262 0 is_stmt 0 discriminator 1
+ 663 03f4 3B1C     		mov	r3, r7
+ 664 03f6 7433     		add	r3, r3, #116
+ 665 03f8 1A88     		ldrh	r2, [r3]
+ 666 03fa 3B1C     		mov	r3, r7
+ 667 03fc 7733     		add	r3, r3, #119
+ 668 03fe 1B78     		ldrb	r3, [r3]
+ 669 0400 0133     		add	r3, r3, #1
+ 670 0402 9A42     		cmp	r2, r3
+ 671 0404 BEDB     		blt	.L31
+ 275:.\main.c      **** 				}
+ 276:.\main.c      **** 				
+ 277:.\main.c      **** 				for (loop = 0; loop < count+1; loop++) /* Check for each button in the sequence */
+ 672              		.loc 1 277 0 is_stmt 1
+ 673 0406 3B1C     		mov	r3, r7
+ 674 0408 7433     		add	r3, r3, #116
+ 675 040a 0022     		mov	r2, #0
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 18
+
+
+ 676 040c 1A80     		strh	r2, [r3]
+ 677 040e 40E0     		b	.L32
+ 678              	.L33:
+ 278:.\main.c      **** 				{
+ 279:.\main.c      **** 					do
+ 280:.\main.c      **** 					{
+ 281:.\main.c      **** 						getI2Cdata();
+ 679              		.loc 1 281 0 discriminator 1
+ 680 0410 FFF7FEFF 		bl	getI2Cdata
+ 282:.\main.c      **** 						button = rdData[BUTTON];
+ 681              		.loc 1 282 0 discriminator 1
+ 682 0414 3B1C     		mov	r3, r7
+ 683 0416 6A33     		add	r3, r3, #106
+ 684 0418 584A     		ldr	r2, .L50
+ 685 041a 5278     		ldrb	r2, [r2, #1]
+ 686 041c 1A70     		strb	r2, [r3]
+ 283:.\main.c      **** 						blinkDelay = checkSpeed();
+ 687              		.loc 1 283 0 discriminator 1
+ 688 041e 3C1C     		mov	r4, r7
+ 689 0420 6C34     		add	r4, r4, #108
+ 690 0422 FFF7FEFF 		bl	checkSpeed
+ 691 0426 031C     		mov	r3, r0
+ 692 0428 2380     		strh	r3, [r4]
+ 284:.\main.c      ****                     } while(button == NOBUTTON); /* Wait for a button press */
+ 693              		.loc 1 284 0 discriminator 1
+ 694 042a 3B1C     		mov	r3, r7
+ 695 042c 6A33     		add	r3, r3, #106
+ 696 042e 1B78     		ldrb	r3, [r3]
+ 697 0430 002B     		cmp	r3, #0
+ 698 0432 EDD0     		beq	.L33
+ 285:.\main.c      **** 					
+ 286:.\main.c      **** 					/* We get here when a button has been pressed */
+ 287:.\main.c      **** 					/* Light LED that is being pressed */
+ 288:.\main.c      **** 					LEDreg_Write(button);
+ 699              		.loc 1 288 0
+ 700 0434 3B1C     		mov	r3, r7
+ 701 0436 6A33     		add	r3, r3, #106
+ 702 0438 1B78     		ldrb	r3, [r3]
+ 703 043a 181C     		mov	r0, r3
+ 704 043c FFF7FEFF 		bl	LEDreg_Write
+ 289:.\main.c      **** 
+ 290:.\main.c      **** 					/* Check for correct button press */
+ 291:.\main.c      **** 					if(button != (1 << (sequence[loop]-1)))
+ 705              		.loc 1 291 0
+ 706 0440 3B1C     		mov	r3, r7
+ 707 0442 6A33     		add	r3, r3, #106
+ 708 0444 1A78     		ldrb	r2, [r3]
+ 709 0446 3B1C     		mov	r3, r7
+ 710 0448 7433     		add	r3, r3, #116
+ 711 044a 1B88     		ldrh	r3, [r3]
+ 712 044c 391D     		add	r1, r7, #4
+ 713 044e CB5C     		ldrb	r3, [r1, r3]
+ 714 0450 013B     		sub	r3, r3, #1
+ 715 0452 0121     		mov	r1, #1
+ 716 0454 081C     		mov	r0, r1
+ 717 0456 9840     		lsl	r0, r0, r3
+ 718 0458 031C     		mov	r3, r0
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 19
+
+
+ 719 045a 9A42     		cmp	r2, r3
+ 720 045c 0AD0     		beq	.L46
+ 292:.\main.c      **** 					{
+ 293:.\main.c      **** 						badPressFlag = 1;
+ 721              		.loc 1 293 0
+ 722 045e 3B1C     		mov	r3, r7
+ 723 0460 7333     		add	r3, r3, #115
+ 724 0462 0122     		mov	r2, #1
+ 725 0464 1A70     		strb	r2, [r3]
+ 294:.\main.c      **** 						LEDreg_Write(ALLOFF); /* Make sure all LEDs are off */
+ 726              		.loc 1 294 0
+ 727 0466 0020     		mov	r0, #0
+ 728 0468 FFF7FEFF 		bl	LEDreg_Write
+ 295:.\main.c      **** 						break; /* This will break out of the for loop as soon as a bad button is pressed */
+ 729              		.loc 1 295 0
+ 730 046c 1AE0     		b	.L35
+ 731              	.L37:
+ 296:.\main.c      **** 					}
+ 297:.\main.c      **** 					                                        
+ 298:.\main.c      **** 					/* Wait for button release before looking for next button */
+ 299:.\main.c      **** 					while(rdData[BUTTON] != NOBUTTON)
+ 300:.\main.c      **** 					{
+ 301:.\main.c      **** 						getI2Cdata();
+ 732              		.loc 1 301 0
+ 733 046e FFF7FEFF 		bl	getI2Cdata
+ 734 0472 00E0     		b	.L36
+ 735              	.L46:
+ 299:.\main.c      **** 					while(rdData[BUTTON] != NOBUTTON)
+ 736              		.loc 1 299 0
+ 737 0474 C046     		mov	r8, r8
+ 738              	.L36:
+ 299:.\main.c      **** 					while(rdData[BUTTON] != NOBUTTON)
+ 739              		.loc 1 299 0 is_stmt 0 discriminator 1
+ 740 0476 414B     		ldr	r3, .L50
+ 741 0478 5B78     		ldrb	r3, [r3, #1]
+ 742 047a 002B     		cmp	r3, #0
+ 743 047c F7D1     		bne	.L37
+ 302:.\main.c      **** 					}
+ 303:.\main.c      **** 
+ 304:.\main.c      **** 					/* Turn off LED */
+ 305:.\main.c      **** 					LEDreg_Write(ALLOFF);
+ 744              		.loc 1 305 0 is_stmt 1
+ 745 047e 0020     		mov	r0, #0
+ 746 0480 FFF7FEFF 		bl	LEDreg_Write
+ 277:.\main.c      **** 				for (loop = 0; loop < count+1; loop++) /* Check for each button in the sequence */
+ 747              		.loc 1 277 0
+ 748 0484 3B1C     		mov	r3, r7
+ 749 0486 7433     		add	r3, r3, #116
+ 750 0488 3A1C     		mov	r2, r7
+ 751 048a 7432     		add	r2, r2, #116
+ 752 048c 1288     		ldrh	r2, [r2]
+ 753 048e 0132     		add	r2, r2, #1
+ 754 0490 1A80     		strh	r2, [r3]
+ 755              	.L32:
+ 277:.\main.c      **** 				for (loop = 0; loop < count+1; loop++) /* Check for each button in the sequence */
+ 756              		.loc 1 277 0 is_stmt 0 discriminator 1
+ 757 0492 3B1C     		mov	r3, r7
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 20
+
+
+ 758 0494 7433     		add	r3, r3, #116
+ 759 0496 1A88     		ldrh	r2, [r3]
+ 760 0498 3B1C     		mov	r3, r7
+ 761 049a 7733     		add	r3, r3, #119
+ 762 049c 1B78     		ldrb	r3, [r3]
+ 763 049e 0133     		add	r3, r3, #1
+ 764 04a0 9A42     		cmp	r2, r3
+ 765 04a2 B5DB     		blt	.L33
+ 766              	.L35:
+ 306:.\main.c      **** 				} /* End of for loop that checks the button press sequense */
+ 307:.\main.c      **** 				
+ 308:.\main.c      **** 				/* When we get here, the whole sequence has been tested */
+ 309:.\main.c      **** 					
+ 310:.\main.c      **** 				if(!badPressFlag) /* Sequence passed - increment count and go on to the next round */
+ 767              		.loc 1 310 0 is_stmt 1
+ 768 04a4 3B1C     		mov	r3, r7
+ 769 04a6 7333     		add	r3, r3, #115
+ 770 04a8 1B78     		ldrb	r3, [r3]
+ 771 04aa 002B     		cmp	r3, #0
+ 772 04ac 0CD1     		bne	.L38
+ 311:.\main.c      **** 				{
+ 312:.\main.c      **** 					count++;
+ 773              		.loc 1 312 0
+ 774 04ae 3B1C     		mov	r3, r7
+ 775 04b0 7733     		add	r3, r3, #119
+ 776 04b2 3A1C     		mov	r2, r7
+ 777 04b4 7732     		add	r2, r2, #119
+ 778 04b6 1278     		ldrb	r2, [r2]
+ 779 04b8 0132     		add	r2, r2, #1
+ 780 04ba 1A70     		strb	r2, [r3]
+ 313:.\main.c      **** 					CyDelay(SLOW_DELAY); /* Delay before starting next sequence */
+ 781              		.loc 1 313 0
+ 782 04bc 9623     		mov	r3, #150
+ 783 04be 5B00     		lsl	r3, r3, #1
+ 784 04c0 181C     		mov	r0, r3
+ 785 04c2 FFF7FEFF 		bl	CyDelay
+ 786 04c6 25E0     		b	.L39
+ 787              	.L38:
+ 314:.\main.c      **** 				}
+ 315:.\main.c      **** 				else /* Sequence failed */
+ 316:.\main.c      **** 				{
+ 317:.\main.c      **** 					if(count > SRData[0])
+ 788              		.loc 1 317 0
+ 789 04c8 2D4B     		ldr	r3, .L50+4
+ 790 04ca 1B78     		ldrb	r3, [r3]
+ 791 04cc 3A1C     		mov	r2, r7
+ 792 04ce 7732     		add	r2, r2, #119
+ 793 04d0 1278     		ldrb	r2, [r2]
+ 794 04d2 9A42     		cmp	r2, r3
+ 795 04d4 0FD9     		bls	.L40
+ 318:.\main.c      **** 					{
+ 319:.\main.c      **** 						/* Write high score to EEPROM */
+ 320:.\main.c      **** 						SRData[0] = count; /* Save new high score to array with write data */
+ 796              		.loc 1 320 0
+ 797 04d6 2A4B     		ldr	r3, .L50+4
+ 798 04d8 3A1C     		mov	r2, r7
+ 799 04da 7732     		add	r2, r2, #119
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 21
+
+
+ 800 04dc 1278     		ldrb	r2, [r2]
+ 801 04de 1A70     		strb	r2, [r3]
+ 321:.\main.c      **** 						status = EEPROM_Write(SRData, EEData, 1u);  /* Write 1 byte to EEPROM */
+ 802              		.loc 1 321 0
+ 803 04e0 274A     		ldr	r2, .L50+4
+ 804 04e2 284B     		ldr	r3, .L50+8
+ 805 04e4 101C     		mov	r0, r2
+ 806 04e6 191C     		mov	r1, r3
+ 807 04e8 0122     		mov	r2, #1
+ 808 04ea FFF7FEFF 		bl	EEPROM_Write
+ 809 04ee 031C     		mov	r3, r0
+ 810 04f0 DAB2     		uxtb	r2, r3
+ 811 04f2 254B     		ldr	r3, .L50+12
+ 812 04f4 1A70     		strb	r2, [r3]
+ 813              	.L40:
+ 322:.\main.c      **** 					}
+ 323:.\main.c      **** 					LCD_Position(0,0);
+ 814              		.loc 1 323 0
+ 815 04f6 0020     		mov	r0, #0
+ 816 04f8 0021     		mov	r1, #0
+ 817 04fa FFF7FEFF 		bl	LCD_Position
+ 324:.\main.c      **** 					LCD_PrintString("FAIL");
+ 818              		.loc 1 324 0
+ 819 04fe 234B     		ldr	r3, .L50+16
+ 820 0500 181C     		mov	r0, r3
+ 821 0502 FFF7FEFF 		bl	LCD_PrintString
+ 325:.\main.c      **** 					putI2Cdata(FAIL);	/* Send fail notification to slave */
+ 822              		.loc 1 325 0
+ 823 0506 1020     		mov	r0, #16
+ 824 0508 FFF7FEFF 		bl	putI2Cdata
+ 326:.\main.c      **** 					gameOn = IDLE; /* Reset state machine back to waiting for a new speed or game start */
+ 825              		.loc 1 326 0
+ 826 050c 3B1C     		mov	r3, r7
+ 827 050e 7633     		add	r3, r3, #118
+ 828 0510 0022     		mov	r2, #0
+ 829 0512 1A70     		strb	r2, [r3]
+ 830              	.L39:
+ 327:.\main.c      **** 				}
+ 328:.\main.c      **** 				
+ 329:.\main.c      **** 				if(count == maxCount) /* Max sequence length passed */
+ 831              		.loc 1 329 0
+ 832 0514 3A1C     		mov	r2, r7
+ 833 0516 7732     		add	r2, r2, #119
+ 834 0518 3B1C     		mov	r3, r7
+ 835 051a 7133     		add	r3, r3, #113
+ 836 051c 1278     		ldrb	r2, [r2]
+ 837 051e 1B78     		ldrb	r3, [r3]
+ 838 0520 9A42     		cmp	r2, r3
+ 839 0522 29D1     		bne	.L47
+ 330:.\main.c      **** 				{
+ 331:.\main.c      **** 					if(count > SRData[0])
+ 840              		.loc 1 331 0
+ 841 0524 164B     		ldr	r3, .L50+4
+ 842 0526 1B78     		ldrb	r3, [r3]
+ 843 0528 3A1C     		mov	r2, r7
+ 844 052a 7732     		add	r2, r2, #119
+ 845 052c 1278     		ldrb	r2, [r2]
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 22
+
+
+ 846 052e 9A42     		cmp	r2, r3
+ 847 0530 0FD9     		bls	.L42
+ 332:.\main.c      **** 					{
+ 333:.\main.c      **** 						SRData[0] = count; /* Save new high score to array with write data */
+ 848              		.loc 1 333 0
+ 849 0532 134B     		ldr	r3, .L50+4
+ 850 0534 3A1C     		mov	r2, r7
+ 851 0536 7732     		add	r2, r2, #119
+ 852 0538 1278     		ldrb	r2, [r2]
+ 853 053a 1A70     		strb	r2, [r3]
+ 334:.\main.c      **** 						status = EEPROM_Write(SRData, EEData, 1u);  /* Write 1 byte to EEPROM */
+ 854              		.loc 1 334 0
+ 855 053c 104A     		ldr	r2, .L50+4
+ 856 053e 114B     		ldr	r3, .L50+8
+ 857 0540 101C     		mov	r0, r2
+ 858 0542 191C     		mov	r1, r3
+ 859 0544 0122     		mov	r2, #1
+ 860 0546 FFF7FEFF 		bl	EEPROM_Write
+ 861 054a 031C     		mov	r3, r0
+ 862 054c DAB2     		uxtb	r2, r3
+ 863 054e 0E4B     		ldr	r3, .L50+12
+ 864 0550 1A70     		strb	r2, [r3]
+ 865              	.L42:
+ 335:.\main.c      **** 					}					
+ 336:.\main.c      **** 					LCD_Position(0,0);
+ 866              		.loc 1 336 0
+ 867 0552 0020     		mov	r0, #0
+ 868 0554 0021     		mov	r1, #0
+ 869 0556 FFF7FEFF 		bl	LCD_Position
+ 337:.\main.c      **** 					LCD_PrintString("PASS");
+ 870              		.loc 1 337 0
+ 871 055a 0D4B     		ldr	r3, .L50+20
+ 872 055c 181C     		mov	r0, r3
+ 873 055e FFF7FEFF 		bl	LCD_PrintString
+ 338:.\main.c      **** 					putI2Cdata(PASS);	/* Send pass notification to slave and stop game */
+ 874              		.loc 1 338 0
+ 875 0562 2020     		mov	r0, #32
+ 876 0564 FFF7FEFF 		bl	putI2Cdata
+ 339:.\main.c      **** 					gameOn = IDLE; /* Reset state machine back to waiting for a new speed or game start */
+ 877              		.loc 1 339 0
+ 878 0568 3B1C     		mov	r3, r7
+ 879 056a 7633     		add	r3, r3, #118
+ 880 056c 0022     		mov	r2, #0
+ 881 056e 1A70     		strb	r2, [r3]
+ 340:.\main.c      **** 				}
+ 341:.\main.c      **** 				
+ 342:.\main.c      **** 				break; /* End of game running case in top level state machine */
+ 882              		.loc 1 342 0
+ 883 0570 02E0     		b	.L47
+ 884              	.L44:
+ 343:.\main.c      **** 			
+ 344:.\main.c      **** 			default:
+ 345:.\main.c      **** 				break;
+ 885              		.loc 1 345 0
+ 886 0572 02E0     		b	.L29
+ 887              	.L45:
+ 257:.\main.c      **** 				break; /* End of IDLE state */
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 23
+
+
+ 888              		.loc 1 257 0
+ 889 0574 C046     		mov	r8, r8
+ 890 0576 00E0     		b	.L29
+ 891              	.L47:
+ 342:.\main.c      **** 				break; /* End of game running case in top level state machine */
+ 892              		.loc 1 342 0
+ 893 0578 C046     		mov	r8, r8
+ 894              	.L29:
+ 346:.\main.c      **** 		}
+ 347:.\main.c      ****     }
+ 895              		.loc 1 347 0
+ 896 057a B1E5     		b	.L43
+ 897              	.L51:
+ 898              		.align	2
+ 899              	.L50:
+ 900 057c 00000000 		.word	rdData
+ 901 0580 00000000 		.word	SRData
+ 902 0584 00000000 		.word	EEData
+ 903 0588 00000000 		.word	status
+ 904 058c 2C000000 		.word	.LC11
+ 905 0590 34000000 		.word	.LC13
+ 906              		.cfi_endproc
+ 907              	.LFE33:
+ 908              		.size	main, .-main
+ 909              		.section	.text.getI2Cdata,"ax",%progbits
+ 910              		.align	2
+ 911              		.global	getI2Cdata
+ 912              		.code	16
+ 913              		.thumb_func
+ 914              		.type	getI2Cdata, %function
+ 915              	getI2Cdata:
+ 916              	.LFB34:
+ 348:.\main.c      **** }
+ 349:.\main.c      **** 
+ 350:.\main.c      **** /* Get three bytes from slave */
+ 351:.\main.c      **** /* These are stored in the rdData array */
+ 352:.\main.c      **** void getI2Cdata(void)
+ 353:.\main.c      **** {	
+ 917              		.loc 1 353 0
+ 918              		.cfi_startproc
+ 919 0000 80B5     		push	{r7, lr}
+ 920              	.LCFI3:
+ 921              		.cfi_def_cfa_offset 8
+ 922              		.cfi_offset 7, -8
+ 923              		.cfi_offset 14, -4
+ 924 0002 00AF     		add	r7, sp, #0
+ 925              	.LCFI4:
+ 926              		.cfi_def_cfa_register 7
+ 354:.\main.c      **** 	status = I2C_I2CMasterReadBuf(SLAVE_ADDRESS,rdData, 3, I2C_I2C_MODE_COMPLETE_XFER);
+ 927              		.loc 1 354 0
+ 928 0004 0F4B     		ldr	r3, .L55
+ 929 0006 3620     		mov	r0, #54
+ 930 0008 191C     		mov	r1, r3
+ 931 000a 0322     		mov	r2, #3
+ 932 000c 0023     		mov	r3, #0
+ 933 000e FFF7FEFF 		bl	I2C_I2CMasterReadBuf
+ 934 0012 031C     		mov	r3, r0
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 24
+
+
+ 935 0014 DAB2     		uxtb	r2, r3
+ 936 0016 0C4B     		ldr	r3, .L55+4
+ 937 0018 1A70     		strb	r2, [r3]
+ 355:.\main.c      **** 	while (status != I2C_I2C_MSTR_NO_ERROR); /* Wait for transfer to start */
+ 938              		.loc 1 355 0
+ 939 001a C046     		mov	r8, r8
+ 940              	.L53:
+ 941              		.loc 1 355 0 is_stmt 0 discriminator 1
+ 942 001c 0A4B     		ldr	r3, .L55+4
+ 943 001e 1B78     		ldrb	r3, [r3]
+ 944 0020 002B     		cmp	r3, #0
+ 945 0022 FBD1     		bne	.L53
+ 356:.\main.c      **** 	while(I2C_I2CMasterStatus() & I2C_I2C_MSTAT_XFER_INP); /* Wait for transfer to complete */
+ 946              		.loc 1 356 0 is_stmt 1
+ 947 0024 C046     		mov	r8, r8
+ 948              	.L54:
+ 949              		.loc 1 356 0 is_stmt 0 discriminator 1
+ 950 0026 FFF7FEFF 		bl	I2C_I2CMasterStatus
+ 951 002a 021C     		mov	r2, r0
+ 952 002c 0423     		mov	r3, #4
+ 953 002e 1340     		and	r3, r2
+ 954 0030 F9D1     		bne	.L54
+ 357:.\main.c      **** 	status = I2C_I2CMasterClearStatus(); /* Clear status for next time */
+ 955              		.loc 1 357 0 is_stmt 1
+ 956 0032 FFF7FEFF 		bl	I2C_I2CMasterClearStatus
+ 957 0036 031C     		mov	r3, r0
+ 958 0038 DAB2     		uxtb	r2, r3
+ 959 003a 034B     		ldr	r3, .L55+4
+ 960 003c 1A70     		strb	r2, [r3]
+ 358:.\main.c      **** }
+ 961              		.loc 1 358 0
+ 962 003e BD46     		mov	sp, r7
+ 963              		@ sp needed for prologue
+ 964 0040 80BD     		pop	{r7, pc}
+ 965              	.L56:
+ 966 0042 C046     		.align	2
+ 967              	.L55:
+ 968 0044 00000000 		.word	rdData
+ 969 0048 00000000 		.word	status
+ 970              		.cfi_endproc
+ 971              	.LFE34:
+ 972              		.size	getI2Cdata, .-getI2Cdata
+ 973              		.section	.text.putI2Cdata,"ax",%progbits
+ 974              		.align	2
+ 975              		.global	putI2Cdata
+ 976              		.code	16
+ 977              		.thumb_func
+ 978              		.type	putI2Cdata, %function
+ 979              	putI2Cdata:
+ 980              	.LFB35:
+ 359:.\main.c      **** 
+ 360:.\main.c      **** /* Send one byte of data to slave */
+ 361:.\main.c      **** void  putI2Cdata(uint8 I2Cdata)
+ 362:.\main.c      **** {
+ 981              		.loc 1 362 0
+ 982              		.cfi_startproc
+ 983 0000 80B5     		push	{r7, lr}
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 25
+
+
+ 984              	.LCFI5:
+ 985              		.cfi_def_cfa_offset 8
+ 986              		.cfi_offset 7, -8
+ 987              		.cfi_offset 14, -4
+ 988 0002 82B0     		sub	sp, sp, #8
+ 989              	.LCFI6:
+ 990              		.cfi_def_cfa_offset 16
+ 991 0004 00AF     		add	r7, sp, #0
+ 992              	.LCFI7:
+ 993              		.cfi_def_cfa_register 7
+ 994 0006 021C     		mov	r2, r0
+ 995 0008 FB1D     		add	r3, r7, #7
+ 996 000a 1A70     		strb	r2, [r3]
+ 363:.\main.c      **** 	wrData[1] = I2Cdata; /* put byte to send into I2C send buffer */
+ 997              		.loc 1 363 0
+ 998 000c 134B     		ldr	r3, .L60
+ 999 000e FA1D     		add	r2, r7, #7
+ 1000 0010 1278     		ldrb	r2, [r2]
+ 1001 0012 5A70     		strb	r2, [r3, #1]
+ 364:.\main.c      **** 	/* wrData[0] is the offset which is always left as 0 */
+ 365:.\main.c      **** 	status = I2C_I2CMasterWriteBuf(SLAVE_ADDRESS, wrData, 2, I2C_I2C_MODE_COMPLETE_XFER); /* send 2 by
+ 1002              		.loc 1 365 0
+ 1003 0014 114B     		ldr	r3, .L60
+ 1004 0016 3620     		mov	r0, #54
+ 1005 0018 191C     		mov	r1, r3
+ 1006 001a 0222     		mov	r2, #2
+ 1007 001c 0023     		mov	r3, #0
+ 1008 001e FFF7FEFF 		bl	I2C_I2CMasterWriteBuf
+ 1009 0022 031C     		mov	r3, r0
+ 1010 0024 DAB2     		uxtb	r2, r3
+ 1011 0026 0E4B     		ldr	r3, .L60+4
+ 1012 0028 1A70     		strb	r2, [r3]
+ 366:.\main.c      **** 	while (status != I2C_I2C_MSTR_NO_ERROR); /* Wait for transfer to start */
+ 1013              		.loc 1 366 0
+ 1014 002a C046     		mov	r8, r8
+ 1015              	.L58:
+ 1016              		.loc 1 366 0 is_stmt 0 discriminator 1
+ 1017 002c 0C4B     		ldr	r3, .L60+4
+ 1018 002e 1B78     		ldrb	r3, [r3]
+ 1019 0030 002B     		cmp	r3, #0
+ 1020 0032 FBD1     		bne	.L58
+ 367:.\main.c      **** 	while(I2C_I2CMasterStatus() & I2C_I2C_MSTAT_XFER_INP); /* Wait for transfer to complete */
+ 1021              		.loc 1 367 0 is_stmt 1
+ 1022 0034 C046     		mov	r8, r8
+ 1023              	.L59:
+ 1024              		.loc 1 367 0 is_stmt 0 discriminator 1
+ 1025 0036 FFF7FEFF 		bl	I2C_I2CMasterStatus
+ 1026 003a 021C     		mov	r2, r0
+ 1027 003c 0423     		mov	r3, #4
+ 1028 003e 1340     		and	r3, r2
+ 1029 0040 F9D1     		bne	.L59
+ 368:.\main.c      **** 	status = I2C_I2CMasterClearStatus(); /* Clear status for next time */
+ 1030              		.loc 1 368 0 is_stmt 1
+ 1031 0042 FFF7FEFF 		bl	I2C_I2CMasterClearStatus
+ 1032 0046 031C     		mov	r3, r0
+ 1033 0048 DAB2     		uxtb	r2, r3
+ 1034 004a 054B     		ldr	r3, .L60+4
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 26
+
+
+ 1035 004c 1A70     		strb	r2, [r3]
+ 369:.\main.c      **** 	CyDelay(100); /* Not sure why this is needed */
+ 1036              		.loc 1 369 0
+ 1037 004e 6420     		mov	r0, #100
+ 1038 0050 FFF7FEFF 		bl	CyDelay
+ 370:.\main.c      **** }
+ 1039              		.loc 1 370 0
+ 1040 0054 BD46     		mov	sp, r7
+ 1041 0056 02B0     		add	sp, sp, #8
+ 1042              		@ sp needed for prologue
+ 1043 0058 80BD     		pop	{r7, pc}
+ 1044              	.L61:
+ 1045 005a C046     		.align	2
+ 1046              	.L60:
+ 1047 005c 00000000 		.word	wrData
+ 1048 0060 00000000 		.word	status
+ 1049              		.cfi_endproc
+ 1050              	.LFE35:
+ 1051              		.size	putI2Cdata, .-putI2Cdata
+ 1052              		.section	.rodata
+ 1053 0039 000000   		.align	2
+ 1054              	.LC20:
+ 1055 003c 534C4F57 		.ascii	"SLOW\000"
+ 1055      00
+ 1056 0041 000000   		.align	2
+ 1057              	.LC22:
+ 1058 0044 4D454420 		.ascii	"MED \000"
+ 1058      00
+ 1059 0049 000000   		.align	2
+ 1060              	.LC24:
+ 1061 004c 46415354 		.ascii	"FAST\000"
+ 1061      00
+ 1062 0051 000000   		.section	.text.checkSpeed,"ax",%progbits
+ 1063              		.align	2
+ 1064              		.global	checkSpeed
+ 1065              		.code	16
+ 1066              		.thumb_func
+ 1067              		.type	checkSpeed, %function
+ 1068              	checkSpeed:
+ 1069              	.LFB36:
+ 371:.\main.c      **** 
+ 372:.\main.c      **** uint16 checkSpeed(void)
+ 373:.\main.c      **** {
+ 1070              		.loc 1 373 0
+ 1071              		.cfi_startproc
+ 1072 0000 80B5     		push	{r7, lr}
+ 1073              	.LCFI8:
+ 1074              		.cfi_def_cfa_offset 8
+ 1075              		.cfi_offset 7, -8
+ 1076              		.cfi_offset 14, -4
+ 1077 0002 82B0     		sub	sp, sp, #8
+ 1078              	.LCFI9:
+ 1079              		.cfi_def_cfa_offset 16
+ 1080 0004 00AF     		add	r7, sp, #0
+ 1081              	.LCFI10:
+ 1082              		.cfi_def_cfa_register 7
+ 374:.\main.c      ****     uint16 blinkDelay;
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 27
+
+
+ 375:.\main.c      **** 	
+ 376:.\main.c      **** 	/* Check for new speed */
+ 377:.\main.c      **** 	LCD_Position(1,0);
+ 1083              		.loc 1 377 0
+ 1084 0006 0120     		mov	r0, #1
+ 1085 0008 0021     		mov	r1, #0
+ 1086 000a FFF7FEFF 		bl	LCD_Position
+ 378:.\main.c      ****     switch(rdData[SPEED])
+ 1087              		.loc 1 378 0
+ 1088 000e 154B     		ldr	r3, .L70
+ 1089 0010 9B78     		ldrb	r3, [r3, #2]
+ 1090 0012 022B     		cmp	r3, #2
+ 1091 0014 0CD0     		beq	.L65
+ 1092 0016 042B     		cmp	r3, #4
+ 1093 0018 12D0     		beq	.L66
+ 1094 001a 012B     		cmp	r3, #1
+ 1095 001c 18D1     		bne	.L69
+ 1096              	.L64:
+ 379:.\main.c      **** 	{
+ 380:.\main.c      **** 		case SLOW:
+ 381:.\main.c      **** 			blinkDelay = SLOW_DELAY;
+ 1097              		.loc 1 381 0
+ 1098 001e BB1D     		add	r3, r7, #6
+ 1099 0020 9622     		mov	r2, #150
+ 1100 0022 5200     		lsl	r2, r2, #1
+ 1101 0024 1A80     		strh	r2, [r3]
+ 382:.\main.c      **** 			LCD_PrintString("SLOW");
+ 1102              		.loc 1 382 0
+ 1103 0026 104B     		ldr	r3, .L70+4
+ 1104 0028 181C     		mov	r0, r3
+ 1105 002a FFF7FEFF 		bl	LCD_PrintString
+ 383:.\main.c      **** 			break;			
+ 1106              		.loc 1 383 0
+ 1107 002e 13E0     		b	.L67
+ 1108              	.L65:
+ 384:.\main.c      **** 		case MEDIUM:
+ 385:.\main.c      **** 			blinkDelay = MEDIUM_DELAY;
+ 1109              		.loc 1 385 0
+ 1110 0030 BB1D     		add	r3, r7, #6
+ 1111 0032 6422     		mov	r2, #100
+ 1112 0034 1A80     		strh	r2, [r3]
+ 386:.\main.c      **** 			LCD_PrintString("MED ");
+ 1113              		.loc 1 386 0
+ 1114 0036 0D4B     		ldr	r3, .L70+8
+ 1115 0038 181C     		mov	r0, r3
+ 1116 003a FFF7FEFF 		bl	LCD_PrintString
+ 387:.\main.c      **** 			break;
+ 1117              		.loc 1 387 0
+ 1118 003e 0BE0     		b	.L67
+ 1119              	.L66:
+ 388:.\main.c      **** 		case FAST:
+ 389:.\main.c      **** 			blinkDelay = FAST_DELAY;
+ 1120              		.loc 1 389 0
+ 1121 0040 BB1D     		add	r3, r7, #6
+ 1122 0042 0122     		mov	r2, #1
+ 1123 0044 1A80     		strh	r2, [r3]
+ 390:.\main.c      **** 			LCD_PrintString("FAST");
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 28
+
+
+ 1124              		.loc 1 390 0
+ 1125 0046 0A4B     		ldr	r3, .L70+12
+ 1126 0048 181C     		mov	r0, r3
+ 1127 004a FFF7FEFF 		bl	LCD_PrintString
+ 391:.\main.c      **** 			break;
+ 1128              		.loc 1 391 0
+ 1129 004e 03E0     		b	.L67
+ 1130              	.L69:
+ 392:.\main.c      **** 		default:
+ 393:.\main.c      **** 			blinkDelay = SLOW;
+ 1131              		.loc 1 393 0
+ 1132 0050 BB1D     		add	r3, r7, #6
+ 1133 0052 0122     		mov	r2, #1
+ 1134 0054 1A80     		strh	r2, [r3]
+ 394:.\main.c      **** 			break;
+ 1135              		.loc 1 394 0
+ 1136 0056 C046     		mov	r8, r8
+ 1137              	.L67:
+ 395:.\main.c      **** 	}
+ 396:.\main.c      **** 	
+ 397:.\main.c      **** 	return blinkDelay;
+ 1138              		.loc 1 397 0
+ 1139 0058 BB1D     		add	r3, r7, #6
+ 1140 005a 1B88     		ldrh	r3, [r3]
+ 398:.\main.c      **** }
+ 1141              		.loc 1 398 0
+ 1142 005c 181C     		mov	r0, r3
+ 1143 005e BD46     		mov	sp, r7
+ 1144 0060 02B0     		add	sp, sp, #8
+ 1145              		@ sp needed for prologue
+ 1146 0062 80BD     		pop	{r7, pc}
+ 1147              	.L71:
+ 1148              		.align	2
+ 1149              	.L70:
+ 1150 0064 00000000 		.word	rdData
+ 1151 0068 3C000000 		.word	.LC20
+ 1152 006c 44000000 		.word	.LC22
+ 1153 0070 4C000000 		.word	.LC24
+ 1154              		.cfi_endproc
+ 1155              	.LFE36:
+ 1156              		.size	checkSpeed, .-checkSpeed
+ 1157              		.text
+ 1158              	.Letext0:
+ 1159              		.file 2 "./Generated_Source/PSoC4/cytypes.h"
+ 1160              		.section	.debug_info,"",%progbits
+ 1161              	.Ldebug_info0:
+ 1162 0000 82020000 		.4byte	0x282
+ 1163 0004 0200     		.2byte	0x2
+ 1164 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1165 000a 04       		.byte	0x4
+ 1166 000b 01       		.uleb128 0x1
+ 1167 000c F8010000 		.4byte	.LASF35
+ 1168 0010 01       		.byte	0x1
+ 1169 0011 7B000000 		.4byte	.LASF36
+ 1170 0015 7F010000 		.4byte	.LASF37
+ 1171 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1172 001d 00000000 		.4byte	0
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 29
+
+
+ 1173 0021 00000000 		.4byte	0
+ 1174 0025 00000000 		.4byte	.Ldebug_line0
+ 1175 0029 02       		.uleb128 0x2
+ 1176 002a 01       		.byte	0x1
+ 1177 002b 06       		.byte	0x6
+ 1178 002c 68010000 		.4byte	.LASF0
+ 1179 0030 02       		.uleb128 0x2
+ 1180 0031 01       		.byte	0x1
+ 1181 0032 08       		.byte	0x8
+ 1182 0033 66000000 		.4byte	.LASF1
+ 1183 0037 02       		.uleb128 0x2
+ 1184 0038 02       		.byte	0x2
+ 1185 0039 05       		.byte	0x5
+ 1186 003a 0D010000 		.4byte	.LASF2
+ 1187 003e 02       		.uleb128 0x2
+ 1188 003f 02       		.byte	0x2
+ 1189 0040 07       		.byte	0x7
+ 1190 0041 0D000000 		.4byte	.LASF3
+ 1191 0045 02       		.uleb128 0x2
+ 1192 0046 04       		.byte	0x4
+ 1193 0047 05       		.byte	0x5
+ 1194 0048 46010000 		.4byte	.LASF4
+ 1195 004c 02       		.uleb128 0x2
+ 1196 004d 04       		.byte	0x4
+ 1197 004e 07       		.byte	0x7
+ 1198 004f 47000000 		.4byte	.LASF5
+ 1199 0053 02       		.uleb128 0x2
+ 1200 0054 08       		.byte	0x8
+ 1201 0055 05       		.byte	0x5
+ 1202 0056 FA000000 		.4byte	.LASF6
+ 1203 005a 02       		.uleb128 0x2
+ 1204 005b 08       		.byte	0x8
+ 1205 005c 07       		.byte	0x7
+ 1206 005d B9000000 		.4byte	.LASF7
+ 1207 0061 03       		.uleb128 0x3
+ 1208 0062 04       		.byte	0x4
+ 1209 0063 05       		.byte	0x5
+ 1210 0064 696E7400 		.ascii	"int\000"
+ 1211 0068 02       		.uleb128 0x2
+ 1212 0069 04       		.byte	0x4
+ 1213 006a 07       		.byte	0x7
+ 1214 006b A5000000 		.4byte	.LASF8
+ 1215 006f 04       		.uleb128 0x4
+ 1216 0070 59000000 		.4byte	.LASF9
+ 1217 0074 02       		.byte	0x2
+ 1218 0075 5B       		.byte	0x5b
+ 1219 0076 30000000 		.4byte	0x30
+ 1220 007a 04       		.uleb128 0x4
+ 1221 007b 84000000 		.4byte	.LASF10
+ 1222 007f 02       		.byte	0x2
+ 1223 0080 5C       		.byte	0x5c
+ 1224 0081 3E000000 		.4byte	0x3e
+ 1225 0085 02       		.uleb128 0x2
+ 1226 0086 04       		.byte	0x4
+ 1227 0087 04       		.byte	0x4
+ 1228 0088 34000000 		.4byte	.LASF11
+ 1229 008c 02       		.uleb128 0x2
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 30
+
+
+ 1230 008d 08       		.byte	0x8
+ 1231 008e 04       		.byte	0x4
+ 1232 008f 74000000 		.4byte	.LASF12
+ 1233 0093 02       		.uleb128 0x2
+ 1234 0094 01       		.byte	0x1
+ 1235 0095 08       		.byte	0x8
+ 1236 0096 08010000 		.4byte	.LASF13
+ 1237 009a 02       		.uleb128 0x2
+ 1238 009b 04       		.byte	0x4
+ 1239 009c 07       		.byte	0x7
+ 1240 009d F1000000 		.4byte	.LASF14
+ 1241 00a1 05       		.uleb128 0x5
+ 1242 00a2 01       		.byte	0x1
+ 1243 00a3 92000000 		.4byte	.LASF28
+ 1244 00a7 01       		.byte	0x1
+ 1245 00a8 50       		.byte	0x50
+ 1246 00a9 61000000 		.4byte	0x61
+ 1247 00ad 00000000 		.4byte	.LFB33
+ 1248 00b1 94050000 		.4byte	.LFE33
+ 1249 00b5 00000000 		.4byte	.LLST0
+ 1250 00b9 01       		.byte	0x1
+ 1251 00ba 76010000 		.4byte	0x176
+ 1252 00be 06       		.uleb128 0x6
+ 1253 00bf 56010000 		.4byte	.LASF15
+ 1254 00c3 01       		.byte	0x1
+ 1255 00c4 52       		.byte	0x52
+ 1256 00c5 7A000000 		.4byte	0x7a
+ 1257 00c9 02       		.byte	0x2
+ 1258 00ca 91       		.byte	0x91
+ 1259 00cb 64       		.sleb128 -28
+ 1260 00cc 06       		.uleb128 0x6
+ 1261 00cd 07000000 		.4byte	.LASF16
+ 1262 00d1 01       		.byte	0x1
+ 1263 00d2 53       		.byte	0x53
+ 1264 00d3 6F000000 		.4byte	0x6f
+ 1265 00d7 02       		.byte	0x2
+ 1266 00d8 91       		.byte	0x91
+ 1267 00d9 6F       		.sleb128 -17
+ 1268 00da 06       		.uleb128 0x6
+ 1269 00db 00000000 		.4byte	.LASF17
+ 1270 00df 01       		.byte	0x1
+ 1271 00e0 54       		.byte	0x54
+ 1272 00e1 6F000000 		.4byte	0x6f
+ 1273 00e5 02       		.byte	0x2
+ 1274 00e6 91       		.byte	0x91
+ 1275 00e7 6E       		.sleb128 -18
+ 1276 00e8 06       		.uleb128 0x6
+ 1277 00e9 4F010000 		.4byte	.LASF18
+ 1278 00ed 01       		.byte	0x1
+ 1279 00ee 55       		.byte	0x55
+ 1280 00ef 6F000000 		.4byte	0x6f
+ 1281 00f3 02       		.byte	0x2
+ 1282 00f4 91       		.byte	0x91
+ 1283 00f5 62       		.sleb128 -30
+ 1284 00f6 06       		.uleb128 0x6
+ 1285 00f7 42000000 		.4byte	.LASF19
+ 1286 00fb 01       		.byte	0x1
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 31
+
+
+ 1287 00fc 56       		.byte	0x56
+ 1288 00fd 7A000000 		.4byte	0x7a
+ 1289 0101 02       		.byte	0x2
+ 1290 0102 91       		.byte	0x91
+ 1291 0103 6C       		.sleb128 -20
+ 1292 0104 06       		.uleb128 0x6
+ 1293 0105 2C010000 		.4byte	.LASF20
+ 1294 0109 01       		.byte	0x1
+ 1295 010a 57       		.byte	0x57
+ 1296 010b 6F000000 		.4byte	0x6f
+ 1297 010f 02       		.byte	0x2
+ 1298 0110 91       		.byte	0x91
+ 1299 0111 6B       		.sleb128 -21
+ 1300 0112 06       		.uleb128 0x6
+ 1301 0113 97000000 		.4byte	.LASF21
+ 1302 0117 01       		.byte	0x1
+ 1303 0118 58       		.byte	0x58
+ 1304 0119 76010000 		.4byte	0x176
+ 1305 011d 03       		.byte	0x3
+ 1306 011e 91       		.byte	0x91
+ 1307 011f FC7E     		.sleb128 -132
+ 1308 0121 06       		.uleb128 0x6
+ 1309 0122 39010000 		.4byte	.LASF22
+ 1310 0126 01       		.byte	0x1
+ 1311 0127 59       		.byte	0x59
+ 1312 0128 6F000000 		.4byte	0x6f
+ 1313 012c 02       		.byte	0x2
+ 1314 012d 91       		.byte	0x91
+ 1315 012e 63       		.sleb128 -29
+ 1316 012f 06       		.uleb128 0x6
+ 1317 0130 17010000 		.4byte	.LASF23
+ 1318 0134 01       		.byte	0x1
+ 1319 0135 5A       		.byte	0x5a
+ 1320 0136 6F000000 		.4byte	0x6f
+ 1321 013a 02       		.byte	0x2
+ 1322 013b 91       		.byte	0x91
+ 1323 013c 6A       		.sleb128 -22
+ 1324 013d 06       		.uleb128 0x6
+ 1325 013e 23010000 		.4byte	.LASF24
+ 1326 0142 01       		.byte	0x1
+ 1327 0143 5B       		.byte	0x5b
+ 1328 0144 6F000000 		.4byte	0x6f
+ 1329 0148 02       		.byte	0x2
+ 1330 0149 91       		.byte	0x91
+ 1331 014a 69       		.sleb128 -23
+ 1332 014b 06       		.uleb128 0x6
+ 1333 014c 20000000 		.4byte	.LASF25
+ 1334 0150 01       		.byte	0x1
+ 1335 0151 5C       		.byte	0x5c
+ 1336 0152 6F000000 		.4byte	0x6f
+ 1337 0156 02       		.byte	0x2
+ 1338 0157 91       		.byte	0x91
+ 1339 0158 68       		.sleb128 -24
+ 1340 0159 06       		.uleb128 0x6
+ 1341 015a DB000000 		.4byte	.LASF26
+ 1342 015e 01       		.byte	0x1
+ 1343 015f 5D       		.byte	0x5d
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 32
+
+
+ 1344 0160 6F000000 		.4byte	0x6f
+ 1345 0164 02       		.byte	0x2
+ 1346 0165 91       		.byte	0x91
+ 1347 0166 67       		.sleb128 -25
+ 1348 0167 06       		.uleb128 0x6
+ 1349 0168 A0000000 		.4byte	.LASF27
+ 1350 016c 01       		.byte	0x1
+ 1351 016d 5E       		.byte	0x5e
+ 1352 016e 6F000000 		.4byte	0x6f
+ 1353 0172 02       		.byte	0x2
+ 1354 0173 91       		.byte	0x91
+ 1355 0174 66       		.sleb128 -26
+ 1356 0175 00       		.byte	0
+ 1357 0176 07       		.uleb128 0x7
+ 1358 0177 6F000000 		.4byte	0x6f
+ 1359 017b 86010000 		.4byte	0x186
+ 1360 017f 08       		.uleb128 0x8
+ 1361 0180 9A000000 		.4byte	0x9a
+ 1362 0184 62       		.byte	0x62
+ 1363 0185 00       		.byte	0
+ 1364 0186 09       		.uleb128 0x9
+ 1365 0187 01       		.byte	0x1
+ 1366 0188 74010000 		.4byte	.LASF38
+ 1367 018c 01       		.byte	0x1
+ 1368 018d 6001     		.2byte	0x160
+ 1369 018f 01       		.byte	0x1
+ 1370 0190 00000000 		.4byte	.LFB34
+ 1371 0194 4C000000 		.4byte	.LFE34
+ 1372 0198 3A000000 		.4byte	.LLST1
+ 1373 019c 01       		.byte	0x1
+ 1374 019d 0A       		.uleb128 0xa
+ 1375 019e 01       		.byte	0x1
+ 1376 019f E6000000 		.4byte	.LASF29
+ 1377 01a3 01       		.byte	0x1
+ 1378 01a4 6901     		.2byte	0x169
+ 1379 01a6 01       		.byte	0x1
+ 1380 01a7 00000000 		.4byte	.LFB35
+ 1381 01ab 64000000 		.4byte	.LFE35
+ 1382 01af 66000000 		.4byte	.LLST2
+ 1383 01b3 01       		.byte	0x1
+ 1384 01b4 C8010000 		.4byte	0x1c8
+ 1385 01b8 0B       		.uleb128 0xb
+ 1386 01b9 3A000000 		.4byte	.LASF39
+ 1387 01bd 01       		.byte	0x1
+ 1388 01be 6901     		.2byte	0x169
+ 1389 01c0 6F000000 		.4byte	0x6f
+ 1390 01c4 02       		.byte	0x2
+ 1391 01c5 91       		.byte	0x91
+ 1392 01c6 77       		.sleb128 -9
+ 1393 01c7 00       		.byte	0
+ 1394 01c8 0C       		.uleb128 0xc
+ 1395 01c9 01       		.byte	0x1
+ 1396 01ca D0000000 		.4byte	.LASF40
+ 1397 01ce 01       		.byte	0x1
+ 1398 01cf 7401     		.2byte	0x174
+ 1399 01d1 01       		.byte	0x1
+ 1400 01d2 7A000000 		.4byte	0x7a
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 33
+
+
+ 1401 01d6 00000000 		.4byte	.LFB36
+ 1402 01da 74000000 		.4byte	.LFE36
+ 1403 01de 9E000000 		.4byte	.LLST3
+ 1404 01e2 01       		.byte	0x1
+ 1405 01e3 F7010000 		.4byte	0x1f7
+ 1406 01e7 0D       		.uleb128 0xd
+ 1407 01e8 56010000 		.4byte	.LASF15
+ 1408 01ec 01       		.byte	0x1
+ 1409 01ed 7601     		.2byte	0x176
+ 1410 01ef 7A000000 		.4byte	0x7a
+ 1411 01f3 02       		.byte	0x2
+ 1412 01f4 91       		.byte	0x91
+ 1413 01f5 76       		.sleb128 -10
+ 1414 01f6 00       		.byte	0
+ 1415 01f7 07       		.uleb128 0x7
+ 1416 01f8 6F000000 		.4byte	0x6f
+ 1417 01fc 07020000 		.4byte	0x207
+ 1418 0200 08       		.uleb128 0x8
+ 1419 0201 9A000000 		.4byte	0x9a
+ 1420 0205 00       		.byte	0
+ 1421 0206 00       		.byte	0
+ 1422 0207 06       		.uleb128 0x6
+ 1423 0208 61010000 		.4byte	.LASF30
+ 1424 020c 01       		.byte	0x1
+ 1425 020d 4D       		.byte	0x4d
+ 1426 020e 18020000 		.4byte	0x218
+ 1427 0212 05       		.byte	0x5
+ 1428 0213 03       		.byte	0x3
+ 1429 0214 00000000 		.4byte	EEData
+ 1430 0218 0E       		.uleb128 0xe
+ 1431 0219 F7010000 		.4byte	0x1f7
+ 1432 021d 07       		.uleb128 0x7
+ 1433 021e 6F000000 		.4byte	0x6f
+ 1434 0222 2D020000 		.4byte	0x22d
+ 1435 0226 08       		.uleb128 0x8
+ 1436 0227 9A000000 		.4byte	0x9a
+ 1437 022b 02       		.byte	0x2
+ 1438 022c 00       		.byte	0
+ 1439 022d 0F       		.uleb128 0xf
+ 1440 022e 8B000000 		.4byte	.LASF31
+ 1441 0232 01       		.byte	0x1
+ 1442 0233 49       		.byte	0x49
+ 1443 0234 1D020000 		.4byte	0x21d
+ 1444 0238 01       		.byte	0x1
+ 1445 0239 05       		.byte	0x5
+ 1446 023a 03       		.byte	0x3
+ 1447 023b 00000000 		.4byte	rdData
+ 1448 023f 07       		.uleb128 0x7
+ 1449 0240 6F000000 		.4byte	0x6f
+ 1450 0244 4F020000 		.4byte	0x24f
+ 1451 0248 08       		.uleb128 0x8
+ 1452 0249 9A000000 		.4byte	0x9a
+ 1453 024d 01       		.byte	0x1
+ 1454 024e 00       		.byte	0
+ 1455 024f 0F       		.uleb128 0xf
+ 1456 0250 B2000000 		.4byte	.LASF32
+ 1457 0254 01       		.byte	0x1
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 34
+
+
+ 1458 0255 4A       		.byte	0x4a
+ 1459 0256 3F020000 		.4byte	0x23f
+ 1460 025a 01       		.byte	0x1
+ 1461 025b 05       		.byte	0x5
+ 1462 025c 03       		.byte	0x3
+ 1463 025d 00000000 		.4byte	wrData
+ 1464 0261 0F       		.uleb128 0xf
+ 1465 0262 2D000000 		.4byte	.LASF33
+ 1466 0266 01       		.byte	0x1
+ 1467 0267 4B       		.byte	0x4b
+ 1468 0268 6F000000 		.4byte	0x6f
+ 1469 026c 01       		.byte	0x1
+ 1470 026d 05       		.byte	0x5
+ 1471 026e 03       		.byte	0x3
+ 1472 026f 00000000 		.4byte	status
+ 1473 0273 0F       		.uleb128 0xf
+ 1474 0274 5F000000 		.4byte	.LASF34
+ 1475 0278 01       		.byte	0x1
+ 1476 0279 4E       		.byte	0x4e
+ 1477 027a F7010000 		.4byte	0x1f7
+ 1478 027e 01       		.byte	0x1
+ 1479 027f 05       		.byte	0x5
+ 1480 0280 03       		.byte	0x3
+ 1481 0281 00000000 		.4byte	SRData
+ 1482 0285 00       		.byte	0
+ 1483              		.section	.debug_abbrev,"",%progbits
+ 1484              	.Ldebug_abbrev0:
+ 1485 0000 01       		.uleb128 0x1
+ 1486 0001 11       		.uleb128 0x11
+ 1487 0002 01       		.byte	0x1
+ 1488 0003 25       		.uleb128 0x25
+ 1489 0004 0E       		.uleb128 0xe
+ 1490 0005 13       		.uleb128 0x13
+ 1491 0006 0B       		.uleb128 0xb
+ 1492 0007 03       		.uleb128 0x3
+ 1493 0008 0E       		.uleb128 0xe
+ 1494 0009 1B       		.uleb128 0x1b
+ 1495 000a 0E       		.uleb128 0xe
+ 1496 000b 55       		.uleb128 0x55
+ 1497 000c 06       		.uleb128 0x6
+ 1498 000d 11       		.uleb128 0x11
+ 1499 000e 01       		.uleb128 0x1
+ 1500 000f 52       		.uleb128 0x52
+ 1501 0010 01       		.uleb128 0x1
+ 1502 0011 10       		.uleb128 0x10
+ 1503 0012 06       		.uleb128 0x6
+ 1504 0013 00       		.byte	0
+ 1505 0014 00       		.byte	0
+ 1506 0015 02       		.uleb128 0x2
+ 1507 0016 24       		.uleb128 0x24
+ 1508 0017 00       		.byte	0
+ 1509 0018 0B       		.uleb128 0xb
+ 1510 0019 0B       		.uleb128 0xb
+ 1511 001a 3E       		.uleb128 0x3e
+ 1512 001b 0B       		.uleb128 0xb
+ 1513 001c 03       		.uleb128 0x3
+ 1514 001d 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 35
+
+
+ 1515 001e 00       		.byte	0
+ 1516 001f 00       		.byte	0
+ 1517 0020 03       		.uleb128 0x3
+ 1518 0021 24       		.uleb128 0x24
+ 1519 0022 00       		.byte	0
+ 1520 0023 0B       		.uleb128 0xb
+ 1521 0024 0B       		.uleb128 0xb
+ 1522 0025 3E       		.uleb128 0x3e
+ 1523 0026 0B       		.uleb128 0xb
+ 1524 0027 03       		.uleb128 0x3
+ 1525 0028 08       		.uleb128 0x8
+ 1526 0029 00       		.byte	0
+ 1527 002a 00       		.byte	0
+ 1528 002b 04       		.uleb128 0x4
+ 1529 002c 16       		.uleb128 0x16
+ 1530 002d 00       		.byte	0
+ 1531 002e 03       		.uleb128 0x3
+ 1532 002f 0E       		.uleb128 0xe
+ 1533 0030 3A       		.uleb128 0x3a
+ 1534 0031 0B       		.uleb128 0xb
+ 1535 0032 3B       		.uleb128 0x3b
+ 1536 0033 0B       		.uleb128 0xb
+ 1537 0034 49       		.uleb128 0x49
+ 1538 0035 13       		.uleb128 0x13
+ 1539 0036 00       		.byte	0
+ 1540 0037 00       		.byte	0
+ 1541 0038 05       		.uleb128 0x5
+ 1542 0039 2E       		.uleb128 0x2e
+ 1543 003a 01       		.byte	0x1
+ 1544 003b 3F       		.uleb128 0x3f
+ 1545 003c 0C       		.uleb128 0xc
+ 1546 003d 03       		.uleb128 0x3
+ 1547 003e 0E       		.uleb128 0xe
+ 1548 003f 3A       		.uleb128 0x3a
+ 1549 0040 0B       		.uleb128 0xb
+ 1550 0041 3B       		.uleb128 0x3b
+ 1551 0042 0B       		.uleb128 0xb
+ 1552 0043 49       		.uleb128 0x49
+ 1553 0044 13       		.uleb128 0x13
+ 1554 0045 11       		.uleb128 0x11
+ 1555 0046 01       		.uleb128 0x1
+ 1556 0047 12       		.uleb128 0x12
+ 1557 0048 01       		.uleb128 0x1
+ 1558 0049 40       		.uleb128 0x40
+ 1559 004a 06       		.uleb128 0x6
+ 1560 004b 9642     		.uleb128 0x2116
+ 1561 004d 0C       		.uleb128 0xc
+ 1562 004e 01       		.uleb128 0x1
+ 1563 004f 13       		.uleb128 0x13
+ 1564 0050 00       		.byte	0
+ 1565 0051 00       		.byte	0
+ 1566 0052 06       		.uleb128 0x6
+ 1567 0053 34       		.uleb128 0x34
+ 1568 0054 00       		.byte	0
+ 1569 0055 03       		.uleb128 0x3
+ 1570 0056 0E       		.uleb128 0xe
+ 1571 0057 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 36
+
+
+ 1572 0058 0B       		.uleb128 0xb
+ 1573 0059 3B       		.uleb128 0x3b
+ 1574 005a 0B       		.uleb128 0xb
+ 1575 005b 49       		.uleb128 0x49
+ 1576 005c 13       		.uleb128 0x13
+ 1577 005d 02       		.uleb128 0x2
+ 1578 005e 0A       		.uleb128 0xa
+ 1579 005f 00       		.byte	0
+ 1580 0060 00       		.byte	0
+ 1581 0061 07       		.uleb128 0x7
+ 1582 0062 01       		.uleb128 0x1
+ 1583 0063 01       		.byte	0x1
+ 1584 0064 49       		.uleb128 0x49
+ 1585 0065 13       		.uleb128 0x13
+ 1586 0066 01       		.uleb128 0x1
+ 1587 0067 13       		.uleb128 0x13
+ 1588 0068 00       		.byte	0
+ 1589 0069 00       		.byte	0
+ 1590 006a 08       		.uleb128 0x8
+ 1591 006b 21       		.uleb128 0x21
+ 1592 006c 00       		.byte	0
+ 1593 006d 49       		.uleb128 0x49
+ 1594 006e 13       		.uleb128 0x13
+ 1595 006f 2F       		.uleb128 0x2f
+ 1596 0070 0B       		.uleb128 0xb
+ 1597 0071 00       		.byte	0
+ 1598 0072 00       		.byte	0
+ 1599 0073 09       		.uleb128 0x9
+ 1600 0074 2E       		.uleb128 0x2e
+ 1601 0075 00       		.byte	0
+ 1602 0076 3F       		.uleb128 0x3f
+ 1603 0077 0C       		.uleb128 0xc
+ 1604 0078 03       		.uleb128 0x3
+ 1605 0079 0E       		.uleb128 0xe
+ 1606 007a 3A       		.uleb128 0x3a
+ 1607 007b 0B       		.uleb128 0xb
+ 1608 007c 3B       		.uleb128 0x3b
+ 1609 007d 05       		.uleb128 0x5
+ 1610 007e 27       		.uleb128 0x27
+ 1611 007f 0C       		.uleb128 0xc
+ 1612 0080 11       		.uleb128 0x11
+ 1613 0081 01       		.uleb128 0x1
+ 1614 0082 12       		.uleb128 0x12
+ 1615 0083 01       		.uleb128 0x1
+ 1616 0084 40       		.uleb128 0x40
+ 1617 0085 06       		.uleb128 0x6
+ 1618 0086 9642     		.uleb128 0x2116
+ 1619 0088 0C       		.uleb128 0xc
+ 1620 0089 00       		.byte	0
+ 1621 008a 00       		.byte	0
+ 1622 008b 0A       		.uleb128 0xa
+ 1623 008c 2E       		.uleb128 0x2e
+ 1624 008d 01       		.byte	0x1
+ 1625 008e 3F       		.uleb128 0x3f
+ 1626 008f 0C       		.uleb128 0xc
+ 1627 0090 03       		.uleb128 0x3
+ 1628 0091 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 37
+
+
+ 1629 0092 3A       		.uleb128 0x3a
+ 1630 0093 0B       		.uleb128 0xb
+ 1631 0094 3B       		.uleb128 0x3b
+ 1632 0095 05       		.uleb128 0x5
+ 1633 0096 27       		.uleb128 0x27
+ 1634 0097 0C       		.uleb128 0xc
+ 1635 0098 11       		.uleb128 0x11
+ 1636 0099 01       		.uleb128 0x1
+ 1637 009a 12       		.uleb128 0x12
+ 1638 009b 01       		.uleb128 0x1
+ 1639 009c 40       		.uleb128 0x40
+ 1640 009d 06       		.uleb128 0x6
+ 1641 009e 9642     		.uleb128 0x2116
+ 1642 00a0 0C       		.uleb128 0xc
+ 1643 00a1 01       		.uleb128 0x1
+ 1644 00a2 13       		.uleb128 0x13
+ 1645 00a3 00       		.byte	0
+ 1646 00a4 00       		.byte	0
+ 1647 00a5 0B       		.uleb128 0xb
+ 1648 00a6 05       		.uleb128 0x5
+ 1649 00a7 00       		.byte	0
+ 1650 00a8 03       		.uleb128 0x3
+ 1651 00a9 0E       		.uleb128 0xe
+ 1652 00aa 3A       		.uleb128 0x3a
+ 1653 00ab 0B       		.uleb128 0xb
+ 1654 00ac 3B       		.uleb128 0x3b
+ 1655 00ad 05       		.uleb128 0x5
+ 1656 00ae 49       		.uleb128 0x49
+ 1657 00af 13       		.uleb128 0x13
+ 1658 00b0 02       		.uleb128 0x2
+ 1659 00b1 0A       		.uleb128 0xa
+ 1660 00b2 00       		.byte	0
+ 1661 00b3 00       		.byte	0
+ 1662 00b4 0C       		.uleb128 0xc
+ 1663 00b5 2E       		.uleb128 0x2e
+ 1664 00b6 01       		.byte	0x1
+ 1665 00b7 3F       		.uleb128 0x3f
+ 1666 00b8 0C       		.uleb128 0xc
+ 1667 00b9 03       		.uleb128 0x3
+ 1668 00ba 0E       		.uleb128 0xe
+ 1669 00bb 3A       		.uleb128 0x3a
+ 1670 00bc 0B       		.uleb128 0xb
+ 1671 00bd 3B       		.uleb128 0x3b
+ 1672 00be 05       		.uleb128 0x5
+ 1673 00bf 27       		.uleb128 0x27
+ 1674 00c0 0C       		.uleb128 0xc
+ 1675 00c1 49       		.uleb128 0x49
+ 1676 00c2 13       		.uleb128 0x13
+ 1677 00c3 11       		.uleb128 0x11
+ 1678 00c4 01       		.uleb128 0x1
+ 1679 00c5 12       		.uleb128 0x12
+ 1680 00c6 01       		.uleb128 0x1
+ 1681 00c7 40       		.uleb128 0x40
+ 1682 00c8 06       		.uleb128 0x6
+ 1683 00c9 9642     		.uleb128 0x2116
+ 1684 00cb 0C       		.uleb128 0xc
+ 1685 00cc 01       		.uleb128 0x1
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 38
+
+
+ 1686 00cd 13       		.uleb128 0x13
+ 1687 00ce 00       		.byte	0
+ 1688 00cf 00       		.byte	0
+ 1689 00d0 0D       		.uleb128 0xd
+ 1690 00d1 34       		.uleb128 0x34
+ 1691 00d2 00       		.byte	0
+ 1692 00d3 03       		.uleb128 0x3
+ 1693 00d4 0E       		.uleb128 0xe
+ 1694 00d5 3A       		.uleb128 0x3a
+ 1695 00d6 0B       		.uleb128 0xb
+ 1696 00d7 3B       		.uleb128 0x3b
+ 1697 00d8 05       		.uleb128 0x5
+ 1698 00d9 49       		.uleb128 0x49
+ 1699 00da 13       		.uleb128 0x13
+ 1700 00db 02       		.uleb128 0x2
+ 1701 00dc 0A       		.uleb128 0xa
+ 1702 00dd 00       		.byte	0
+ 1703 00de 00       		.byte	0
+ 1704 00df 0E       		.uleb128 0xe
+ 1705 00e0 26       		.uleb128 0x26
+ 1706 00e1 00       		.byte	0
+ 1707 00e2 49       		.uleb128 0x49
+ 1708 00e3 13       		.uleb128 0x13
+ 1709 00e4 00       		.byte	0
+ 1710 00e5 00       		.byte	0
+ 1711 00e6 0F       		.uleb128 0xf
+ 1712 00e7 34       		.uleb128 0x34
+ 1713 00e8 00       		.byte	0
+ 1714 00e9 03       		.uleb128 0x3
+ 1715 00ea 0E       		.uleb128 0xe
+ 1716 00eb 3A       		.uleb128 0x3a
+ 1717 00ec 0B       		.uleb128 0xb
+ 1718 00ed 3B       		.uleb128 0x3b
+ 1719 00ee 0B       		.uleb128 0xb
+ 1720 00ef 49       		.uleb128 0x49
+ 1721 00f0 13       		.uleb128 0x13
+ 1722 00f1 3F       		.uleb128 0x3f
+ 1723 00f2 0C       		.uleb128 0xc
+ 1724 00f3 02       		.uleb128 0x2
+ 1725 00f4 0A       		.uleb128 0xa
+ 1726 00f5 00       		.byte	0
+ 1727 00f6 00       		.byte	0
+ 1728 00f7 00       		.byte	0
+ 1729              		.section	.debug_loc,"",%progbits
+ 1730              	.Ldebug_loc0:
+ 1731              	.LLST0:
+ 1732 0000 00000000 		.4byte	.LFB33
+ 1733 0004 02000000 		.4byte	.LCFI0
+ 1734 0008 0200     		.2byte	0x2
+ 1735 000a 7D       		.byte	0x7d
+ 1736 000b 00       		.sleb128 0
+ 1737 000c 02000000 		.4byte	.LCFI0
+ 1738 0010 04000000 		.4byte	.LCFI1
+ 1739 0014 0200     		.2byte	0x2
+ 1740 0016 7D       		.byte	0x7d
+ 1741 0017 0C       		.sleb128 12
+ 1742 0018 04000000 		.4byte	.LCFI1
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 39
+
+
+ 1743 001c 06000000 		.4byte	.LCFI2
+ 1744 0020 0300     		.2byte	0x3
+ 1745 0022 7D       		.byte	0x7d
+ 1746 0023 8801     		.sleb128 136
+ 1747 0025 06000000 		.4byte	.LCFI2
+ 1748 0029 94050000 		.4byte	.LFE33
+ 1749 002d 0300     		.2byte	0x3
+ 1750 002f 77       		.byte	0x77
+ 1751 0030 8801     		.sleb128 136
+ 1752 0032 00000000 		.4byte	0
+ 1753 0036 00000000 		.4byte	0
+ 1754              	.LLST1:
+ 1755 003a 00000000 		.4byte	.LFB34
+ 1756 003e 02000000 		.4byte	.LCFI3
+ 1757 0042 0200     		.2byte	0x2
+ 1758 0044 7D       		.byte	0x7d
+ 1759 0045 00       		.sleb128 0
+ 1760 0046 02000000 		.4byte	.LCFI3
+ 1761 004a 04000000 		.4byte	.LCFI4
+ 1762 004e 0200     		.2byte	0x2
+ 1763 0050 7D       		.byte	0x7d
+ 1764 0051 08       		.sleb128 8
+ 1765 0052 04000000 		.4byte	.LCFI4
+ 1766 0056 4C000000 		.4byte	.LFE34
+ 1767 005a 0200     		.2byte	0x2
+ 1768 005c 77       		.byte	0x77
+ 1769 005d 08       		.sleb128 8
+ 1770 005e 00000000 		.4byte	0
+ 1771 0062 00000000 		.4byte	0
+ 1772              	.LLST2:
+ 1773 0066 00000000 		.4byte	.LFB35
+ 1774 006a 02000000 		.4byte	.LCFI5
+ 1775 006e 0200     		.2byte	0x2
+ 1776 0070 7D       		.byte	0x7d
+ 1777 0071 00       		.sleb128 0
+ 1778 0072 02000000 		.4byte	.LCFI5
+ 1779 0076 04000000 		.4byte	.LCFI6
+ 1780 007a 0200     		.2byte	0x2
+ 1781 007c 7D       		.byte	0x7d
+ 1782 007d 08       		.sleb128 8
+ 1783 007e 04000000 		.4byte	.LCFI6
+ 1784 0082 06000000 		.4byte	.LCFI7
+ 1785 0086 0200     		.2byte	0x2
+ 1786 0088 7D       		.byte	0x7d
+ 1787 0089 10       		.sleb128 16
+ 1788 008a 06000000 		.4byte	.LCFI7
+ 1789 008e 64000000 		.4byte	.LFE35
+ 1790 0092 0200     		.2byte	0x2
+ 1791 0094 77       		.byte	0x77
+ 1792 0095 10       		.sleb128 16
+ 1793 0096 00000000 		.4byte	0
+ 1794 009a 00000000 		.4byte	0
+ 1795              	.LLST3:
+ 1796 009e 00000000 		.4byte	.LFB36
+ 1797 00a2 02000000 		.4byte	.LCFI8
+ 1798 00a6 0200     		.2byte	0x2
+ 1799 00a8 7D       		.byte	0x7d
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 40
+
+
+ 1800 00a9 00       		.sleb128 0
+ 1801 00aa 02000000 		.4byte	.LCFI8
+ 1802 00ae 04000000 		.4byte	.LCFI9
+ 1803 00b2 0200     		.2byte	0x2
+ 1804 00b4 7D       		.byte	0x7d
+ 1805 00b5 08       		.sleb128 8
+ 1806 00b6 04000000 		.4byte	.LCFI9
+ 1807 00ba 06000000 		.4byte	.LCFI10
+ 1808 00be 0200     		.2byte	0x2
+ 1809 00c0 7D       		.byte	0x7d
+ 1810 00c1 10       		.sleb128 16
+ 1811 00c2 06000000 		.4byte	.LCFI10
+ 1812 00c6 74000000 		.4byte	.LFE36
+ 1813 00ca 0200     		.2byte	0x2
+ 1814 00cc 77       		.byte	0x77
+ 1815 00cd 10       		.sleb128 16
+ 1816 00ce 00000000 		.4byte	0
+ 1817 00d2 00000000 		.4byte	0
+ 1818              		.section	.debug_aranges,"",%progbits
+ 1819 0000 34000000 		.4byte	0x34
+ 1820 0004 0200     		.2byte	0x2
+ 1821 0006 00000000 		.4byte	.Ldebug_info0
+ 1822 000a 04       		.byte	0x4
+ 1823 000b 00       		.byte	0
+ 1824 000c 0000     		.2byte	0
+ 1825 000e 0000     		.2byte	0
+ 1826 0010 00000000 		.4byte	.LFB33
+ 1827 0014 94050000 		.4byte	.LFE33-.LFB33
+ 1828 0018 00000000 		.4byte	.LFB34
+ 1829 001c 4C000000 		.4byte	.LFE34-.LFB34
+ 1830 0020 00000000 		.4byte	.LFB35
+ 1831 0024 64000000 		.4byte	.LFE35-.LFB35
+ 1832 0028 00000000 		.4byte	.LFB36
+ 1833 002c 74000000 		.4byte	.LFE36-.LFB36
+ 1834 0030 00000000 		.4byte	0
+ 1835 0034 00000000 		.4byte	0
+ 1836              		.section	.debug_ranges,"",%progbits
+ 1837              	.Ldebug_ranges0:
+ 1838 0000 00000000 		.4byte	.LFB33
+ 1839 0004 94050000 		.4byte	.LFE33
+ 1840 0008 00000000 		.4byte	.LFB34
+ 1841 000c 4C000000 		.4byte	.LFE34
+ 1842 0010 00000000 		.4byte	.LFB35
+ 1843 0014 64000000 		.4byte	.LFE35
+ 1844 0018 00000000 		.4byte	.LFB36
+ 1845 001c 74000000 		.4byte	.LFE36
+ 1846 0020 00000000 		.4byte	0
+ 1847 0024 00000000 		.4byte	0
+ 1848              		.section	.debug_line,"",%progbits
+ 1849              	.Ldebug_line0:
+ 1850 0000 E3010000 		.section	.debug_str,"MS",%progbits,1
+ 1850      02004500 
+ 1850      00000201 
+ 1850      FB0E0D00 
+ 1850      01010101 
+ 1851              	.LASF17:
+ 1852 0000 67616D65 		.ascii	"gameOn\000"
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 41
+
+
+ 1852      4F6E00
+ 1853              	.LASF16:
+ 1854 0007 636F756E 		.ascii	"count\000"
+ 1854      7400
+ 1855              	.LASF3:
+ 1856 000d 73686F72 		.ascii	"short unsigned int\000"
+ 1856      7420756E 
+ 1856      7369676E 
+ 1856      65642069 
+ 1856      6E7400
+ 1857              	.LASF25:
+ 1858 0020 72657365 		.ascii	"resetCounter\000"
+ 1858      74436F75 
+ 1858      6E746572 
+ 1858      00
+ 1859              	.LASF33:
+ 1860 002d 73746174 		.ascii	"status\000"
+ 1860      757300
+ 1861              	.LASF11:
+ 1862 0034 666C6F61 		.ascii	"float\000"
+ 1862      7400
+ 1863              	.LASF39:
+ 1864 003a 49324364 		.ascii	"I2Cdata\000"
+ 1864      61746100 
+ 1865              	.LASF19:
+ 1866 0042 6C6F6F70 		.ascii	"loop\000"
+ 1866      00
+ 1867              	.LASF5:
+ 1868 0047 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1868      20756E73 
+ 1868      69676E65 
+ 1868      6420696E 
+ 1868      7400
+ 1869              	.LASF9:
+ 1870 0059 75696E74 		.ascii	"uint8\000"
+ 1870      3800
+ 1871              	.LASF34:
+ 1872 005f 53524461 		.ascii	"SRData\000"
+ 1872      746100
+ 1873              	.LASF1:
+ 1874 0066 756E7369 		.ascii	"unsigned char\000"
+ 1874      676E6564 
+ 1874      20636861 
+ 1874      7200
+ 1875              	.LASF12:
+ 1876 0074 646F7562 		.ascii	"double\000"
+ 1876      6C6500
+ 1877              	.LASF36:
+ 1878 007b 2E5C6D61 		.ascii	".\\main.c\000"
+ 1878      696E2E63 
+ 1878      00
+ 1879              	.LASF10:
+ 1880 0084 75696E74 		.ascii	"uint16\000"
+ 1880      313600
+ 1881              	.LASF31:
+ 1882 008b 72644461 		.ascii	"rdData\000"
+ 1882      746100
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 42
+
+
+ 1883              	.LASF28:
+ 1884 0092 6D61696E 		.ascii	"main\000"
+ 1884      00
+ 1885              	.LASF21:
+ 1886 0097 73657175 		.ascii	"sequence\000"
+ 1886      656E6365 
+ 1886      00
+ 1887              	.LASF27:
+ 1888 00a0 73656564 		.ascii	"seed\000"
+ 1888      00
+ 1889              	.LASF8:
+ 1890 00a5 756E7369 		.ascii	"unsigned int\000"
+ 1890      676E6564 
+ 1890      20696E74 
+ 1890      00
+ 1891              	.LASF32:
+ 1892 00b2 77724461 		.ascii	"wrData\000"
+ 1892      746100
+ 1893              	.LASF7:
+ 1894 00b9 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1894      206C6F6E 
+ 1894      6720756E 
+ 1894      7369676E 
+ 1894      65642069 
+ 1895              	.LASF40:
+ 1896 00d0 63686563 		.ascii	"checkSpeed\000"
+ 1896      6B537065 
+ 1896      656400
+ 1897              	.LASF26:
+ 1898 00db 6465626F 		.ascii	"debounceHS\000"
+ 1898      756E6365 
+ 1898      485300
+ 1899              	.LASF29:
+ 1900 00e6 70757449 		.ascii	"putI2Cdata\000"
+ 1900      32436461 
+ 1900      746100
+ 1901              	.LASF14:
+ 1902 00f1 73697A65 		.ascii	"sizetype\000"
+ 1902      74797065 
+ 1902      00
+ 1903              	.LASF6:
+ 1904 00fa 6C6F6E67 		.ascii	"long long int\000"
+ 1904      206C6F6E 
+ 1904      6720696E 
+ 1904      7400
+ 1905              	.LASF13:
+ 1906 0108 63686172 		.ascii	"char\000"
+ 1906      00
+ 1907              	.LASF2:
+ 1908 010d 73686F72 		.ascii	"short int\000"
+ 1908      7420696E 
+ 1908      7400
+ 1909              	.LASF23:
+ 1910 0117 6465626F 		.ascii	"debounceMax\000"
+ 1910      756E6365 
+ 1910      4D617800 
+ 1911              	.LASF24:
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 43
+
+
+ 1912 0123 6D617843 		.ascii	"maxCount\000"
+ 1912      6F756E74 
+ 1912      00
+ 1913              	.LASF20:
+ 1914 012c 62616450 		.ascii	"badPressFlag\000"
+ 1914      72657373 
+ 1914      466C6167 
+ 1914      00
+ 1915              	.LASF22:
+ 1916 0139 73657175 		.ascii	"sequenceMask\000"
+ 1916      656E6365 
+ 1916      4D61736B 
+ 1916      00
+ 1917              	.LASF4:
+ 1918 0146 6C6F6E67 		.ascii	"long int\000"
+ 1918      20696E74 
+ 1918      00
+ 1919              	.LASF18:
+ 1920 014f 62757474 		.ascii	"button\000"
+ 1920      6F6E00
+ 1921              	.LASF15:
+ 1922 0156 626C696E 		.ascii	"blinkDelay\000"
+ 1922      6B44656C 
+ 1922      617900
+ 1923              	.LASF30:
+ 1924 0161 45454461 		.ascii	"EEData\000"
+ 1924      746100
+ 1925              	.LASF0:
+ 1926 0168 7369676E 		.ascii	"signed char\000"
+ 1926      65642063 
+ 1926      68617200 
+ 1927              	.LASF38:
+ 1928 0174 67657449 		.ascii	"getI2Cdata\000"
+ 1928      32436461 
+ 1928      746100
+ 1929              	.LASF37:
+ 1930 017f 433A5C70 		.ascii	"C:\\perforce\\gjl_work\\apps\\CYSC\\Cypress_PSoC_Ac"
+ 1930      6572666F 
+ 1930      7263655C 
+ 1930      676A6C5F 
+ 1930      776F726B 
+ 1931 01ad 6164656D 		.ascii	"ademy\\101_basic\\Projects\\Simon_Rev03\\Simon_Mast"
+ 1931      795C3130 
+ 1931      315F6261 
+ 1931      7369635C 
+ 1931      50726F6A 
+ 1932 01dc 65725F50 		.ascii	"er_P4\\Simon_Master_P4.cydsn\000"
+ 1932      345C5369 
+ 1932      6D6F6E5F 
+ 1932      4D617374 
+ 1932      65725F50 
+ 1933              	.LASF35:
+ 1934 01f8 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 1934      4320342E 
+ 1934      372E3320 
+ 1934      32303133 
+ 1934      30333132 
+ARM GAS  C:\Users\Greg\AppData\Local\Temp\ccVDXyOS.s 			page 44
+
+
+ 1935 022b 616E6368 		.ascii	"anch revision 196615]\000"
+ 1935      20726576 
+ 1935      6973696F 
+ 1935      6E203139 
+ 1935      36363135 
+ 1936              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
